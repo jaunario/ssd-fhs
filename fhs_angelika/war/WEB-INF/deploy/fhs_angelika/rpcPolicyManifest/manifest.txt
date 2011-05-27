@@ -1,2 +1,2 @@
-# Module fhs_baysilanon
+# Module fhs_angelika
 # RPC service class, partial path of RPC policy file
