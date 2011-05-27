@@ -18,7 +18,7 @@ import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
  */
-public class Fhs_baysilanon implements EntryPoint {
+public class Fhs_angelika implements EntryPoint {
 	/**
 	 * This is the entry point method.
 	 */
