@@ -1,24 +1,24 @@
 #summary One-sentence summary of this page.
 
 = Introduction =
-
+----
 
 
 == Details ==
 
-||_*Version Name*_||_*Version Number*_||_*Release Target*_||_*End of Life*_||
-||Angelika||1.0||
-||Azucena||2.0||
-||Baysilanon||3.0||
-||Dinorado||4.0||
-||Ifugao Rice||5.0||
-|| IR-64||6.0||
-||R-841||7.0||
-|| Kalinayan||8.0||
-||Maharlika||9.0||
-|| Malagkit||10.0||
-|| Milagrosa pino||11.0||
-|| Segadis Milagrosa||12.0||
-|| Sinandomeng||13.0||
-|| Wagwag||14.0||
+||_*Version Name*_||_*Version Number*_||_*Release Target*_||
+||Angelika||1.0||1 September 2011||
+||Azucena||1.5||1 March 2012||
+||Baysilanon||2.0||--||
+||Dinorado||2.5||--||
+||Ifugao||3.0||--||
+||IR-64||3.5||--||
+||IR-841||4.0||--||
+||Kalinayan||4.5||--||
+||Maharlika||5.0||--||
+||Malagkit||5.5||--||
+|| Milagrosa pino||6.0||--||
+|| Segadis Milagrosa||6.5||--||
+|| Sinandomeng||7.0||--||
+|| Wagwag||7.5||--||
  
