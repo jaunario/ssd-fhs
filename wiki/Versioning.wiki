@@ -1,0 +1,24 @@
+#summary One-sentence summary of this page.
+
+= Introduction =
+
+
+
+== Details ==
+
+||Version Name||Version Number||Release Target||End of Life||
+||Angelika||
+||Azucena||
+||Baysilanon||
+||Dinorado||
+||Ifugao Rice||
+|| IR-64||
+||R-841||
+|| Kalinayan||
+||Maharlika||
+|| Malagkit||
+|| Milagrosa pino||
+|| Segadis Milagrosa||
+|| Sinandomeng||
+|| Wagwag||
+ 
