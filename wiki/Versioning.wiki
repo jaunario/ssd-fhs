@@ -6,19 +6,19 @@
 
 == Details ==
 
-||Version Name||Version Number||Release Target||End of Life||
-||Angelika||
-||Azucena||
-||Baysilanon||
-||Dinorado||
-||Ifugao Rice||
-|| IR-64||
-||R-841||
-|| Kalinayan||
-||Maharlika||
-|| Malagkit||
-|| Milagrosa pino||
-|| Segadis Milagrosa||
-|| Sinandomeng||
-|| Wagwag||
+||_*Version Name*_||_*Version Number*_||_*Release Target*_||_*End of Life*_||
+||Angelika||1.0||
+||Azucena||2.0||
+||Baysilanon||3.0||
+||Dinorado||4.0||
+||Ifugao Rice||5.0||
+|| IR-64||6.0||
+||R-841||7.0||
+|| Kalinayan||8.0||
+||Maharlika||9.0||
+|| Malagkit||10.0||
+|| Milagrosa pino||11.0||
+|| Segadis Milagrosa||12.0||
+|| Sinandomeng||13.0||
+|| Wagwag||14.0||
  
