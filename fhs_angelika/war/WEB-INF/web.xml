@@ -6,6 +6,14 @@
 <web-app>
   
   <!-- Servlets -->
+  <servlet>
+      <servlet-name>mysqlService</servlet-name>
+      <servlet-class>org.irri.households.server.MySQLServiceImpl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+      <servlet-name>mysqlService</servlet-name>
+      <url-pattern>/fhs_angelika/mysqlservice</url-pattern>
+  </servlet-mapping>
   
   <!-- Default page to serve -->
   <welcome-file-list>
