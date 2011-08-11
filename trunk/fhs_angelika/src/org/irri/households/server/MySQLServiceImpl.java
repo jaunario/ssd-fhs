@@ -42,7 +42,7 @@ public class MySQLServiceImpl extends RemoteServiceServlet implements
         try {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
             Connection connection = DriverManager.getConnection(
-            		"jdbc:mysql://172.29.31.182/fhh_survey", "jaunario", "Ragnarok09");
+            		"jdbc:mysql://127.0.0.1/fhh_survey", "ssd.webview", "Vi3wOn1y");
             		//"jdbc:mysql://localhost/rice_stats", "root", "Ragnarok09");
             Statement select = connection.createStatement();
 
