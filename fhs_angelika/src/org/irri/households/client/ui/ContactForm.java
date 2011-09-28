@@ -1,54 +1,65 @@
 package org.irri.households.client.ui;
 
-import com.google.gwt.user.client.ui.DialogBox;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.DecoratedPopupPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.TextArea;
+import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.TextArea;
-import com.google.gwt.user.client.ui.HasHorizontalAlignment;
-import com.google.gwt.user.client.ui.TextBox;
-import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.ClickEvent;
 
-public class ContactForm extends DialogBox {
+public class ContactForm extends Composite {
+	public DecoratedPopupPanel PopupContactUs;
 
 	public ContactForm() {
-		setGlassEnabled(true);
-		setHTML("Contact");
 		
-		VerticalPanel verticalPanel = new VerticalPanel();
-		verticalPanel.setSpacing(2);
-		setWidget(verticalPanel);
-		verticalPanel.setSize("100%", "100%");
+		PopupContactUs = new DecoratedPopupPanel();
+		PopupContactUs.setAnimationEnabled(true);
+		PopupContactUs.setGlassStyleName("FHS-AboutUsGlass");
+		PopupContactUs.setGlassEnabled(true);
+		PopupContactUs.setStyleName("FHS-DecoratorPanelContactUs");
 		
-		TextBox txtbxName = new TextBox();
-		txtbxName.setText("Name");
-		verticalPanel.add(txtbxName);
+		VerticalPanel verticalPanelContactUs = new VerticalPanel();
+		verticalPanelContactUs.setSpacing(3);
+		PopupContactUs.setWidget(verticalPanelContactUs);
 		
-		TextBox txtbxEmail = new TextBox();
-		txtbxEmail.setText("Email");
-		verticalPanel.add(txtbxEmail);
+		TextBox textBoxName = new TextBox();
+		textBoxName.setStyleName("FHS-TextBoxContactUs");
+		textBoxName.setText("Name (required)");
+		verticalPanelContactUs.add(textBoxName);
+		textBoxName.setSize("50%", "20px");
 		
-		TextArea txtrMessage = new TextArea();
-		txtrMessage.setText("Message");
-		verticalPanel.add(txtrMessage);
-		txtrMessage.setSize("321px", "229px");
+		TextBox textBoxEmail = new TextBox();
+		textBoxEmail.setStyleName("FHS-TextBoxContactUs");
+		textBoxEmail.setText("Email address (required)");
+		verticalPanelContactUs.add(textBoxEmail);
+		textBoxEmail.setSize("50%", "20px");
+		
+		TextArea textAreaMessage = new TextArea();
+		textAreaMessage.setStyleName("FHS-TextBoxContactUs");
+		verticalPanelContactUs.add(textAreaMessage);
+		textAreaMessage.setSize("380px", "300px");
 		
 		HorizontalPanel horizontalPanel = new HorizontalPanel();
-		horizontalPanel.setSpacing(2);
-		verticalPanel.add(horizontalPanel);
-		verticalPanel.setCellHorizontalAlignment(horizontalPanel, HasHorizontalAlignment.ALIGN_RIGHT);
+		verticalPanelContactUs.add(horizontalPanel);
+		horizontalPanel.setWidth("150px");
 		
-		Button btnSubmit = new Button("Submit");
-		horizontalPanel.add(btnSubmit);
+		Button btnSend = new Button("SEND");
+		horizontalPanel.add(btnSend);
+		btnSend.setStyleName("FHS-ButtonBrowseData");
+		btnSend.setSize("70px", "25px");
 		
-		Button btnCancel = new Button("Cancel");
+		Button btnCancel = new Button("CANCEL");
+		horizontalPanel.add(btnCancel);
+		btnCancel.setStyleName("FHS-ButtonBrowseData");
+		btnCancel.setSize("70px", "25px");
 		btnCancel.addClickHandler(new ClickHandler() {
+			@Override
 			public void onClick(ClickEvent event) {
-				hide();
+				PopupContactUs.hide();
 			}
 		});
-		horizontalPanel.add(btnCancel);
 	}
-
 }
