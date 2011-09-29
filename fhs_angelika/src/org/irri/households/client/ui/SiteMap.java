@@ -74,7 +74,7 @@ public class SiteMap extends Composite {
                 final Marker marker = new Marker(LatLng.newInstance(lat, lon));
                 marker.addMarkerClickHandler(new MarkerClickHandler() {
                     public void onClick(MarkerClickEvent event) {
-                    	map.getInfoWindow().open(marker,new InfoWindowContent(infoscroll));
+                    	//map.getInfoWindow().open(marker,new InfoWindowContent(infoscroll));
                     	LinkPanel.clear();
                     	LinkPanel.add(InfoWidget);
                     	LinkPanel.add(SiteMapBrowseBtn);
