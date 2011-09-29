@@ -67,10 +67,11 @@ padding-bottom:25px
 }
 
 .FHS-PshBtnAboutUs{
-	font-size: 13px;
-	font-family: 'Lekton', sans-serif;
-	text-align: center;
-	cursor: hand;
+font-size: 13px;
+font-family: 'Lekton', sans-serif;
+text-align: center;
+cursor:pointer;
+cursor:hand;
 }
 
 .FHS-HorizontalPanel{
@@ -186,4 +187,8 @@ padding-bottom:5px;
 padding-left:2px;
 padding-right:2px;
 padding-bottom:2px;
+}
+.FHS-Help {
+padding-left:10px;
+padding-right:10px;
 }
