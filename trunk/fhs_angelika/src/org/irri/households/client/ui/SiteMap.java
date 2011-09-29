@@ -90,7 +90,7 @@ public class SiteMap extends Composite {
 	public SiteMap() {	
 		SiteMapBrowseBtn = new Button("BROWSE DATA");
 		SiteMapBrowseBtn.setEnabled(true);
-		SiteMapBrowseBtn.setStyleName("fhs-ButtonBrowseData");
+		SiteMapBrowseBtn.setStyleName("FHS-ButtonBrowseData");
 		
 		MapUIOptions options = MapUIOptions.newInstance(mapSize);
 		options.setScrollwheel(true);
