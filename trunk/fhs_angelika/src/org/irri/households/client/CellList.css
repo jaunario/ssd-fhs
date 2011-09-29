@@ -1,0 +1,17 @@
+.cellListWidget { 
+} 
+
+.cellListEvenItem { 
+} 
+
+.cellListOddItem { 
+} 
+
+.cellListKeyboardSelectedItem { 
+}
+
+.cellListSelectedItem {
+color:#028502;
+font-style:italic;
+}
+
