@@ -2,6 +2,8 @@ package org.irri.households.client;
 
 import org.irri.households.client.ui.AboutDialog;
 import org.irri.households.client.ui.ContactForm;
+import org.irri.households.client.ui.Help;
+
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -67,13 +69,14 @@ public class Fhs_angelika implements EntryPoint {
 		horizontalPanelLinksContainer.setWidth("100%");
 		
 		HorizontalPanel horizontalPanelLinks = new HorizontalPanel();
-		horizontalPanelLinks.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
+		horizontalPanelLinks.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 		horizontalPanelLinksContainer.add(horizontalPanelLinks);
+		horizontalPanelLinks.setWidth("400px");
 		
 		PushButton pshbtnNewButton = new PushButton("About Us");
 		pshbtnNewButton.setStyleName("FHS-AboutUsPshBtn");
 		horizontalPanelLinks.add(pshbtnNewButton);
-		pshbtnNewButton.setWidth("75px");
+		pshbtnNewButton.setWidth("45px");
 		pshbtnNewButton.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
@@ -85,22 +88,35 @@ public class Fhs_angelika implements EntryPoint {
 		HTML htmlIRRIOrg = new HTML("<a href='http://www.irri.org' target = '_blank' style=\"color:#000000;\">IRRI Homepage</a>");
 		htmlIRRIOrg.setStyleName("FHS-HTMLButton");
 		horizontalPanelLinks.add(htmlIRRIOrg);
-		htmlIRRIOrg.setWidth("113px");
+		htmlIRRIOrg.setWidth("76px");
 		
 		HTML htmlWRSSite = new HTML("<a href='http://50.19.190.186:8080/wrs' target = '_blank' style=\"color:#000000;\">WRS Site</a>");
 		htmlWRSSite.setStyleName("FHS-HTMLButton");
 		horizontalPanelLinks.add(htmlWRSSite);
-		htmlWRSSite.setWidth("78px");
+		htmlWRSSite.setWidth("46px");
 		
 		PushButton pshbtnContactUs = new PushButton("Contact Us");
 		pshbtnContactUs.setStyleName("FHS-AboutUsPshBtn");
 		horizontalPanelLinks.add(pshbtnContactUs);
-		pshbtnContactUs.setWidth("86px");
+		pshbtnContactUs.setWidth("53px");
 		pshbtnContactUs.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
 				ContactForm contactForm = new ContactForm();
 				contactForm.PopupContactUs.center();
+			}
+		});
+		
+		PushButton pshbtnHelp = new PushButton("Help");
+		horizontalPanelLinks.add(pshbtnHelp);
+		pshbtnHelp.setStyleName("FHS-AboutUsPshBtn");
+		pshbtnHelp.setWidth("23px");
+		pshbtnHelp.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				// TODO Auto-generated method stub
+				Help help = new Help();
+				help.helpBox.center();
 			}
 		});
 		
