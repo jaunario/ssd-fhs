@@ -36,17 +36,154 @@ wrapper-dia {
 	padding: 0px;
 	margin: 0px;
 }
-.gwt-MenuBar gwt-MenuBar-horizontal {
-	padding-top: 2px;
-	padding-bottom: 2px;
+
+.FHS-MarkerInfoScrollMargin {
+margin-left:10px;
 }
-.gwt-Label {
-	font-size: 10px;
-	padding-left: 10px;
-	padding-top: 5px;
+
+.FHS-VarScrollMargin {
+margin-left:5px;
 }
-.gwt-PushButton {
-	font-size: 10px;
+
+.FHS-LblIrri{
+padding-top:30px;
+font-size: 55px;
+font-family: Times New Roman;
+font-weight: bold;
+color: #028502;
 }
-celllist {
+
+.FHS-LblInternationalRiceResearchInstitute{
+font-family: Times New Roman;
+font-size: 18px;
+color: #555;
+}
+
+.FHS-FHSDCCSS{
+font-size: 18px;
+font-weight: bold;
+font-family: Verdana, Arial, Calibri ;
+padding-bottom:25px
+}
+
+.FHS-PshBtnAboutUs{
+	font-size: 13px;
+	font-family: 'Lekton', sans-serif;
+	text-align: center;
+	cursor: hand;
+}
+
+.FHS-HorizontalPanel{
+border-top:2px solid #028502;
+}
+
+.FHS-ScrollPanelCellList{
+border-style:solid;
+border-width:2px;
+border-color:#028502;
+}
+
+.FHS-SimplePanelSearch{
+padding-top:25px;
+}
+
+.FHS-TablesListBox {
+border-style:solid;
+border-width:2px;
+border-color:#028502;
+}
+
+.FHS-ProjCellList{
+cursor:pointer;
+cursor:hand;
+}
+
+.FHS-HorizontalPanelContainer{
+padding-right:10px;
+}
+
+.FHS-TextBoxContactUs {
+font:Arial;
+color:#808080;
+}
+
+.FHS-VPProjDetails{
+margin-left:10px;
+}
+
+.FHS-ScrollPanel2{
+padding-bottom:5px;
+}
+
+.FHS-ButtonBrowseData{
+color:#FFFFFF;
+background-color:#028502;
+font-family: 'Volkhov', serif;
+font-weight:bold;
+text-align:center;
+border-style:double;
+cursor:pointer;
+cursor:hand;
+}
+
+.FHS-SimplePanelProjList {
+border-style:solid;
+border-width:2px;
+border-color:#028502;
+margin:auto;
+}
+
+.fhs-DeckPanelContactUs {
+padding-top:50px;
+}
+
+.FHS-AboutUsPshBtn {
+text-decoration:underline;
+font-size:10px;
+cursor:pointer;
+}
+
+.FHS-AboutUsPopup {
+border-style:solid;
+border-width:2px;
+border-color:#028502;
+background-color:#FFFFFF;
+}
+
+.FHS-HTMLButton {
+font-size:10px;
+}
+
+.FHS-AboutUsGlass {
+background-color:#EEEEEE;
+opacity:0.7;
+}
+
+.FHS-HighlightText {
+font-size:13px;
+cursor:pointer;
+cursor:hand;
+font-family: 'Lekton', sans-serif;
+text-align:center;
+text-shadow: 0 0 0.2em #8F7, 0 0 0.2em #8F7;
+}
+
+.FHS-DecoratorPanelContactUs {
+border-style:solid;
+border-width:2px;
+border-color:#028502;
+background-color:#FFFFFF;
+}
+
+.FHS-TablesListBox2 {
+border-style:solid;
+border-width:2px;
+border-color:#028502;
+padding-bottom:5px;
+}
+
+.FHS-HorizontalPanelSiteMap{
+padding-left:2px;
+padding-right:2px;
+padding-bottom:2px;
 }
