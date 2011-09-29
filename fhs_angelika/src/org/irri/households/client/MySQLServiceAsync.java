@@ -19,4 +19,5 @@ public interface MySQLServiceAsync {
     public void myMethod(String s, AsyncCallback<String> callback);
     public void RunSELECT(String Query, AsyncCallback<String[][]> callback);
     public void SaveCSV(String data, AsyncCallback<String> callback);
+    public void downloadCSVFromQuery(String sqlquery, AsyncCallback<String> callback);
 }
