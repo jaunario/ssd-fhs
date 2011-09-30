@@ -1,5 +1,6 @@
 package org.irri.households.client;
 
+
 import org.irri.households.client.ui.charts.MultiChartPanel;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
@@ -15,11 +16,15 @@ import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 
+
 public class Proj_Result extends Composite {
-	private final String ProjVarsSql = "SELECT r.report_title, GROUP_CONCAT(DISTINCT f.repvariables ORDER BY sort SEPARATOR ';'), " +
-			"GROUP_CONCAT(DISTINCT f.description ORDER BY sort SEPARATOR ';'), r.table_name " +
+	private final String ProjVarsSql =
+			"SELECT r.report_title," +
+			"GROUP_CONCAT(DISTINCT f.repvariables ORDER BY sort SEPARATOR ';'), " +
+			"GROUP_CONCAT(DISTINCT f.description ORDER BY sort SEPARATOR ';')," +
+			"r.table_name " +
 			"FROM reports r, repfields f, report_fields rf, available a " +
-			"WHERE a.report_id=r.report_id and r.report_id=rf.report_id and rf.field_id=f.field_id AND ";	
+			"WHERE a.report_id=r.report_id AND r.report_id=rf.report_id AND rf.field_id=f.field_id AND ";	
 	
 	public ListBox TablesListBox;
 	public HorizontalPanel CheckboxHPanel;
@@ -37,6 +42,7 @@ public class Proj_Result extends Composite {
 	String varCheckBoxQuery;
 	int[] numofnumcols;
 
+	
 	public Proj_Result(final int ProjID) {
 		varCheckbox = new VarCheckbox();
 		
@@ -72,7 +78,7 @@ public class Proj_Result extends Composite {
 				varCheckBoxQuery = "";
 				
 				if(TablesListBox.getSelectedIndex()>=0){
-					projvarssql = ProjVarsSql + ProjVarsSqlWhereClause2(SelectedProjID, SelectedTable);
+					projvarssql = ProjVarsSql + " a.project_id = " +SelectedProjID+ " AND r.table_name = '" +SelectedTable+ "'";
 					displayProjVars(projvarssql + " GROUP BY r.report_id");
 					if (SelectedTable.equalsIgnoreCase("ot_car_partial")||SelectedTable.equalsIgnoreCase("ot_quantity_of_input")){
 	                    site = "SUBSTRING_INDEX(idp_code, '-', 2)";
@@ -85,7 +91,7 @@ public class Proj_Result extends Composite {
 	                    site = "SUBSTRING_INDEX(site_id, '-', 2)";
 	                    site2 = "site_id";
 	                }
-					select = "SELECT * FROM fhh_survey."+SelectedTable+" WHERE " + site + " in (SELECT site_id FROM surveys s"+ ProjIdWhereClause(SelectedProjID) + ") ";
+					select = "SELECT * FROM fhh_survey."+SelectedTable+" WHERE "+site+" in (SELECT site_id FROM surveys s WHERE s.project_id="+SelectedProjID+") ";
 					if (SelectedTable.equalsIgnoreCase("surveys")){
 						displayProjTabYr("SELECT surveys.survey_year FROM "+SelectedTable+" WHERE SUBSTRING_INDEX("+site2+", '-', 2) in (SELECT site_id FROM surveys s WHERE s.project_id="+SelectedProjID+") GROUP BY survey_year");
 						displayProjTabCntry("SELECT country FROM "+SelectedTable+" WHERE SUBSTRING_INDEX("+site2+", '-', 2) in (SELECT site_id FROM surveys s WHERE s.project_id="+SelectedProjID+") GROUP BY country");
@@ -254,7 +260,7 @@ public class Proj_Result extends Composite {
 			}
 		});
 		
-varCheckbox.addChangeHandler(new ChangeHandler() {
+		varCheckbox.addChangeHandler(new ChangeHandler() {
 			
 			@Override
 			public void onChange(ChangeEvent event) {	
@@ -366,7 +372,6 @@ varCheckbox.addChangeHandler(new ChangeHandler() {
 						displayProjTabCntry("SELECT country FROM "+SelectedTable+" left join surveys on substring("+site2+",1,11)=substring(surveys.site_id,1,11) WHERE SUBSTRING_INDEX("+site2+", '-', 2) in (SELECT site_id FROM surveys s WHERE s.project_id="+SelectedProjID+") GROUP BY country");
 					}
 					mcpResultPanel.setQueryVarCheckBox(varCheckBoxQuery, SelectedTable, numofnumcols);
-					//mcpResultPanel.setSize("800px", "300px");
 					ProjResSimplePanel.setWidget(mcpResultPanel);
 				}else{
 					ProjResSimplePanel.clear();
@@ -400,7 +405,6 @@ varCheckbox.addChangeHandler(new ChangeHandler() {
 		mcpResultPanel.SetClearBtn(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
-				// TODO Auto-generated method stub
 				FilterByCountry.clear();
 				FilterByYear.clear();
 				ProjResSimplePanel.clear();
@@ -410,11 +414,10 @@ varCheckbox.addChangeHandler(new ChangeHandler() {
 		});
 	}
 	
-	private String ProjVarsSqlWhereClause2(int projid, String tablename){
-        String whereclause = "";
-        whereclause = " a.project_id = " +projid+ " AND r.table_name = '" +tablename+ "'";
-        return whereclause;
-    }
+	
+	//-------------------------------------------------------------------------------------------
+	//-------------------------------------------------------------------------------------------
+	
 	
 	public void displayProjVars(String sql){
 		varCheckbox.CheckboxVPanel.clear();
@@ -474,10 +477,4 @@ varCheckbox.addChangeHandler(new ChangeHandler() {
         };
         UtilsRPC.getService("mysqlservice").RunSELECT(sql, FetchDetails);
     }
-	
-	private String ProjIdWhereClause(int csvid){
-        String whereclause = "";
-                whereclause = " WHERE s.project_id="+csvid;
-        return whereclause;
-    }	
 }
