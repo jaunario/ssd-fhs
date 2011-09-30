@@ -1,5 +1,6 @@
 package org.irri.households.client;
 
+
 import java.util.ArrayList;
 import java.util.List;
 import com.google.gwt.cell.client.AbstractCell;
@@ -27,61 +28,54 @@ import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 
 public class Fhs_ProjectList extends Composite {
 	
-	private final String ProjDetailsSql = "SELECT LEFT(s.site_id,2) iso2, s.country, s.project_id, p.proj_title, p.prime_researcher, "+
+	private final String ProjDetailsSql =
+			"SELECT LEFT(s.site_id,2) iso2, s.country, s.project_id, p.proj_title, p.prime_researcher, "+
 			"GROUP_CONCAT(DISTINCT CONCAT_WS(', ', s.province, s.district, s.village) SEPARATOR  '_'), "+
-			"GROUP_CONCAT(DISTINCT CONVERT(s.survey_year, CHAR(4)) ORDER BY s.survey_year DESC SEPARATOR ', '), SUM(s.samplesize) "+
+			"GROUP_CONCAT(DISTINCT CONVERT(s.survey_year, CHAR(4)) ORDER BY s.survey_year DESC SEPARATOR ',')," +
+			"SUM(s.samplesize) "+
 			"FROM surveys s INNER JOIN projects p ON s.project_id = p.project_id"; 
 	
 	private VerticalPanel VPProjDetails;
 	public Button ProjBrowseBtn;
 	public SimplePanel ProjLinkPanel;
 	public SingleSelectionModel<ProjectInfo> selectionModel;
+	private HorizontalPanel ProjSearchHPanel;
+	private HorizontalPanel ProjSearchHPanel2;
+	private ScrollPanel scrollPanel;
+	private SimplePanel simplePanelProjList;
+	private ScrollPanel scrollPanel2;
 
 
 	public Fhs_ProjectList() {		
 			
-		utilsrpc("SELECT p.project_id, p.proj_title FROM projects p INNER JOIN surveys s on p.project_id=s.project_id GROUP BY 1");
+		utilsrpc("SELECT p.project_id, p.proj_title FROM projects p INNER JOIN surveys s ON p.project_id=s.project_id GROUP BY 1");
 		
-		HorizontalPanel ProjSearchHPanel = new HorizontalPanel();
+		ProjSearchHPanel = new HorizontalPanel();
 		ProjSearchHPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
 		ProjSearchHPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 		ProjSearchHPanel.setStyleName("FHS-SimplePanelProjList");
 		
-		HorizontalPanel ProjSearchHPanel2 = new HorizontalPanel();
+		ProjSearchHPanel2 = new HorizontalPanel();
 		ProjSearchHPanel2.setSpacing(2);
 		ProjSearchHPanel2.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
 		ProjSearchHPanel.add(ProjSearchHPanel2);
 		
-		ScrollPanel scrollPanel = new ScrollPanel();
-		scrollPanel.setStyleName("FHS-ScrollPanelCellList");
-		ProjSearchHPanel2.add(scrollPanel);
-		ProjSearchHPanel2.setCellVerticalAlignment(scrollPanel, HasVerticalAlignment.ALIGN_MIDDLE);
-		ProjSearchHPanel2.setCellHorizontalAlignment(scrollPanel, HasHorizontalAlignment.ALIGN_CENTER);
-		scrollPanel.setSize("300px", "600px");
-		cellList.setStyleName("FHS-ProjCellList");
-		scrollPanel.setWidget(cellList);
-		cellList.setSize("285px", "600px");
 		
+		//Left window for the Projects List -->Start
+		//------------------------------------------------------------------------------
+		cellList.setStyleName("FHS-ProjCellList");
+		cellList.setSize("285px", "600px");
 		cellList.setKeyboardSelectionPolicy(KeyboardSelectionPolicy.ENABLED);
 		cellList.setKeyboardSelectionPolicy(KeyboardSelectionPolicy.BOUND_TO_SELECTION);
 		
-		SimplePanel simplePanelProjList = new SimplePanel();
-		simplePanelProjList.setStyleName("FHS-TablesListBox");
-		ProjSearchHPanel2.add(simplePanelProjList);
-		ProjSearchHPanel2.setCellHeight(simplePanelProjList, "600px");
-		ProjSearchHPanel2.setCellWidth(simplePanelProjList, "500px");
-		simplePanelProjList.setSize("500px", "600px");
+		scrollPanel = new ScrollPanel();
+		scrollPanel.setStyleName("FHS-ScrollPanelCellList");
+		scrollPanel.setSize("300px", "600px");
+		scrollPanel.setWidget(cellList);
+		ProjSearchHPanel2.add(scrollPanel);
 		
-		ScrollPanel scrollPanel2 = new ScrollPanel();
-		scrollPanel2.setStyleName("FHS-ScrollPanel2");
-		scrollPanel2.setTouchScrollingDisabled(false);
-		simplePanelProjList.setWidget(scrollPanel2);
-		scrollPanel2.setSize("500px", "595px");
-		
-		VPProjDetails = new VerticalPanel();
-		VPProjDetails.setSpacing(3);
-		VPProjDetails.setStyleName("FHS-VPProjDetails");
-		scrollPanel2.setWidget(VPProjDetails);
+		ProjSearchHPanel2.setCellVerticalAlignment(scrollPanel, HasVerticalAlignment.ALIGN_MIDDLE);
+		ProjSearchHPanel2.setCellHorizontalAlignment(scrollPanel, HasHorizontalAlignment.ALIGN_CENTER);
 		
 		selectionModel = new SingleSelectionModel<ProjectInfo>(ProjectInfo.KEY_PROVIDER);
 		cellList.setSelectionModel(selectionModel);
@@ -94,12 +88,42 @@ public class Fhs_ProjectList extends Composite {
 				displayProjDetails(projdetailssql + " GROUP BY 3");
 			}
 		});
-        
-        ProjBrowseBtn = new Button("BROWSE DATA");
+		//------------------------------------------------------------------------------
+		//Left window for the Projects List -->End
+				
+		
+		//Right window for the details of the selected project plus the browse button below. -->Start
+		//------------------------------------------------------------------------------
+		simplePanelProjList = new SimplePanel();
+		simplePanelProjList.setStyleName("FHS-TablesListBox");
+		simplePanelProjList.setSize("500px", "600px");
+		ProjSearchHPanel2.add(simplePanelProjList);
+		
+		ProjSearchHPanel2.setCellHeight(simplePanelProjList, "600px");
+		ProjSearchHPanel2.setCellWidth(simplePanelProjList, "500px");
+		
+		scrollPanel2 = new ScrollPanel();
+		scrollPanel2.setStyleName("FHS-ScrollPanel2");
+		scrollPanel2.setSize("500px", "595px");
+		simplePanelProjList.setWidget(scrollPanel2);
+		
+		VPProjDetails = new VerticalPanel();
+		VPProjDetails.setSpacing(3);
+		VPProjDetails.setStyleName("FHS-VPProjDetails");
+		scrollPanel2.setWidget(VPProjDetails);
+		
+		ProjBrowseBtn = new Button("BROWSE DATA");
         ProjBrowseBtn.setSize("120px", "25px");
         ProjBrowseBtn.setStyleName("FHS-ButtonBrowseData");
+    	//------------------------------------------------------------------------------
+        //Right window for the details of the selected project plus the browse button below. -->End
+     
         initWidget(ProjSearchHPanel);
-	}
+	}//close brace for the Fhs_ProjectList()
+	
+	
+	//---------------------------------------------------------------------------------------------------
+	//---------------------------------------------------------------------------------------------------
 	
 	
 	static class ProjectInfo implements Comparable<ProjectInfo>{
@@ -109,10 +133,10 @@ public class Fhs_ProjectList extends Composite {
 		}
 		
 		public static final ProvidesKey<ProjectInfo> KEY_PROVIDER = new ProvidesKey<ProjectInfo>() {
-		      public Object getKey(ProjectInfo item) {
-		        return item == null ? null : item.getId();
-		      }
-	    };
+			public Object getKey(ProjectInfo item) {
+				return item == null ? null : item.getId();
+			}
+		};
 
 	    private int id;
 		private String ProjTitle;
