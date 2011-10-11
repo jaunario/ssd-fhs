@@ -19,6 +19,12 @@ import com.google.gwt.user.client.ui.PushButton;
 import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
+import com.google.gwt.user.client.ui.DockLayoutPanel;
+import com.google.gwt.dom.client.Style.Position;
+import com.google.gwt.dom.client.Style.Unit;
+import com.google.gwt.user.client.ui.MenuBar;
+import com.google.gwt.user.client.ui.MenuItem;
+import com.google.gwt.user.client.Command;
 
 
 public class Fhs_angelika implements EntryPoint {
@@ -51,114 +57,141 @@ public class Fhs_angelika implements EntryPoint {
 	private PushButton pshbtnSearchByLocation;
 	private PushButton pshbtnSearchByVariable;
 	private HorizontalPanel horizontalPanelLinksContainer;
-	private HorizontalPanel horizontalPanelLinks;
 	private PushButton pshbtnNewButton;
-	private HTML htmlIRRIOrg;
-	private HTML htmlWRSSite;
 	private PushButton pshbtnContactUs;
 	private PushButton pshbtnHelp;
-	private Label lblIRRI;
-	private Label lblInternationalRiceResearchInstitute;
-	private Label lblFHSDCCSS;
+	private DockLayoutPanel dockLayoutPanel;
+	private VerticalPanel verticalPanel_2;
+	private Label label;
+	private Label label_1;
+	private HorizontalPanel horizontalPanel_1;
+	private HorizontalPanel horizontalPanel_2;
+	private Label lblFarmHouseholdSurvey;
+	private Label label_3;
+	private HorizontalPanel horizontalPanel_3;
+	private HTML html;
+	private HTML htmlworldRiceStatistics;
+	private MenuBar menuBar;
+	private MenuItem mntmNewMenu;
+	private MenuItem mntmByProject;
+	private MenuItem mntmByLocation;
+	private MenuItem mntmByTable;
+	private MenuItem mntmHelp;
+	private MenuItem mntmHowTo;
+	private MenuItem mntmContactUs;
+	private MenuItem mntmAbout;
 	
 	
 	public void onModuleLoad() {
-		RootPanel.get("Loading-Message").setVisible(true);
+		//RootPanel.get("Loading-Message").setVisible(true);
 		
 		RootLayoutPanel rootLayoutPanel = RootLayoutPanel.get();
 		rootLayoutPanel.setSize("100%", "100%");
-		
-		mainScrollPanel = new ScrollPanel();
-		rootLayoutPanel.add(mainScrollPanel);
-		
-		ProjCellList = new Fhs_ProjectList();
 		CountryList = new Fhs_CountryList();
 		VarResult = new Var_Result();
+		
+		dockLayoutPanel = new DockLayoutPanel(Unit.PX);
+		dockLayoutPanel.getElement().getStyle().setPosition(Position.RELATIVE);
+		rootLayoutPanel.add(dockLayoutPanel);
+		rootLayoutPanel.setWidgetLeftRight(dockLayoutPanel, 90.0, Unit.PX, 90.0, Unit.PX);
+		
+		
+		//Links located at the top right corner of the site -->Start
+		//----------------------------------------------------------
+		horizontalPanelLinksContainer = new HorizontalPanel();
+		horizontalPanelLinksContainer.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
+		dockLayoutPanel.addNorth(horizontalPanelLinksContainer, 80.0);
+		horizontalPanelLinksContainer.setStyleName("banner");
+		horizontalPanelLinksContainer.setSize("100%", "100%");
+		
+		verticalPanel_2 = new VerticalPanel();
+		horizontalPanelLinksContainer.add(verticalPanel_2);
+		verticalPanel_2.setSize("100%", "100%");
+		
+		label = new Label("IRRI");
+		label.setStyleName("gwt-Label-logo");
+		verticalPanel_2.add(label);
+		label.setSize("100%", "54px");
+		
+		label_1 = new Label("International Rice Research Institute");
+		label_1.setStyleName("gwt-Label-fullname");
+		verticalPanel_2.add(label_1);
+		
+		horizontalPanel_3 = new HorizontalPanel();
+		horizontalPanelLinksContainer.add(horizontalPanel_3);
+		horizontalPanel_3.setSpacing(5);
+		
+		html = new HTML("<a href=\"http://www.irri.org\">IRRI Home</a>", true);
+		html.setStyleName("gwt-HTML-Link");
+		horizontalPanel_3.add(html);
+		horizontalPanel_3.setCellHorizontalAlignment(html, HasHorizontalAlignment.ALIGN_CENTER);
+		html.setSize("73px", "15px");
+		
+		htmlworldRiceStatistics = new HTML("<a href=\"http://50.19.190.186:8080/wrs\">World Rice Statistics</a>", true);
+		htmlworldRiceStatistics.setStyleName("gwt-HTML-Link");
+		horizontalPanel_3.add(htmlworldRiceStatistics);
+		horizontalPanel_3.setCellHorizontalAlignment(htmlworldRiceStatistics, HasHorizontalAlignment.ALIGN_CENTER);
+		htmlworldRiceStatistics.setSize("150px", "15px");
+		
+		horizontalPanel_1 = new HorizontalPanel();
+		dockLayoutPanel.addNorth(horizontalPanel_1, 40.0);
+		horizontalPanel_1.setSize("100%", "100%");
+		
+		horizontalPanel_2 = new HorizontalPanel();
+		horizontalPanel_1.add(horizontalPanel_2);
+		
+		lblFarmHouseholdSurvey = new Label("Farm Household Survey Data Center");
+		lblFarmHouseholdSurvey.setStyleName("gwt-Label-title");
+		lblFarmHouseholdSurvey.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
+		horizontalPanel_2.add(lblFarmHouseholdSurvey);
+		
+		label_3 = new Label("[BETA]");
+		label_3.setStyleName("gwt-Label-version");
+		horizontalPanel_2.add(label_3);
+		label_3.setHeight("22px");
+		
+		menuBar = new MenuBar(false);
+		menuBar.setAutoOpen(true);
+		menuBar.setAnimationEnabled(true);
+		dockLayoutPanel.addNorth(menuBar, 35.0);
+		MenuBar menuBar_1 = new MenuBar(true);
+		
+		mntmNewMenu = new MenuItem("New menu", false, menuBar_1);
+		
+		mntmByProject = new MenuItem("By Project", false, (Command) null);
+		menuBar_1.addItem(mntmByProject);
+		
+		mntmByLocation = new MenuItem("By Location", false, (Command) null);
+		menuBar_1.addItem(mntmByLocation);
+		
+		mntmByTable = new MenuItem("By Table", false, (Command) null);
+		menuBar_1.addItem(mntmByTable);
+		mntmNewMenu.setHTML("Search Data");
+		menuBar.addItem(mntmNewMenu);
+		MenuBar menuBar_2 = new MenuBar(true);
+		
+		mntmHelp = new MenuItem("Help", false, menuBar_2);
+		
+		mntmHowTo = new MenuItem("How To", false, (Command) null);
+		menuBar_2.addItem(mntmHowTo);
+		
+		mntmContactUs = new MenuItem("Contact Us", false, (Command) null);
+		menuBar_2.addItem(mntmContactUs);
+		menuBar.addItem(mntmHelp);
+		
+		mntmAbout = new MenuItem("About", false, (Command) null);
+		menuBar.addItem(mntmAbout);
+		
+		mainScrollPanel = new ScrollPanel();
+		dockLayoutPanel.add(mainScrollPanel);
+		
+		ProjCellList = new Fhs_ProjectList();
 		
 		verticalPanel = new VerticalPanel();
 		verticalPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
 		mainScrollPanel.setWidget(verticalPanel);
 		verticalPanel.setWidth("100%");
 		verticalPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-		
-		
-		//Links located at the top right corner of the site -->Start
-		//----------------------------------------------------------
-		horizontalPanelLinksContainer = new HorizontalPanel();
-		horizontalPanelLinksContainer.setStyleName("FHS-HorizontalPanelContainer");
-		horizontalPanelLinksContainer.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
-		verticalPanel.add(horizontalPanelLinksContainer);
-		horizontalPanelLinksContainer.setWidth("100%");
-		
-		horizontalPanelLinks = new HorizontalPanel();
-		horizontalPanelLinks.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-		horizontalPanelLinksContainer.add(horizontalPanelLinks);
-		horizontalPanelLinks.setWidth("400px");
-				
-		pshbtnNewButton = new PushButton("About Us");
-		pshbtnNewButton.setStyleName("FHS-AboutUsPshBtn");
-		horizontalPanelLinks.add(pshbtnNewButton);
-		pshbtnNewButton.setWidth("45px");
-		pshbtnNewButton.addClickHandler(new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent event) {
-				AboutDialog aboutDialog = new AboutDialog();
-				aboutDialog.aboutUsPopup.center();
-			}
-		});
-		
-		htmlIRRIOrg = new HTML("<a href='http://www.irri.org' target = '_blank' style=\"color:#000000;\">IRRI Homepage</a>");
-		htmlIRRIOrg.setStyleName("FHS-HTMLButton");
-		horizontalPanelLinks.add(htmlIRRIOrg);
-		htmlIRRIOrg.setWidth("76px");
-		
-		htmlWRSSite = new HTML("<a href='http://50.19.190.186:8080/wrs' target = '_blank' style=\"color:#000000;\">WRS Site</a>");
-		htmlWRSSite.setStyleName("FHS-HTMLButton");
-		horizontalPanelLinks.add(htmlWRSSite);
-		htmlWRSSite.setWidth("46px");
-		
-		pshbtnContactUs = new PushButton("Contact Us");
-		pshbtnContactUs.setStyleName("FHS-AboutUsPshBtn");
-		horizontalPanelLinks.add(pshbtnContactUs);
-		pshbtnContactUs.setWidth("53px");
-		pshbtnContactUs.addClickHandler(new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent event) {
-				ContactForm contactForm = new ContactForm();
-				contactForm.PopupContactUs.center();
-			}
-		});
-		
-		pshbtnHelp = new PushButton("Help");
-		horizontalPanelLinks.add(pshbtnHelp);
-		pshbtnHelp.setStyleName("FHS-AboutUsPshBtn");
-		pshbtnHelp.setWidth("23px");
-		pshbtnHelp.addClickHandler(new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent event) {
-				Help help = new Help();
-				help.helpBox.center();
-			}
-		});
-		//--------------------------------------------------------
-		//Links located at the top right corner of the site -->End
-		
-		
-		//Static site labels/title --> Start
-		//---------------------------------------------------------
-		lblIRRI = new Label("IRRI");
-		lblIRRI.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-		lblIRRI.setStyleName("FHS-LblIrri");
-		verticalPanel.add(lblIRRI);
-		
-		lblInternationalRiceResearchInstitute = new Label("International Rice Research Institute");
-		lblInternationalRiceResearchInstitute.setStyleName("FHS-LblInternationalRiceResearchInstitute");
-		verticalPanel.add(lblInternationalRiceResearchInstitute);
-		lblInternationalRiceResearchInstitute.setSize("100%", "100%");
-		
-		lblFHSDCCSS = new Label("Farm Household Survey Data Center");
-		lblFHSDCCSS.setStyleName("FHS-FHSDCCSS");
-		verticalPanel.add(lblFHSDCCSS);
 		//---------------------------------------------------------
 		//Static site labels/title --> End
 		
@@ -166,7 +199,6 @@ public class Fhs_angelika implements EntryPoint {
 		//Search Menu -->Start
 		//---------------------------------------------------------
 		horizontalPanel = new HorizontalPanel();
-		horizontalPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 		horizontalPanel.setSpacing(3);
 		horizontalPanel.setStyleName("FHS-HorizontalPanel");
 		verticalPanel.add(horizontalPanel);
@@ -229,6 +261,42 @@ public class Fhs_angelika implements EntryPoint {
 		ProjSearchDeckPanel.setSize("814px", "602px");
 		
 		pshbtnSearchByProject.setStyleName("FHS-HighlightText");
+		
+		pshbtnHelp = new PushButton("Help");
+		horizontalPanel.add(pshbtnHelp);
+		pshbtnHelp.setStyleName("FHS-PshBtnAboutUs");
+		pshbtnHelp.setWidth("23px");
+		
+		pshbtnContactUs = new PushButton("Contact Us");
+		horizontalPanel.add(pshbtnContactUs);
+		pshbtnContactUs.setStyleName("FHS-PshBtnAboutUs");
+		pshbtnContactUs.setWidth("53px");
+		
+		pshbtnNewButton = new PushButton("About Us");
+		horizontalPanel.add(pshbtnNewButton);
+		pshbtnNewButton.setStyleName("FHS-PshBtnAboutUs");
+		pshbtnNewButton.setWidth("45px");
+		pshbtnNewButton.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				AboutDialog aboutDialog = new AboutDialog();
+				aboutDialog.aboutUsPopup.center();
+			}
+		});
+		pshbtnContactUs.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				ContactForm contactForm = new ContactForm();
+				contactForm.PopupContactUs.center();
+			}
+		});
+		pshbtnHelp.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				Help help = new Help();
+				help.helpBox.center();
+			}
+		});
 		ProjSearchDeckPanel.add(ProjCellList);
 		CountryList.SetDeckLinkPanel(ProjSearchDeckPanel);
 		ProjSearchDeckPanel.showWidget(0);

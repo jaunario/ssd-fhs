@@ -2,12 +2,10 @@
 
 
 /** Example rules used by the template application (remove for your app) */
-h1 {
-  font-size: 1.5em;
-  font-weight: bold;
-  color: #777777;
-  margin: 20px 20px 0px;
-  text-align: center;
+.gwt-Label-fullname {
+	font-family: Times New Roman;
+	font-size: 18px;
+	color: #555;
 }
 
 .sendButton {
@@ -99,10 +97,6 @@ cursor:pointer;
 cursor:hand;
 }
 
-.FHS-HorizontalPanelContainer{
-padding-right:10px;
-}
-
 .FHS-TextBoxContactUs {
 font:Arial;
 color:#808080;
@@ -191,4 +185,25 @@ padding-bottom:2px;
 .FHS-Help {
 padding-left:10px;
 padding-right:10px;
+}
+.banner {
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: #aaa;
+}
+.gwt-Label-logo {
+	font-size: 55px;
+	font-family: Times New Roman;
+	font-weight: bold;
+	color: #028502;
+}
+.gwt-Label-title {
+	font-size: 24px;
+	font-weight: bold;
+	font-family: Arial;
+}
+.gwt-Label-version {
+	font-family: Courier;
+	font-size: 12px;
+	color: #777;
 }
