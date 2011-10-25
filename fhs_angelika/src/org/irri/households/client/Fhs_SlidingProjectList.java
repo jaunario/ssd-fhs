@@ -3,9 +3,8 @@ package org.irri.households.client;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.irri.households.client.ui.SiteMap;
 import com.google.gwt.cell.client.AbstractCell;
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.user.cellview.client.CellList;
@@ -13,84 +12,74 @@ import com.google.gwt.user.cellview.client.CellList.Style;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.VerticalPanel;
-import com.google.gwt.user.cellview.client.HasKeyboardSelectionPolicy.KeyboardSelectionPolicy;
 import com.google.gwt.view.client.ProvidesKey;
-import com.google.gwt.view.client.SelectionChangeEvent;
-import com.google.gwt.view.client.SelectionChangeEvent.Handler;
 import com.google.gwt.view.client.SingleSelectionModel;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.DeckPanel;
+import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
-import com.google.gwt.user.client.ui.HasVerticalAlignment;
-import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 
 
-public class Fhs_ProjectList extends Composite {	
+public class Fhs_SlidingProjectList extends Composite {
+	
 	private final String ProjDetailsSql =
 			"SELECT LEFT(s.site_id,2) iso2, s.country, s.project_id, p.proj_title, p.prime_researcher, "+
 			"GROUP_CONCAT(DISTINCT CONCAT_WS(', ', s.province, s.district, s.village) SEPARATOR  '_'), "+
 			"GROUP_CONCAT(DISTINCT CONVERT(s.survey_year, CHAR(4)) ORDER BY s.survey_year DESC SEPARATOR ',')," +
 			"SUM(s.samplesize), p.purpose "+
-			"FROM surveys s INNER JOIN projects p ON s.project_id = p.project_id";
+			"FROM surveys s INNER JOIN projects p ON s.project_id = p.project_id"; 
 	
+	public VerticalPanel VPProjDetails;
 	public Button ProjBrowseBtn;
 	public SimplePanel ProjLinkPanel;
 	public SingleSelectionModel<ProjectInfo> selectionModel;
 	private HorizontalPanel ProjSearchHPanel;
-	private HorizontalPanel ProjSearchHPanel2;
-	private ScrollPanel scrollPanel;
-	public VerticalPanel verticalPanel2;
-	public ProjectDetails projDetails;
-	private VerticalPanel verticalPanel;
+	private DeckPanel deckPanel;
+	private ScrollPanel scrollPanel2;
+	public int SelectedProjID;
 
 
-	public Fhs_ProjectList() {		
-			
+	public Fhs_SlidingProjectList() {
+		SelectedProjID = 5;	
 		utilsrpc("SELECT p.project_id, p.proj_title FROM projects p INNER JOIN surveys s ON p.project_id=s.project_id GROUP BY 1");
 		
 		ProjSearchHPanel = new HorizontalPanel();
 		
-		ProjSearchHPanel2 = new HorizontalPanel();
-		ProjSearchHPanel2.setSpacing(1);
-		ProjSearchHPanel.add(ProjSearchHPanel2);
+		displayProjDetails(ProjDetailsSql + ProjDetailsSqlWhereClause(SelectedProjID) + " GROUP BY 3", SelectedProjID);
 		
-		verticalPanel2 = new VerticalPanel();
+		/*selectionModel = new SingleSelectionModel<ProjectInfo>(ProjectInfo.KEY_PROVIDER);
+        selectionModel.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
+			@Override
+			public void onSelectionChange(SelectionChangeEvent event) {
+				int SelectedProjID = selectionModel.getSelectedObject().getId();
+				displayProjDetails(ProjDetailsSql + ProjDetailsSqlWhereClause(SelectedProjID) + " GROUP BY 3", SelectedProjID);
+			}
+		});*/
 		
-		selectionModel = new SingleSelectionModel<ProjectInfo>(ProjectInfo.KEY_PROVIDER);
-		
-		verticalPanel = new VerticalPanel();
-		verticalPanel.setStyleName("FHS-TablesListBox");
-		ProjSearchHPanel2.add(verticalPanel);
-		
-		cellList.setStyleName("FHS-ProjCellList");
-		cellList.setSize("300px", "698px");
-		cellList.setKeyboardSelectionPolicy(KeyboardSelectionPolicy.ENABLED);
-		cellList.setKeyboardSelectionPolicy(KeyboardSelectionPolicy.BOUND_TO_SELECTION);
-		
-		scrollPanel = new ScrollPanel();
-		verticalPanel.add(scrollPanel);
-		
-		scrollPanel.setWidget(cellList);
-				
-		ProjSearchHPanel2.setCellVerticalAlignment(scrollPanel, HasVerticalAlignment.ALIGN_MIDDLE);
-		ProjSearchHPanel2.setCellHorizontalAlignment(scrollPanel, HasHorizontalAlignment.ALIGN_CENTER);
-		cellList.setSelectionModel(selectionModel);
-		
-		ProjSearchHPanel2.add(verticalPanel2);
-		
-		ProjSearchHPanel2.setCellHeight(verticalPanel2, "600px");
-		ProjSearchHPanel2.setCellWidth(verticalPanel2, "500px");
-		
-		projDetails = new ProjectDetails(ProjDetailsSql + ProjDetailsSqlWhereClause(5) + " GROUP BY 3", 5);
-		verticalPanel2.add(projDetails);
-	
 		ProjBrowseBtn = new Button("BROWSE DATA");
         ProjBrowseBtn.setSize("120px", "25px");
         ProjBrowseBtn.setStyleName("FHS-ButtonBrowseData");
+    	//------------------------------------------------------------------------------
+        //Right window for the details of the selected project plus the browse button below. -->End
      
         initWidget(ProjSearchHPanel);
-	}	
+        
+        scrollPanel2 = new ScrollPanel();
+        ProjSearchHPanel.add(scrollPanel2);
+        scrollPanel2.setStyleName("FHS-ScrollPanel2");
+        
+        deckPanel = new DeckPanel();
+        scrollPanel2.setWidget(deckPanel);
+        
+        VPProjDetails = new VerticalPanel();
+        //deckPanel.add(VPProjDetails);
+        VPProjDetails.setSpacing(3);
+        VPProjDetails.setStyleName("FHS-VPProjDetails");
+	}
+	
 	
 	//---------------------------------------------------------------------------------------------------
 	//---------------------------------------------------------------------------------------------------
@@ -154,8 +143,6 @@ public class Fhs_ProjectList extends Composite {
 	    public Style cellListStyle(); 
 	} 
 	
-	CellList<ProjectInfo> cellList = new CellList<ProjectInfo>(projectCell, GWT.<MyCellListResources> create(MyCellListResources.class), ProjectInfo.KEY_PROVIDER);
-	
 	final AsyncCallback<String[][]> PopulateCellList = new AsyncCallback<String[][]>() {
         public void onSuccess(String[][] result) {
             try{
@@ -163,9 +150,7 @@ public class Fhs_ProjectList extends Composite {
                 for (int i = 1;i<result.length;i++){
                 	projects.add(new ProjectInfo(Integer.parseInt(result[i][0]),result[i][1]));                	
                 }
-                cellList.setRowCount(result.length,true);
-                cellList.setRowData(projects);
-                
+              
                 selectionModel.setSelected(projects.get(0), true);
             }
             catch(Exception e){
@@ -182,15 +167,66 @@ public class Fhs_ProjectList extends Composite {
 	public void utilsrpc(String query){
     	UtilsRPC.getService("mysqlservice").RunSELECT(query, PopulateCellList);    	
     }
-	
+    
+
 	private String ProjDetailsSqlWhereClause(int projid){
         String whenclause = "";
         whenclause = " WHERE s.project_id = " +projid;
         return whenclause;
     }
 	
-	public void SetSelectionModel(SelectionChangeEvent.Handler handler){
-		selectionModel.addSelectionChangeHandler(handler);
+	public void displayProjDetails(String sql, final int SelectedProjID){
+		final HTML ProjDetails = new HTML();
+		final HTML ProjDetails2 = new HTML();
+        final AsyncCallback<String[][]> FetchDetails = new AsyncCallback<String[][]>() {
+
+            public void onFailure(Throwable caught) {
+                throw new UnsupportedOperationException("Not supported yet.");
+            }
+
+            public void onSuccess(String[][] result) {
+            
+            	String html = "";
+                for (int i = 1; i < result.length; i++) {
+                	html =  "<p><b>Project</b>: "+ result[i][3] + "</p>";
+				}
+                ProjDetails.setHTML(html);	
+                VPProjDetails.add(ProjDetails);
+
+                SiteMap siteMap = new SiteMap("SELECT DISTINCT CONCAT_WS('_', s.lat, s.long) 'LatLon', " +
+        				"CONCAT_WS(', ', s.province, s.country) 'Province', " +
+        		        "GROUP_CONCAT(DISTINCT CONCAT_WS(', ', IF(s.village IS NULL, '-',s.village), IF(s.district IS NULL,'-', s.district)) SEPARATOR '_') 'Villages', " +
+        		        "GROUP_CONCAT(DISTINCT CONVERT(p.proj_title,CHAR) ORDER BY 1 DESC SEPARATOR '_') Project, " +
+        		        "GROUP_CONCAT(DISTINCT CONVERT(s.survey_year,CHAR(4)) ORDER BY 1 DESC SEPARATOR ', '), " +
+        		        "GROUP_CONCAT(DISTINCT CONVERT(IF(p.key_vars IS NULL, '-', p.key_vars),CHAR) ORDER BY p.proj_title DESC SEPARATOR '_') 'Key Variables', " +
+        		        "s.project_id, " +
+        		        "SUM(s.samplesize), CEIL(SUM(s.samplesize)/ 100)*5 markersize, " +
+        		        "s.country id " +
+        		        "FROM surveys s INNER JOIN projects p ON s.project_id = p.project_id " +
+        		        "WHERE s.project_id=" +SelectedProjID+
+        		        " GROUP BY 1 ORDER BY 7", "470", "300", "no");
+                VPProjDetails.add(siteMap);
+                
+                String html2 = "";
+                for (int i = 1; i < result.length; i++) {
+                	html2 = "<p><b>Primary Researcher(s)</b>: " + result[i][4] + "</p>" +
+                			"<p><b>Purpose</b>: "+result[i][8]+"</p>"+
+                			"<p><b>Study Year(s)</b>: " + result[i][6] + "</p>" +
+                            "<p><b>Households</b>: "+ result[i][7] + "</p>";
+				}
+                ProjDetails2.setHTML(html2);	
+                VPProjDetails.add(ProjDetails2);
+           
+                VPProjDetails.add(ProjBrowseBtn);     
+        		RootPanel.get("Loading-Message").setVisible(false);
+                
+            }
+        };
+        UtilsRPC.getService("mysqlservice").RunSELECT(sql, FetchDetails);
+    }
+	
+	public void SetProjBrowseBtn(ClickHandler click){
+		ProjBrowseBtn.addClickHandler(click);
 	}
 	
 }

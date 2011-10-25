@@ -44,22 +44,20 @@ public class Loc_Result extends Composite {
 		lblFetchedData = new Label();
 		
 		LocResVPanel = new VerticalPanel();
-		LocResVPanel.setStyleName("FHS-SimplePanelProjList");
-		LocResVPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
-		LocResVPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 		initWidget(LocResVPanel);
+		LocResVPanel.setHeight("700px");
 		
 		HorizontalPanel LocResHPanel = new HorizontalPanel();
 		LocResHPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
 		LocResHPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 		LocResHPanel.setSpacing(2);
 		LocResVPanel.add(LocResHPanel);
-		LocResHPanel.setSize("810px", "230px");
+		LocResHPanel.setSize("835px", "235px");
 		
 		TablesListBox = new ListBox();
 		TablesListBox.setStyleName("FHS-TablesListBox");
 		LocResHPanel.add(TablesListBox);
-		TablesListBox.setSize("250px", "230px");
+		TablesListBox.setSize("280px", "230px");
 		TablesListBox.setVisibleItemCount(5);
 		TablesListBox.addChangeHandler(new ChangeHandler() {
 			@Override
@@ -102,13 +100,13 @@ public class Loc_Result extends Composite {
 		CheckboxHPanel = new HorizontalPanel();
 		CheckboxHPanel.setStyleName("FHS-TablesListBox");
 		LocResHPanel.add(CheckboxHPanel);
-		CheckboxHPanel.setSize("416px", "230px");
+		CheckboxHPanel.setSize("421px", "230px");
 		
 		FilterByYear = new ListBox(true);
 		FilterByYear.setStyleName("FHS-TablesListBox");
 		LocResHPanel.add(FilterByYear);
 		FilterByYear.setVisibleItemCount(5);
-		FilterByYear.setSize("129px", "230px");
+		FilterByYear.setSize("139px", "230px");
 		FilterByYear.addChangeHandler(new ChangeHandler() {
 			@Override
 			public void onChange(ChangeEvent event) {
@@ -273,6 +271,8 @@ public class Loc_Result extends Composite {
 		});
 		
 		LocResHPanel3 = new HorizontalPanel();
+		LocResHPanel3.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
+		LocResHPanel3.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 		LocResHPanel3.setStyleName("FHS-HorizontalPanelSiteMap");
 		LocResVPanel.add(LocResHPanel3);
 		LocResVPanel.setCellHeight(LocResHPanel3, "300px");
@@ -282,7 +282,7 @@ public class Loc_Result extends Composite {
 		LocResSimplePanel.setStyleName("FHS-TablesListBox");
 		LocResHPanel3.clear();
 		LocResHPanel3.add(LocResSimplePanel);
-		LocResSimplePanel.setSize("800px", "355px");
+		LocResSimplePanel.setSize("841px", "465px");
 		
 		mcpResultPanel =  new MultiChartPanel();
 		mcpResultPanel.getDeckPanel().setSize("100%", "100%");
@@ -352,10 +352,4 @@ public class Loc_Result extends Composite {
         };
         UtilsRPC.getService("mysqlservice").RunSELECT(sql, FetchDetails);
     }
-	
-	/*private String CountryYearWhereClause(String cntry, String year){
-        String whereclause = "";
-                whereclause = " where country='"+cntry+"' and survey_year="+year;
-        return whereclause;
-    }*/
 }

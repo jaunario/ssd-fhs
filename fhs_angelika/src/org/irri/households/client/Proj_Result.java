@@ -47,23 +47,21 @@ public class Proj_Result extends Composite {
 		varCheckbox = new VarCheckbox();
 		
 		ProjResVPanel = new VerticalPanel();
-		ProjResVPanel.setStyleName("FHS-SimplePanelProjList");
-		ProjResVPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
-		ProjResVPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 		initWidget(ProjResVPanel);
+		ProjResVPanel.setHeight("700px");
 		
 		HorizontalPanel ProjResHPanel = new HorizontalPanel();
 		ProjResHPanel.setSpacing(2);
 		ProjResHPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 		ProjResHPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
 		ProjResVPanel.add(ProjResHPanel);
-		ProjResHPanel.setSize("810px", "230px");
+		ProjResHPanel.setSize("835px", "235px");
 		
 		TablesListBox = new ListBox();
 		TablesListBox.setVisibleItemCount(5);
-		TablesListBox.setStyleName("FHS-TablesListBox2");
+		TablesListBox.setStyleName("FHS-TablesListBox");
 		ProjResHPanel.add(TablesListBox);
-		TablesListBox.setSize("250px", "230px");
+		TablesListBox.setSize("280px", "230px");
 		TablesListBox.addChangeHandler(new ChangeHandler() {
 			@Override
 			public void onChange(ChangeEvent event) {
@@ -108,7 +106,7 @@ public class Proj_Result extends Composite {
 		CheckboxHPanel = new HorizontalPanel();
 		CheckboxHPanel.setStyleName("FHS-TablesListBox");
 		ProjResHPanel.add(CheckboxHPanel);
-		CheckboxHPanel.setSize("416px", "230px");
+		CheckboxHPanel.setSize("421px", "230px");
 			
 		verticalPanel = new VerticalPanel();
 		verticalPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
@@ -125,7 +123,7 @@ public class Proj_Result extends Composite {
 		FilterByYearVPanel.add(FilterByYear);
 		FilterByYear.setStyleName("FHS-TablesListBox");
 		FilterByYear.setVisibleItemCount(5);
-		FilterByYear.setSize("129px", "114px");
+		FilterByYear.setSize("139px", "114px");
 		
 		FilterByCountryVPanel = new VerticalPanel();
 		FilterByCountryVPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
@@ -137,7 +135,7 @@ public class Proj_Result extends Composite {
 		FilterByCountryVPanel.add(FilterByCountry);
 		FilterByCountry.setStyleName("FHS-TablesListBox");
 		FilterByCountry.setVisibleItemCount(5);
-		FilterByCountry.setSize("129px", "113px");
+		FilterByCountry.setSize("139px", "113px");
 		FilterByCountry.addChangeHandler(new ChangeHandler() {
 			@Override
 			public void onChange(ChangeEvent event) {	
@@ -377,7 +375,7 @@ public class Proj_Result extends Composite {
 					ProjResSimplePanel.clear();
 					FilterByYear.setEnabled(false);
 					FilterByCountry.setEnabled(false);
-					RootPanel.get("Loading-Message").setVisible(false);
+					//RootPanel.get("Loading-Message").setVisible(false);
 				}
 				
 			}
@@ -395,7 +393,7 @@ public class Proj_Result extends Composite {
 		ProjResSimplePanel.setStyleName("FHS-TablesListBox");
 		ProjResHPanel3.clear();
 		ProjResHPanel3.add(ProjResSimplePanel);
-		ProjResSimplePanel.setSize("800px", "355px");
+		ProjResSimplePanel.setSize("842px", "465px");
 		
 		mcpResultPanel =  new MultiChartPanel();
 		mcpResultPanel.getDeckPanel().setSize("100%", "100%");

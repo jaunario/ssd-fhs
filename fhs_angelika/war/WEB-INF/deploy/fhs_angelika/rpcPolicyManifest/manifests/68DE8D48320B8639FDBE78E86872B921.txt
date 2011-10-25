@@ -1,0 +1,2 @@
+serviceClass: org.irri.households.client.MySQLService
+path: F568E145D7467F15420FB4E86BDEC34D.gwt.rpc

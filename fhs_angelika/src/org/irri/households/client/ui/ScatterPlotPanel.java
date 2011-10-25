@@ -7,6 +7,7 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.visualization.client.AbstractDataTable;
 import com.google.gwt.visualization.client.DataTable;
+import com.google.gwt.visualization.client.LegendPosition;
 import com.google.gwt.visualization.client.VisualizationUtils;
 import com.google.gwt.visualization.client.visualizations.corechart.AxisOptions;
 import com.google.gwt.visualization.client.visualizations.corechart.ScatterChart;
@@ -44,6 +45,7 @@ public class ScatterPlotPanel extends Composite {
 		};
 		UtilsRPC.getService("mysqlservice").RunSELECT(query, DBDataTable);
 		initWidget(ScapPanel);	
+		ScapPanel.setSize("320px", "260px");
 	}
 	
 
@@ -72,6 +74,7 @@ public class ScatterPlotPanel extends Composite {
 		options.setWidth(w);
     	options.setHeight(h);
     	options.setTitle(title);
+    	options.setLegend(LegendPosition.BOTTOM);
     	options.setPointSize(2); //increase number to increase point size
     	AxisOptions hAxisOptions = AxisOptions.create();
     	AxisOptions vAxisOptions = AxisOptions.create();
