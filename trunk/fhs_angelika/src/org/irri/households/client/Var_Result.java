@@ -44,22 +44,20 @@ public class Var_Result extends Composite {
 		varCheckbox = new VarCheckbox();
 		
 		VarResVPanel = new VerticalPanel();
-		VarResVPanel.setStyleName("FHS-SimplePanelProjList");
-		VarResVPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
-		VarResVPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 		initWidget(VarResVPanel);
+		VarResVPanel.setHeight("700px");
 		
 		HorizontalPanel VarResHPanel = new HorizontalPanel();
 		VarResHPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
 		VarResHPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 		VarResHPanel.setSpacing(2);
 		VarResVPanel.add(VarResHPanel);
-		VarResHPanel.setSize("810px", "230px");
+		VarResHPanel.setSize("835px", "230px");
 		
 		TablesListBox = new ListBox();
 		TablesListBox.setStyleName("FHS-TablesListBox");
 		VarResHPanel.add(TablesListBox);
-		TablesListBox.setSize("250px", "230px");
+		TablesListBox.setSize("280px", "230px");
 		TablesListBox.setVisibleItemCount(5);
 		TablesListBox.addChangeHandler(new ChangeHandler() {
 			@Override
@@ -100,7 +98,7 @@ public class Var_Result extends Composite {
 		CheckboxHPanel = new HorizontalPanel();
 		CheckboxHPanel.setStyleName("FHS-TablesListBox");
 		VarResHPanel.add(CheckboxHPanel);
-		CheckboxHPanel.setSize("416px", "230px");
+		CheckboxHPanel.setSize("421px", "230px");
 		
 		verticalPanel = new VerticalPanel();
 		verticalPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
@@ -116,7 +114,7 @@ public class Var_Result extends Composite {
 		FilterByYearVPanel.add(FilterByYear);
 		FilterByYear.setStyleName("FHS-TablesListBox");
 		FilterByYear.setVisibleItemCount(5);
-		FilterByYear.setSize("129px", "114px");
+		FilterByYear.setSize("139px", "114px");
 		FilterByYear.addChangeHandler(new ChangeHandler() {
 			@Override
 			public void onChange(ChangeEvent event) {	
@@ -182,7 +180,7 @@ public class Var_Result extends Composite {
 		FilterByCountryVPanel.add(FilterByCountry);
 		FilterByCountry.setVisibleItemCount(5);
 		FilterByCountry.setStyleName("FHS-TablesListBox");
-		FilterByCountry.setSize("129px", "114px");
+		FilterByCountry.setSize("139px", "114px");
 		FilterByCountry.addChangeHandler(new ChangeHandler() {
 			@Override
 			public void onChange(ChangeEvent event) {
@@ -369,7 +367,7 @@ public class Var_Result extends Composite {
 		VarResSimplePanel.setStyleName("FHS-TablesListBox");
 		VarResHPanel3.clear();
 		VarResHPanel3.add(VarResSimplePanel);
-		VarResSimplePanel.setSize("800px", "355px");
+		VarResSimplePanel.setSize("841px", "465px");
 		populateListBox("SELECT * FROM reports");
 		
 		mcpResultPanel =  new MultiChartPanel();

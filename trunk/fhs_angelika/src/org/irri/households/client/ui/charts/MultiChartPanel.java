@@ -209,9 +209,6 @@ public class MultiChartPanel extends Composite {
 		
 		btnClear = new Button("Clear");
 		horizontalPanel_3.add(btnClear);
-		
-		
-		
 	}
 	
 	public void checkPaginOptions(){
@@ -396,7 +393,7 @@ public class MultiChartPanel extends Composite {
 			@Override
 			public void run() {
 				Table table = new Table(tabledata, setTableSize(deckChartPager.getOffsetWidth(), deckChartPager.getOffsetHeight()));
-				table.setSize("800px", "310px");
+				table.setSize("841px", "420px");
 				vpTablePage.clear();
 				deckChartPager.clear();
 				vpTablePage.add(table);

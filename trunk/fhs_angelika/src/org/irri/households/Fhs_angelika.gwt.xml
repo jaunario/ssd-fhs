@@ -15,7 +15,8 @@
   <inherits name='com.google.gwt.visualization.Visualization'/>
   <inherits name='com.google.gwt.maps.GoogleMaps'/>
   
-
+  <script src="http://maps.google.com/maps?gwt=1&amp;file=api&amp;v=2&amp;key=ABQIAAAABLaGPWk5Cr2sgi3khjZC0RREepRgqBuGVXYgQoCR8QYhstVHFhRaVapXEWRcy5bJHIDLcSNsihzYRQ" />	
+  
   <!-- Specify the app entry point class.                         -->
   <entry-point class='org.irri.households.client.Fhs_angelika'/>
 

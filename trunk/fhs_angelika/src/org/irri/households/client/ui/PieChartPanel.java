@@ -3,9 +3,10 @@ package org.irri.households.client.ui;
 import org.irri.households.client.UtilsRPC;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.DeckPanel;
 import com.google.gwt.visualization.client.AbstractDataTable;
 import com.google.gwt.visualization.client.DataTable;
+import com.google.gwt.visualization.client.LegendPosition;
 import com.google.gwt.visualization.client.VisualizationUtils;
 import com.google.gwt.visualization.client.visualizations.corechart.PieChart;
 import com.google.gwt.visualization.client.visualizations.corechart.Options;
@@ -17,7 +18,7 @@ import com.google.gwt.visualization.client.visualizations.corechart.PieChart.Pie
 * @author jaunario
 */
 public class PieChartPanel extends Composite{
-    private VerticalPanel VisBox = new VerticalPanel();
+    private DeckPanel VisBox = new DeckPanel();
     public String[][] mydata;
     
     public PieChartPanel(String query, String title, int w, int h){
@@ -34,6 +35,7 @@ public class PieChartPanel extends Composite{
                     	mydata = out;
                         PieChart pie = new PieChart(createTable(out), createOptions(ChartTitle,width,height));
                         VisBox.add(pie);
+                        VisBox.showWidget(0);
                     }
                 };
                 VisualizationUtils.loadVisualizationApi(onLoadCallback, PieChart.PACKAGE);
@@ -46,7 +48,7 @@ public class PieChartPanel extends Composite{
         };
         UtilsRPC.getService("mysqlservice").RunSELECT(query, DBDataTable);
         initWidget(VisBox);
-        
+        VisBox.setSize("320px", "260px");
     }
 
     
@@ -57,6 +59,7 @@ public class PieChartPanel extends Composite{
         options.setWidth(w);
         options.setHeight(h);
         options.setTitle(title);
+        options.setLegend(LegendPosition.BOTTOM);
         pieOptions.set3D(true);
         return options;
     }

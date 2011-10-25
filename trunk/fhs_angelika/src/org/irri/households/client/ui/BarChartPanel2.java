@@ -6,18 +6,19 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.visualization.client.AbstractDataTable;
 import com.google.gwt.visualization.client.DataTable;
+import com.google.gwt.visualization.client.LegendPosition;
 import com.google.gwt.visualization.client.VisualizationUtils;
 import com.google.gwt.visualization.client.visualizations.corechart.AxisOptions;
 import com.google.gwt.visualization.client.visualizations.corechart.BarChart;
 import com.google.gwt.visualization.client.visualizations.corechart.Options;
 
-public class BarChartPanel extends Composite {
+public class BarChartPanel2 extends Composite {
 	private VerticalPanel VisBox = new VerticalPanel();
 	public String[][] mydata;
 
-	public BarChartPanel(String query, String title, int w, int h) {
+	public BarChartPanel2(String query, String title, int w, int h) {
 		
-		final String ChartTitle = title;
+	final String ChartTitle = title;
     	final int width = w;
     	final int height = h;
     	final AsyncCallback<String[][]> DBDataTable = new AsyncCallback<String[][]>() {
@@ -56,19 +57,19 @@ public class BarChartPanel extends Composite {
         options.setWidth(w);
         options.setHeight(h);
         options.setTitle(title);
+        options.setLegend(LegendPosition.BOTTOM);
         return options;
     }
     
     private AbstractDataTable createTable(String[][] qdata){
         DataTable data = DataTable.create();
-        data.addColumn(AbstractDataTable.ColumnType.STRING, qdata[0][0]);
-        data.addColumn(AbstractDataTable.ColumnType.NUMBER, qdata[0][1]);
-        data.addColumn(AbstractDataTable.ColumnType.NUMBER, qdata[0][2]);
-        data.addRows(qdata.length-1);
-        for (int i=1;i<qdata.length;i++){ 
-            data.setValue(i-1, 0, (qdata[i][0]));
-            data.setValue(i-1, 1, Double.parseDouble(qdata[i][1]));
-            data.setValue(i-1, 2, Double.parseDouble(qdata[i][2]));
+        	data.addColumn(AbstractDataTable.ColumnType.STRING, qdata[0][0]);
+        	data.addColumn(AbstractDataTable.ColumnType.NUMBER, qdata[0][1]);
+        	data.addRows(qdata.length-1);
+        
+        for (int i=1;i<qdata.length;i++){
+        	data.setValue(i-1, 0, (qdata[i][0]));
+        	data.setValue(i-1, 1, Double.parseDouble(qdata[i][1]));
         }
         return data;
     } 
