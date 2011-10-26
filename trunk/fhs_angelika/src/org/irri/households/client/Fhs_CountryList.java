@@ -1,17 +1,14 @@
 package org.irri.households.client;
 
-//import org.irri.households.client.ui.SiteMap;
+
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
-//import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DeckPanel;
 import com.google.gwt.user.client.ui.HTML;
-import com.google.gwt.user.client.ui.HasHorizontalAlignment;
-import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
@@ -26,12 +23,6 @@ public class Fhs_CountryList extends Composite {
 			"GROUP_CONCAT(DISTINCT CONCAT_WS(', ', s.province, s.district, s.village) SEPARATOR  '_'), "+
 			"GROUP_CONCAT(DISTINCT CONVERT(s.survey_year, CHAR(4)) ORDER BY s.survey_year DESC SEPARATOR ', '), SUM(s.samplesize) "+
 			"FROM surveys s INNER JOIN projects p ON s.project_id = p.project_id"; 
-	
-	/*private final String ProjVarsSql2 = "SELECT r.report_title, GROUP_CONCAT(DISTINCT f.repvariables ORDER BY sort SEPARATOR ';'), " +
-			"GROUP_CONCAT(DISTINCT f.description ORDER BY sort SEPARATOR ';'), r.table_name " +
-			"FROM reports r, repfields f, report_fields rf, available a left join surveys on a.site=substring(surveys.site_id,1,8)" +
-			"WHERE a.report_id=r.report_id and r.report_id=rf.report_id and rf.field_id=f.field_id AND ";*/
-	
 	public VerticalPanel CntrySearchVPanel;
 	public ListBox ListBoxCountry;
 	private Button LocListBrowseBtn;
@@ -43,26 +34,9 @@ public class Fhs_CountryList extends Composite {
 	public DeckPanel DeckLinkPanel;
 	public HorizontalPanel horizontalPanelSiteMap;
 	private HorizontalPanel horizontalPanel;
-	//private SiteMap siteMap;
 
 	public Fhs_CountryList() {		
 		CntrySearchVPanel = new VerticalPanel();
-		
-/*		siteMap = new SiteMap("SELECT DISTINCT CONCAT_WS('_', s.lat, s.long) 'LatLon', " +
-				"CONCAT_WS(', ', s.province, s.country) 'Province', " +
-		        "GROUP_CONCAT(DISTINCT CONCAT_WS(', ', IF(s.village IS NULL, '-',s.village), IF(s.district IS NULL,'-', s.district)) SEPARATOR '_') 'Villages', " +
-		        "GROUP_CONCAT(DISTINCT CONVERT(p.proj_title,CHAR) ORDER BY 1 DESC SEPARATOR '_') Project, " +
-		        "GROUP_CONCAT(DISTINCT CONVERT(s.survey_year,CHAR(4)) ORDER BY 1 DESC SEPARATOR ', '), " +
-		        "GROUP_CONCAT(DISTINCT CONVERT(IF(p.key_vars IS NULL, '-', p.key_vars),CHAR) ORDER BY p.proj_title DESC SEPARATOR '_') 'Key Variables', " +
-		        "s.project_id, " +
-		        "SUM(s.samplesize), CEIL(SUM(s.samplesize)/ 100)*5 markersize, " +
-		        "s.country id " +
-		        "FROM surveys s INNER JOIN projects p ON s.project_id = p.project_id " +
-		        "GROUP BY 1 ORDER BY 7", "865", "425", "yes");
-		
-		siteMap.setStyleName("FHS-TablesListBox");
-*/		
-//		horizontalPanelSiteMap.add(siteMap);
 		
 		HorizontalPanel CntrySearchHPanel1 = new HorizontalPanel();
 		CntrySearchHPanel1.setSpacing(2);
@@ -100,19 +74,6 @@ public class Fhs_CountryList extends Composite {
 		
 		scrollPanel2.setWidget(VPCntryDetails);
 		
-/*		siteMap.SetSiteMapBrowseBtn(new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent event) {		
-				RootPanel.get("Loading-Message").setVisible(true);
-				String SelectedCountry = siteMap.id;
-				LocResult = new Loc_Result(SelectedCountry);
-				DeckLinkPanel.add(LocResult); //widget 4 - by location result button
-				String projvarssql = "";
-				projvarssql = ProjVarsSql2 + ProjVarsSqlWhereClause3(SelectedCountry);
-				displayCountryTables(projvarssql + " GROUP BY r.report_id", SelectedCountry);
-			}
-		});
-*/		
 		initWidget(CntrySearchVPanel);
 		CntrySearchVPanel.setHeight("700px");
 		
@@ -190,12 +151,6 @@ public class Fhs_CountryList extends Composite {
 	public void SetDeckLinkPanel(DeckPanel panel){
 		DeckLinkPanel = panel;
 	}
-	
-	/*private String ProjVarsSqlWhereClause3(String cntry){
-        String whereclause = "";
-        whereclause = " country='" +cntry+ "'";
-        return whereclause;
-    }*/
 	
 	public void displayCountryTables(String sql, final String cntry){
 		LocResult.TablesListBox.clear();
