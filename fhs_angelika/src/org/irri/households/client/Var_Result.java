@@ -21,7 +21,7 @@ public class Var_Result extends Composite {
 	private final String ProjVarsSql2 = "SELECT r.report_title, GROUP_CONCAT(DISTINCT f.repvariables ORDER BY sort SEPARATOR ';'), " +
 			"GROUP_CONCAT(DISTINCT f.description ORDER BY sort SEPARATOR ';'), r.table_name " +
 			"FROM reports r, repfields f, report_fields rf, available a left join surveys on site=substring(surveys.site_id,1,8)" +
-			"WHERE a.report_id=r.report_id and r.report_id=rf.report_id and rf.field_id=f.field_id";
+			"WHERE a.report_id=r.report_id and r.report_id=rf.report_id and rf.field_id=f.field_id and f.repvariables<>'powercosts' ";
 	
 	public ListBox TablesListBox;
 	public CheckBox VarsCheckBox;
@@ -351,7 +351,7 @@ public class Var_Result extends Composite {
 					VarResSimplePanel.clear();
 					FilterByYear.setEnabled(false);
 					FilterByCountry.setEnabled(false);
-					RootPanel.get("Loading-Message").setVisible(false);
+					//RootPanel.get("Loading-Message").setVisible(false);
 				}
 			}
 		});
@@ -473,6 +473,7 @@ public class Var_Result extends Composite {
             	if (FilterByCountry.getItemCount()<2){
             		FilterByCountry.setEnabled(false);
             	}
+            	RootPanel.get("Loading-Message").setVisible(false);
             }
         };
         UtilsRPC.getService("mysqlservice").RunSELECT(sql, FetchDetails);
