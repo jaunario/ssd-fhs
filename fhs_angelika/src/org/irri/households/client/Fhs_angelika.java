@@ -10,7 +10,6 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.DeckPanel;
 import com.google.gwt.user.client.ui.RootLayoutPanel;
 import com.google.gwt.user.client.ui.RootPanel;
-import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
@@ -89,123 +88,9 @@ public class Fhs_angelika implements EntryPoint{
 		rootLayoutPanel = RootLayoutPanel.get();
 		rootLayoutPanel.setStyleName("FHS-RootHome");
 		
-		siteMap = new SiteMap("SELECT DISTINCT CONCAT_WS('_', s.lat, s.long) 'LatLon', " +
-				"CONCAT_WS(', ', s.province, s.country) 'Province', " +
-		        "GROUP_CONCAT(DISTINCT CONCAT_WS(', ', IF(s.village IS NULL, '-',s.village), IF(s.district IS NULL,'-', s.district)) SEPARATOR '_') 'Villages', " +
-		        "GROUP_CONCAT(DISTINCT CONVERT(p.proj_title,CHAR) ORDER BY 1 DESC SEPARATOR '_') Project, " +
-		        "GROUP_CONCAT(DISTINCT CONVERT(s.survey_year,CHAR(4)) ORDER BY 1 DESC SEPARATOR ', '), " +
-		        "GROUP_CONCAT(DISTINCT CONVERT(IF(p.key_vars IS NULL, '-', p.key_vars),CHAR) ORDER BY p.proj_title DESC SEPARATOR '_') 'Key Variables', " +
-		        "s.project_id, " +
-		        "SUM(s.samplesize), CEIL(SUM(s.samplesize)/ 100)*5 markersize, " +
-		        "s.country id " +
-		        "FROM surveys s INNER JOIN projects p ON s.project_id = p.project_id " +
-		        "GROUP BY 1 ORDER BY 7", "867", "425", "yes");
-		
-		Command projCommand = new Command(){
-		    public void execute(){
-		    	RootPanel.get("Loading-Message").setVisible(true);
-		    	vpAppBanner.setVisible(true);
-		    	if (deckPanel.getWidgetCount()>2){
-		    		deckPanel.remove(2);
-		    	}
-		    	deckPanel.showWidget(deckPanel.getWidgetCount()-1);
-				fhsHome.htmlProjSearch = new HTML("<p><b>How to Search By Project</b><p>\n\n<p>The process of retrieving data from this facility is sequential. Please follow the steps below to avoid errors.\n\n<p>\n<ol>\n<li>Select a project.</li><br>\n\n<li>Click the Browse Data button located at the bottom of the details window.</li><br>\n\n<li>Select a table and wait for the other windows to load.</li><br>\n\n<li>You may uncheck some variables and/or choose only specific years and countries. Just make sure to wait for the windows to reload in between clicks.</li><br>\n\n\n\n<li>Navigate through the table by using the First, Previous, Next, and Last buttons. Click the Clear button to reset your selection.</li><br><li>Click Download Data to retrieve a csv file.</li><br>\n</ol>\n\n", true);
-				fhsHome.verticalPanel.clear();
-				fhsHome.verticalPanel.add(fhsHome.htmlProjSearch);
-				fhsHome.deckPanel.showWidget(0);
-		    	fhsProjectList.verticalPanel2.clear();
-				int SelectedProjID = 5;
-				fhsProjectList.projDetails = new ProjectDetails(ProjDetailsSql + ProjDetailsSqlWhereClause(SelectedProjID) + " GROUP BY 3", SelectedProjID);
-				fhsProjectList.projDetails.SetProjBrowseBtn(new ClickHandler() {
-					public void onClick(ClickEvent event) {
-						if (fhsHome.deckPanel.getWidgetCount()>3){
-							fhsHome.deckPanel.remove(fhsHome.deckPanel.getWidgetCount()-1);
-						}	
-						int SelectedProjID = fhsProjectList.selectionModel.getSelectedObject().getId();
-						String SelectedProjTitle = fhsProjectList.selectionModel.getSelectedObject().getProjTitle();
-						ProjResult = new Proj_Result(SelectedProjID);
-						String projvarssql = "";
-						projvarssql = ProjVarsSql + ProjVarsSqlWhereProjIdClause(SelectedProjID);
-						displayProjTables(projvarssql + " GROUP BY r.report_id", SelectedProjTitle);
-						fhsHome.deckPanel.add(ProjResult);
-						fhsHome.deckPanel.showWidget(fhsHome.deckPanel.getWidgetCount()-1);
-						deckPanel.showWidget(1);
-						RootPanel.get("Loading-Message").setVisible(false);
-					}
-				});
-				fhsProjectList.verticalPanel2.add(fhsProjectList.projDetails);
-		    }
-		};
-		
-		Command locCommand = new Command(){
-		    public void execute(){
-		    	vpAppBanner.setVisible(true);
-		    	if (deckPanel.getWidgetCount()>2){
-		    		deckPanel.remove(2);
-		    	}
-		    	fhsCountryList.horizontalPanelSiteMap.add(siteMap);
-		    	siteMap.setLinkPanel(fhsCountryList.VPCntryDetails);
-		    	fhsHome.setPixelSize(deckPanel.getOffsetWidth(), deckPanel.getOffsetHeight());
-		    	deckPanel.showWidget(deckPanel.getWidgetCount()-1); //show fhsHome in deckPanel
-		    	fhsHome.htmlCntrySearch = new HTML("<p><b>How to Search By Country</b><p>\n\n<p>The process of retrieving data from this facility is sequential. Please follow the steps below to avoid errors.\n\n<p>\n<ol>\n<li>Select a country either from the list or from the map.</li><br>\n\n<li>Click the Browse Data button located at the bottom of the details window.</li><br>\n\n<li>Select a table and wait for the other windows to load.</li><br>\n\n<li>You may uncheck some variables and/or choose only specific years. Just make sure to wait for the windows to reload in between clicks.</li><br>\n\n<li>Navigate through the table by using the First, Previous, Next, and Last buttons. Click the Clear button to reset your selection.</li><br>\n\n<li>Click Download Data to retrieve a csv file.</li><br>\n</ol>\n\n", true);
-		    	fhsHome.verticalPanel.clear();
-		    	fhsHome.verticalPanel.add(fhsHome.htmlCntrySearch);
-		    	fhsHome.deckPanel.showWidget(1);
-		    }
-		};
-		
-		siteMap.SetSiteMapBrowseBtn(new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent event) {		
-				RootPanel.get("Loading-Message").setVisible(true);
-				if (fhsHome.deckPanel.getWidgetCount()>3){
-					fhsHome.deckPanel.remove(fhsHome.deckPanel.getWidgetCount()-1);
-				}
-				String SelectedCountry = siteMap.id;
-				LocResult = new Loc_Result(SelectedCountry);
-				String projvarssql = "";
-				projvarssql = ProjVarsSql2 + ProjVarsSqlWhereCountryClause(SelectedCountry);
-				displayCountryTables(projvarssql + " GROUP BY r.report_id", SelectedCountry);
-				fhsHome.deckPanel.add(LocResult);
-				fhsHome.deckPanel.showWidget(fhsHome.deckPanel.getWidgetCount()-1);	
-				deckPanel.showWidget(1);
-				RootPanel.get("Loading-Message").setVisible(false);
-			}
-		});
-		
-		Command tabCommand = new Command(){
-		    public void execute(){
-		    	vpAppBanner.setVisible(true);
-		    	if (deckPanel.getWidgetCount()>2){
-		    		deckPanel.remove(2);
-		    	}
-		    	deckPanel.showWidget(deckPanel.getWidgetCount()-1);
-				fhsHome.htmlTableSearch = new HTML("<p><b>How to Search By Table</b><p>\n\n<p>The process of retrieving data from this facility is sequential. Please follow the steps below to avoid errors.\n\n<p>\n<ol>\n<li>Select a table and wait for the other windows to load.</li><br>\n\n<li>You may uncheck some variables and/or choose only specific years and countries. Just make sure to wait for the windows to reload in between clicks.</li><br>\n\n<li>Navigate through the table by using the First, Previous, Next, and Last buttons. Click the Clear button to reset your selection.</li><br>\n\n<li>Click Download Data to retrieve a csv file.</li><br>\n</ol>\n\n", true);
-				fhsHome.verticalPanel.clear();
-				fhsHome.verticalPanel.add(fhsHome.htmlTableSearch);
-				fhsHome.deckPanel.showWidget(2);
-		    }
-		};
-		
-		Command homeCommand = new Command(){
-		    public void execute(){
-		    	vpAppBanner.setVisible(false);
-		    	deckPanel.showWidget(0);
-		        RootPanel.get("Loading-Message").setVisible(false);
-		    }
-		};
-		
-		Command contactCommand = new Command(){
-		    public void execute(){
-		    	ContactForm contactForm = new ContactForm();
-		    	contactForm.PopupContactUs.center();
-		    }
-		};
-		
-		projDetails = new ProjectDetails(ProjDetailsSql + ProjDetailsSqlWhereClause(7) + " GROUP BY 3", 7);
-		
 		dockLayoutPanel = new DockLayoutPanel(Unit.PX);
 		rootLayoutPanel.add(dockLayoutPanel);
+		dockLayoutPanel.setSize("100%", "100%");
 		dockLayoutPanel.getElement().getStyle().setPosition(Position.RELATIVE);
 		
 		horizontalPanelLinksContainer = new HorizontalPanel();
@@ -289,9 +174,124 @@ public class Fhs_angelika implements EntryPoint{
 		fhsHome.deckPanel.add(fhsCountryList);
 		fhsHome.deckPanel.add(varResult);
 		
+		siteMap = new SiteMap("SELECT DISTINCT CONCAT_WS('_', s.lat, s.long) 'LatLon', " +
+				"CONCAT_WS(', ', s.province, s.country) 'Province', " +
+		        "GROUP_CONCAT(DISTINCT CONCAT_WS(', ', IF(s.village IS NULL, '-',s.village), IF(s.district IS NULL,'-', s.district)) SEPARATOR '_') 'Villages', " +
+		        "GROUP_CONCAT(DISTINCT CONVERT(p.proj_title,CHAR) ORDER BY 1 DESC SEPARATOR '_') Project, " +
+		        "GROUP_CONCAT(DISTINCT CONVERT(s.survey_year,CHAR(4)) ORDER BY 1 DESC SEPARATOR ', '), " +
+		        "GROUP_CONCAT(DISTINCT CONVERT(IF(p.key_vars IS NULL, '-', p.key_vars),CHAR) ORDER BY p.proj_title DESC SEPARATOR '_') 'Key Variables', " +
+		        "s.project_id, " +
+		        "SUM(s.samplesize), CEIL(SUM(s.samplesize)/ 100)*5 markersize, " +
+		        "s.country id " +
+		        "FROM surveys s INNER JOIN projects p ON s.project_id = p.project_id " +
+		        "GROUP BY 1 ORDER BY 7", "867", "425", "yes");
+		
 		deckPanel.add(fhsHome);
 		fhsHome.setSize("100%", "100%");
 		deckPanel.showWidget(0);
+		
+		Command projCommand = new Command(){
+		    public void execute(){
+		    	RootPanel.get("Loading-Message").setVisible(true);
+		    	vpAppBanner.setVisible(true);
+		    	if (deckPanel.getWidgetCount()>2){
+		    		deckPanel.remove(2);
+		    	}
+		    	deckPanel.showWidget(deckPanel.getWidgetCount()-1);
+				fhsHome.htmlProjSearch = new HTML("<p><b>How to Search By Project</b><p>\n\n<p>The process of retrieving data from this facility is sequential. Please follow the steps below to avoid errors.\n\n<p>\n<ol>\n<li>Select a project.</li><br>\n\n<li>Click the Browse Data button located at the bottom of the details window.</li><br>\n\n<li>Select a table and wait for the other windows to load.</li><br>\n\n<li>You may uncheck some variables and/or choose only specific years and countries. Just make sure to wait for the windows to reload in between clicks.</li><br>\n\n\n\n<li>Navigate through the table by using the First, Previous, Next, and Last buttons. Click the Clear button to reset your selection.</li><br><li>Click Download Data to retrieve a csv file.</li><br>\n</ol>\n\n", true);
+				fhsHome.verticalPanel.clear();
+				fhsHome.verticalPanel.add(fhsHome.htmlProjSearch);
+				fhsHome.deckPanel.showWidget(0);
+		    	fhsProjectList.verticalPanel2.clear();
+				int SelectedProjID = 5;
+				fhsProjectList.projDetails = new ProjectDetails(ProjDetailsSql + ProjDetailsSqlWhereClause(SelectedProjID) + " GROUP BY 3", SelectedProjID);
+				fhsProjectList.projDetails.SetProjBrowseBtn(new ClickHandler() {
+					public void onClick(ClickEvent event) {
+						if (fhsHome.deckPanel.getWidgetCount()>3){
+							fhsHome.deckPanel.remove(fhsHome.deckPanel.getWidgetCount()-1);
+						}	
+						int SelectedProjID = fhsProjectList.selectionModel.getSelectedObject().getId();
+						String SelectedProjTitle = fhsProjectList.selectionModel.getSelectedObject().getProjTitle();
+						ProjResult = new Proj_Result(SelectedProjID);
+						String projvarssql = "";
+						projvarssql = ProjVarsSql + ProjVarsSqlWhereProjIdClause(SelectedProjID);
+						displayProjTables(projvarssql + " GROUP BY r.report_id", SelectedProjTitle);
+						fhsHome.deckPanel.add(ProjResult);
+						fhsHome.deckPanel.showWidget(fhsHome.deckPanel.getWidgetCount()-1);
+						deckPanel.showWidget(1);
+						//RootPanel.get("Loading-Message").setVisible(false);
+					}
+				});
+				fhsProjectList.verticalPanel2.add(fhsProjectList.projDetails);
+		    }
+		};
+		
+		
+		
+		Command locCommand = new Command(){
+		    public void execute(){
+		    	vpAppBanner.setVisible(true);
+		    	if (deckPanel.getWidgetCount()>2){
+		    		deckPanel.remove(2);
+		    	}
+		    	fhsCountryList.horizontalPanelSiteMap.add(siteMap);
+		    	siteMap.setLinkPanel(fhsCountryList.VPCntryDetails);
+		    	fhsHome.setPixelSize(deckPanel.getOffsetWidth(), deckPanel.getOffsetHeight());
+		    	deckPanel.showWidget(deckPanel.getWidgetCount()-1); //show fhsHome in deckPanel
+		    	fhsHome.htmlCntrySearch = new HTML("<p><b>How to Search By Country</b><p>\n\n<p>The process of retrieving data from this facility is sequential. Please follow the steps below to avoid errors.\n\n<p>\n<ol>\n<li>Select a country either from the list or from the map.</li><br>\n\n<li>Click the Browse Data button located at the bottom of the details window.</li><br>\n\n<li>Select a table and wait for the other windows to load.</li><br>\n\n<li>You may uncheck some variables and/or choose only specific years. Just make sure to wait for the windows to reload in between clicks.</li><br>\n\n<li>Navigate through the table by using the First, Previous, Next, and Last buttons. Click the Clear button to reset your selection.</li><br>\n\n<li>Click Download Data to retrieve a csv file.</li><br>\n</ol>\n\n", true);
+		    	fhsHome.verticalPanel.clear();
+		    	fhsHome.verticalPanel.add(fhsHome.htmlCntrySearch);
+		    	fhsHome.deckPanel.showWidget(1);
+		    }
+		};
+		
+		siteMap.SetSiteMapBrowseBtn(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {		
+				RootPanel.get("Loading-Message").setVisible(true);
+				if (fhsHome.deckPanel.getWidgetCount()>3){
+					fhsHome.deckPanel.remove(fhsHome.deckPanel.getWidgetCount()-1);
+				}
+				String SelectedCountry = siteMap.id;
+				LocResult = new Loc_Result(SelectedCountry);
+				String projvarssql = "";
+				projvarssql = ProjVarsSql2 + ProjVarsSqlWhereCountryClause(SelectedCountry);
+				displayCountryTables(projvarssql + " GROUP BY r.report_id", SelectedCountry);
+				fhsHome.deckPanel.add(LocResult);
+				fhsHome.deckPanel.showWidget(fhsHome.deckPanel.getWidgetCount()-1);	
+				deckPanel.showWidget(1);
+				RootPanel.get("Loading-Message").setVisible(false);
+			}
+		});
+		
+		Command tabCommand = new Command(){
+		    public void execute(){
+		    	vpAppBanner.setVisible(true);
+		    	if (deckPanel.getWidgetCount()>2){
+		    		deckPanel.remove(2);
+		    	}
+		    	deckPanel.showWidget(deckPanel.getWidgetCount()-1);
+				fhsHome.htmlTableSearch = new HTML("<p><b>How to Search By Table</b><p>\n\n<p>The process of retrieving data from this facility is sequential. Please follow the steps below to avoid errors.\n\n<p>\n<ol>\n<li>Select a table and wait for the other windows to load.</li><br>\n\n<li>You may uncheck some variables and/or choose only specific years and countries. Just make sure to wait for the windows to reload in between clicks.</li><br>\n\n<li>Navigate through the table by using the First, Previous, Next, and Last buttons. Click the Clear button to reset your selection.</li><br>\n\n<li>Click Download Data to retrieve a csv file.</li><br>\n</ol>\n\n", true);
+				fhsHome.verticalPanel.clear();
+				fhsHome.verticalPanel.add(fhsHome.htmlTableSearch);
+				fhsHome.deckPanel.showWidget(2);
+		    }
+		};
+		
+		Command homeCommand = new Command(){
+		    public void execute(){
+		    	vpAppBanner.setVisible(false);
+		    	deckPanel.showWidget(0);
+		        RootPanel.get("Loading-Message").setVisible(false);
+		    }
+		};
+		
+		Command contactCommand = new Command(){
+		    public void execute(){
+		    	ContactForm contactForm = new ContactForm();
+		    	contactForm.PopupContactUs.center();
+		    }
+		};
 		
 		mntmHome = new MenuItem("Home", homeCommand);
 		menuBar.addItem(mntmHome);
@@ -311,6 +311,8 @@ public class Fhs_angelika implements EntryPoint{
 		menuBar.addItem(mntmContactUs);
 		
 		dockLayoutPanel.add(deckPanel);
+		
+		projDetails = new ProjectDetails(ProjDetailsSql + ProjDetailsSqlWhereClause(65) + " GROUP BY 3", 65);
 		
 		fhsLandingPage.ProjProfileDeckPanel.add(projDetails);
 		fhsLandingPage.ProjProfileDeckPanel.showWidget(0);
@@ -341,7 +343,6 @@ public class Fhs_angelika implements EntryPoint{
 				fhsProjectList.projDetails = new ProjectDetails(ProjDetailsSql + ProjDetailsSqlWhereClause(SelectedProjID) + " GROUP BY 3", SelectedProjID);
 				fhsProjectList.projDetails.SetProjBrowseBtn(new ClickHandler() {
 					public void onClick(ClickEvent event) {
-						RootPanel.get("Loading-Message").setVisible(true);
 						if (fhsHome.deckPanel.getWidgetCount()>3){
 							fhsHome.deckPanel.remove(fhsHome.deckPanel.getWidgetCount()-1);
 						}	
@@ -357,6 +358,26 @@ public class Fhs_angelika implements EntryPoint{
 					}
 				});
 				fhsProjectList.verticalPanel2.add(fhsProjectList.projDetails);
+			}
+		});		
+		
+		
+//------Clickhandler for the browse button on the featured project shown in the landing page--------------------------------------------------------
+		projDetails.SetProjBrowseBtn(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				if (fhsHome.deckPanel.getWidgetCount()>3){
+					fhsHome.deckPanel.remove(fhsHome.deckPanel.getWidgetCount()-1);
+				}	
+				int SelectedProjID = 65;
+				String SelectedProjTitle = "Role of institution and policies for adoption of water saving technology in China";
+				ProjResult = new Proj_Result(SelectedProjID);
+				String projvarssql = "";
+				projvarssql = ProjVarsSql + ProjVarsSqlWhereProjIdClause(SelectedProjID);
+				displayProjTables(projvarssql + " GROUP BY r.report_id", SelectedProjTitle);
+				fhsHome.deckPanel.add(ProjResult);
+				fhsHome.deckPanel.showWidget(fhsHome.deckPanel.getWidgetCount()-1);
+				deckPanel.showWidget(1);
+				//RootPanel.get("Loading-Message").setVisible(false);
 			}
 		});		
 	}
