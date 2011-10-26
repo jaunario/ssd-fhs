@@ -356,7 +356,10 @@ public class Proj_Result extends Composite {
 						String tempval=temp[i];
 						numofnumcols[i]=Integer.parseInt(tempval);
 					}
-				}else numofnumcols=null;
+				}else {
+					numofnumcols=null;
+					RootPanel.get("Loading-Message").setVisible(false);	
+				}
 				
 				/**/
 				if(selcols!=""){
@@ -377,7 +380,6 @@ public class Proj_Result extends Composite {
 					FilterByCountry.setEnabled(false);
 					//RootPanel.get("Loading-Message").setVisible(false);
 				}
-				
 			}
 		});
 
