@@ -10,14 +10,12 @@ import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.DeckPanel;
 import com.google.gwt.user.client.ui.HTML;
 import org.irri.households.client.ui.PicsSlider;
-import org.irri.households.client.ui.Slider;
 import org.irri.households.client.ui.ColumnChartPanel;
 import org.irri.households.client.ui.PieChartPanel;
 import org.irri.households.client.ui.ScatterPlotPanel;
 
 
 public class Fhs_LandingPage extends Composite {
-	public Slider slider;
 	public DeckPanel ProjProfileDeckPanel;
 	private VerticalPanel verticalPanel;
 	private HorizontalPanel horizontalPanel;
