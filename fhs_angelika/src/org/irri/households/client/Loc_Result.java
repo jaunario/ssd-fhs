@@ -135,10 +135,11 @@ public class Loc_Result extends Composite {
 							SelectedYearSql = SelectedYearSql + SelectedYear_Sql + " or ";	
 						}
 					}
-					SelectedYearSql = " AND ("+SelectedYearSql.substring(0,SelectedYearSql.length()-4)+") ";
+					SelectedYearSql = " AND ("+SelectedYearSql.substring(0,SelectedYearSql.length()-4)+")) ";
 					
 					if (!varCheckBoxQuery.equals("")){
-						select = varCheckBoxQuery+SelectedYearSql; 
+						String select1 = varCheckBoxQuery.substring(0,varCheckBoxQuery.length()-2);
+						select = select1+SelectedYearSql; 
 					}else select = "SELECT * FROM " + SelectedTable + " WHERE " + site + " in (SELECT site_id FROM surveys s  where country='"+SelectedCountry+"'"+SelectedYearSql+") ";
 					
 					
@@ -253,7 +254,8 @@ public class Loc_Result extends Composite {
 				
 				if(selcols!=""){
 					selcols = selcols.substring(0, selcols.length()-1);
-					varCheckBoxQuery = "SELECT "+selcols+" FROM "+SelectedTable+" WHERE SUBSTRING_INDEX("+site2+",'-',2) in (SELECT site_id FROM surveys s) AND "+SelectedCountrySql;
+					//varCheckBoxQuery = "SELECT "+selcols+" FROM "+SelectedTable+" WHERE SUBSTRING_INDEX("+site2+",'-',2) in (SELECT site_id FROM surveys s) AND "+SelectedCountrySql;
+					varCheckBoxQuery = "SELECT "+selcols+" FROM "+SelectedTable+" WHERE SUBSTRING_INDEX("+site2+",'-',2) in (SELECT site_id FROM surveys s WHERE s.country='"+SelectedCountry+"') ";
 					if (SelectedTable.equalsIgnoreCase("surveys")){
 						displayLocTabYr("SELECT surveys.survey_year FROM "+SelectedTable+" WHERE SUBSTRING_INDEX("+site2+", '-', 2) IN (SELECT site_id FROM surveys s WHERE country='"+SelectedCountry+"') GROUP BY survey_year");
 					}else{
