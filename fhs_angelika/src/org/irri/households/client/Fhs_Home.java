@@ -25,6 +25,7 @@ public class Fhs_Home extends Composite {
 		
 		ScrollPanel scroll = new ScrollPanel();
 		initWidget(scroll);
+		scroll.setSize("100%", "100%");
 		
 		DockLayoutPanel dockLayoutPanel = new DockLayoutPanel(Unit.PX);
 		scroll.add(dockLayoutPanel);
