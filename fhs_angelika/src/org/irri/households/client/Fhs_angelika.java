@@ -50,39 +50,39 @@ public class Fhs_angelika implements EntryPoint{
 			"FROM reports r, repfields f, report_fields rf, available a LEFT JOIN surveys ON a.site=substring(surveys.site_id,1,8)" +
 			"WHERE a.report_id=r.report_id AND r.report_id=rf.report_id AND rf.field_id=f.field_id AND ";
 	
-	private HorizontalPanel horizontalPanelLinksContainer;
-	private DockLayoutPanel dockLayoutPanel;
-	private VerticalPanel vpIRRIBanner;
-	private Label label;
-	private Label label_1;
-	private HorizontalPanel hpAppBanner;
-	private Label lblFarmHouseholdSurvey;
-	private Label label_3;
-	private HorizontalPanel hpExternalNavigation;
-	private HTML html;
-	private HTML htmlworldRiceStatistics;
-	private MenuBar menuBar;
-	private MenuItem mntmNewMenu;
-	private MenuItem mntmByProject;
-	private MenuItem mntmByLocation;
-	private MenuItem mntmByTable;
-	private MenuItem mntmContactUs;
-	private RootLayoutPanel rootLayoutPanel;
+	private Fhs_CountryList fhsCountryList;
 	private Fhs_Home fhsHome;
-	private VerticalPanel vpExNavFHHSDC;
-	private VerticalPanel vpAppBanner;
-	private DeckPanel deckPanel;
-	private MenuItem mntmHome;
-	private Proj_Result ProjResult;
-	private Loc_Result LocResult;
 	private Fhs_LandingPage fhsLandingPage;
 	private Fhs_ProjectList fhsProjectList;
-	private Fhs_CountryList fhsCountryList;
-	private Var_Result varResult;
+	private Loc_Result LocResult;
+	private Proj_Result ProjResult;
 	private ProjectDetails projDetails;
 	private SiteMap siteMap;
+	private Var_Result varResult;
 	
+	private DeckPanel deckPanel;
+	private DockLayoutPanel dockLayoutPanel;
+	private HorizontalPanel horizontalPanelLinksContainer;
+	private HorizontalPanel hpAppBanner;
+	private HorizontalPanel hpExternalNavigation;private Label label;
+	private HTML html;
+	private HTML htmlworldRiceStatistics;
+	private Label label_1;
+	private Label label_3;
+	private Label lblFarmHouseholdSurvey;
+	private MenuBar menuBar;
+	private MenuItem mntmByLocation;
+	private MenuItem mntmByProject;
+	private MenuItem mntmByTable;
+	private MenuItem mntmContactUs;
+	private MenuItem mntmHome;
+	private MenuItem mntmNewMenu;
+	private RootLayoutPanel rootLayoutPanel;
+	private VerticalPanel vpAppBanner;
+	private VerticalPanel vpExNavFHHSDC;
+	private VerticalPanel vpIRRIBanner;
 	
+
 	public void onModuleLoad() {
 		RootPanel rootPanel = RootPanel.get("Loading-Message");
 		
@@ -162,6 +162,7 @@ public class Fhs_angelika implements EntryPoint{
 		mntmNewMenu = new MenuItem("New menu", false, menuBar_1);
 		
 		deckPanel = new DeckPanel();
+		dockLayoutPanel.add(deckPanel);
 		fhsLandingPage = new Fhs_LandingPage();
 		deckPanel.add(fhsLandingPage);
 		fhsLandingPage.setSize("100%", "100%");
@@ -313,7 +314,7 @@ public class Fhs_angelika implements EntryPoint{
 		mntmContactUs = new MenuItem("Contact Us", contactCommand);
 		menuBar.addItem(mntmContactUs);
 		
-		dockLayoutPanel.add(deckPanel);
+		
 		
 		projDetails = new ProjectDetails(ProjDetailsSql + ProjDetailsSqlWhereClause(65) + " GROUP BY 3", 65);
 		
