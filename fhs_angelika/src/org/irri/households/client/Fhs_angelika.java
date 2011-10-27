@@ -1,6 +1,7 @@
 package org.irri.households.client;
 
 
+//import org.irri.households.client.ui.ContactDetails;
 import org.irri.households.client.ui.ContactForm;
 import org.irri.households.client.ui.SiteMap;
 import com.google.gwt.core.client.EntryPoint;
@@ -289,7 +290,9 @@ public class Fhs_angelika implements EntryPoint{
 		Command contactCommand = new Command(){
 		    public void execute(){
 		    	ContactForm contactForm = new ContactForm();
+		    	//ContactDetails contactDetails = new ContactDetails();
 		    	contactForm.PopupContactUs.center();
+		    	//contactDetails.PopupContactUs.center();
 		    }
 		};
 		
