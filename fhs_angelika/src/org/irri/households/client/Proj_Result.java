@@ -143,13 +143,10 @@ public class Proj_Result extends Composite {
 				
 				int SelectedProjID = ProjID;
 				String SelectedTable = TablesListBox.getValue(TablesListBox.getSelectedIndex());
-				//String Selected_Year = FilterByYear.getValue(FilterByYear.getSelectedIndex());
-				//String SelectedYear = Selected_Year.substring(2,4);
 				String Selected_Year = "";
 				String SelectedYear = "";
 				String SelectedYear_Sql = "";
 				String SelectedYearSql = "";
-				//String SelectedCountry = FilterByCountry.getValue(FilterByCountry.getSelectedIndex());
 				String Selected_Country = "";
 				String SelectedCountry = "";
 				String SelectedCountrySql = "";
@@ -204,8 +201,6 @@ public class Proj_Result extends Composite {
 				
 				int SelectedProjID = ProjID;
 				String SelectedTable = TablesListBox.getValue(TablesListBox.getSelectedIndex());
-				//String Selected_Year = FilterByYear.getValue(FilterByYear.getSelectedIndex());
-				//String SelectedYear = Selected_Year.substring(2,4);
 				String Selected_Year = "";
 				String SelectedYear = "";
 				String SelectedYear_Sql = "";
@@ -213,10 +208,7 @@ public class Proj_Result extends Composite {
 				String site = "";
 				String site2 = "";
 				String select = "";
-				//String projvarssql = "";
 				if(TablesListBox.getSelectedIndex()>=0){
-					//projvarssql = ProjVarsSql + ProjVarsSqlWhereClause2(SelectedProjID, SelectedTable);
-					//displayProjVars(projvarssql + " GROUP BY r.report_id");
 					if (SelectedTable.equalsIgnoreCase("ot_car_partial")||SelectedTable.equalsIgnoreCase("ot_quantity_of_input")){
 	                    site = "SUBSTRING_INDEX(idp_code, '-', 2)";
 	                    site2 = "idp_code";
@@ -259,7 +251,6 @@ public class Proj_Result extends Composite {
 		});
 		
 		varCheckbox.addChangeHandler(new ChangeHandler() {
-			
 			@Override
 			public void onChange(ChangeEvent event) {	
 				RootPanel.get("Loading-Message").setVisible(true);
@@ -342,11 +333,9 @@ public class Proj_Result extends Composite {
 							}
 						}
 						numcol++;
-						/**/
 						selcols = selcols +colname+ ",";
 					}
 				}
-				/**/
 				if (numcols!=""){
 					numcols = numcols.substring(0, numcols.length()-1);
 					numofnumcols = new int[num];
@@ -361,7 +350,6 @@ public class Proj_Result extends Composite {
 					RootPanel.get("Loading-Message").setVisible(false);	
 				}
 				
-				/**/
 				if(selcols!=""){
 					selcols = selcols.substring(0, selcols.length()-1);
 					varCheckBoxQuery = "SELECT "+selcols+" FROM "+SelectedTable+" WHERE SUBSTRING_INDEX("+site2+",'-',2) in (SELECT site_id FROM surveys s WHERE project_id="+SelectedProjID+")";
@@ -378,7 +366,6 @@ public class Proj_Result extends Composite {
 					ProjResSimplePanel.clear();
 					FilterByYear.setEnabled(false);
 					FilterByCountry.setEnabled(false);
-					//RootPanel.get("Loading-Message").setVisible(false);
 				}
 			}
 		});
