@@ -155,7 +155,8 @@ public class Var_Result extends Composite {
 					}
 					
 					if (!varCheckBoxQuery.equals("")){
-						select = varCheckBoxQuery.substring(0, varCheckBoxQuery.length()-1) + " AND "+SelectedYearSql+" ";
+						//select = varCheckBoxQuery.substring(0, varCheckBoxQuery.length()-1) + " AND "+SelectedYearSql+" ";
+						select = varCheckBoxQuery.substring(0, varCheckBoxQuery.length()-2) + " WHERE "+SelectedYearSql+") ";
 					}else select = "SELECT * FROM " + SelectedTable + " WHERE " + site + " in (SELECT site_id FROM surveys s WHERE "+SelectedYearSql+") ";
 					
 					if (SelectedTable.equalsIgnoreCase("surveys")){
@@ -227,9 +228,15 @@ public class Var_Result extends Composite {
 					}
 					SelectedCountrySql = SelectedCountrySql.substring(0,SelectedCountrySql.length()-4);
 					
-					if (!varCheckBoxQuery.equals("")){
-						select = varCheckBoxQuery.substring(0, varCheckBoxQuery.length()-1)+ SelectedYearSql+" AND ("+SelectedCountrySql+")";
-					}else select = "SELECT * FROM " + SelectedTable + " WHERE SUBSTRING_INDEX("+site2+",'-',2) in (SELECT site_id FROM surveys s WHERE "+SelectedYearSql.substring(5)+") AND " +SelectedCountrySql;
+					if (!varCheckBoxQuery.equals("") && (!SelectedYearSql.equals(""))){
+						select = varCheckBoxQuery.substring(0, varCheckBoxQuery.length()-2)+" WHERE ("+SelectedYearSql.substring(6)+" AND ("+SelectedCountrySql+"))";
+					}else if (varCheckBoxQuery.equals("") && (!SelectedYearSql.equals(""))){
+						select = "SELECT * FROM " + SelectedTable + " WHERE SUBSTRING_INDEX("+site2+",'-',2) in (SELECT site_id FROM surveys s WHERE "+SelectedYearSql.substring(5)+" AND " +SelectedCountrySql+")";
+					}else if (!varCheckBoxQuery.equals("") && (SelectedYearSql.equals(""))){
+						select = varCheckBoxQuery.substring(0, varCheckBoxQuery.length()-2)+" WHERE ("+SelectedCountrySql+"))";
+					}else if (varCheckBoxQuery.equals("") && (SelectedYearSql.equals(""))){
+						select = "SELECT * FROM " + SelectedTable + " WHERE SUBSTRING_INDEX("+site2+",'-',2) in (SELECT site_id FROM surveys s WHERE "+SelectedCountrySql+")";
+					} 
 					mcpResultPanel.setQueryVarCheckBox(select, SelectedTable, numofnumcols);
 					VarResSimplePanel.setWidget(mcpResultPanel);
 				}
