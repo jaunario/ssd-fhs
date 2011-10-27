@@ -140,7 +140,7 @@ public class Loc_Result extends Composite {
 					if (!varCheckBoxQuery.equals("")){
 						String select1 = varCheckBoxQuery.substring(0,varCheckBoxQuery.length()-2);
 						select = select1+SelectedYearSql; 
-					}else select = "SELECT * FROM " + SelectedTable + " WHERE " + site + " in (SELECT site_id FROM surveys s  where country='"+SelectedCountry+"'"+SelectedYearSql+") ";
+					}else select = "SELECT * FROM " + SelectedTable + " WHERE " + site + " in (SELECT site_id FROM surveys s  where country='"+SelectedCountry+"'"+SelectedYearSql;
 					
 					
 					mcpResultPanel.setQueryVarCheckBox(select, SelectedTable, numofnumcols);
