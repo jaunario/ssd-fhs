@@ -206,6 +206,7 @@ public class Fhs_angelika implements EntryPoint{
 				fhsHome.deckPanel.showWidget(0);
 		    	fhsProjectList.verticalPanel2.clear();
 				int SelectedProjID = 5;
+				fhsProjectList.selectionModel.setSelected(fhsProjectList.projects.get(0), true);
 				fhsProjectList.projDetails = new ProjectDetails(ProjDetailsSql + ProjDetailsSqlWhereClause(SelectedProjID) + " GROUP BY 3", SelectedProjID);
 				fhsProjectList.projDetails.SetProjBrowseBtn(new ClickHandler() {
 					public void onClick(ClickEvent event) {
