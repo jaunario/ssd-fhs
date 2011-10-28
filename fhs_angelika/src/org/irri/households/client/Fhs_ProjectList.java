@@ -40,6 +40,7 @@ public class Fhs_ProjectList extends Composite {
 	public VerticalPanel verticalPanel2;
 	public ProjectDetails projDetails;
 	private VerticalPanel verticalPanel;
+	public List<ProjectInfo> projects;
 
 
 	public Fhs_ProjectList() {		
@@ -156,7 +157,7 @@ public class Fhs_ProjectList extends Composite {
 	final AsyncCallback<String[][]> PopulateCellList = new AsyncCallback<String[][]>() {
         public void onSuccess(String[][] result) {
             try{
-            	List<ProjectInfo> projects = new ArrayList<ProjectInfo>();
+            	/*List<ProjectInfo>*/ projects = new ArrayList<ProjectInfo>();
                 for (int i = 1;i<result.length;i++){
                 	projects.add(new ProjectInfo(Integer.parseInt(result[i][0]),result[i][1]));                	
                 }
