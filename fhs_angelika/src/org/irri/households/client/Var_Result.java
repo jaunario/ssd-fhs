@@ -81,7 +81,8 @@ public class Var_Result extends Composite {
 	                }else {
 	                    site2 = "site_id";
 	                }
-					select = "SELECT * FROM " + SelectedTable + " WHERE SUBSTRING_INDEX("+site2+",'-',2) in (SELECT site_id FROM surveys s) ";
+					//select = "SELECT * FROM " + SelectedTable + " WHERE SUBSTRING_INDEX("+site2+",'-',2) in (SELECT site_id FROM surveys s) ";
+					select = "SELECT * FROM " + SelectedTable + " WHERE mid("+site2+",1,11) in (SELECT mid(site_id,1,11) FROM surveys s) ";
 					if (SelectedTable.equalsIgnoreCase("surveys")){
 						displayVarTabYr("SELECT surveys.survey_year FROM "+SelectedTable+" WHERE SUBSTRING_INDEX("+site2+", '-', 2) in (SELECT site_id FROM surveys s) GROUP BY survey_year");
 						displayVarTabCntry("SELECT country FROM "+SelectedTable+" WHERE SUBSTRING_INDEX("+site2+", '-', 2) in (SELECT site_id FROM surveys s) GROUP BY country");
@@ -263,7 +264,7 @@ public class Var_Result extends Composite {
                 }else {
                     site2 = "site_id";
                 }
-				for (int i = 1; i < varCheckbox.getItemCount(); i++) {
+				for (int i = /*1*/0; i < varCheckbox.getItemCount(); i++) {
 					if(varCheckbox.getItem(i).getValue()){
 						String colname = varCheckbox.getItem(i).getName();
 						if (colname.equalsIgnoreCase("project")){
