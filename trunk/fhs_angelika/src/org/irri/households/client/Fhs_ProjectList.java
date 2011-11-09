@@ -60,6 +60,7 @@ public class Fhs_ProjectList extends Composite {
 		verticalPanel = new VerticalPanel();
 		verticalPanel.setStyleName("FHS-TablesListBox");
 		ProjSearchHPanel2.add(verticalPanel);
+		verticalPanel.setSize("302px", "701px");
 		
 		cellList.setStyleName("FHS-ProjCellList");
 		cellList.setSize("300px", "698px");
@@ -68,6 +69,7 @@ public class Fhs_ProjectList extends Composite {
 		
 		scrollPanel = new ScrollPanel();
 		verticalPanel.add(scrollPanel);
+		scrollPanel.setSize("300px", "699px");
 		
 		scrollPanel.setWidget(cellList);
 				
@@ -80,7 +82,7 @@ public class Fhs_ProjectList extends Composite {
 		ProjSearchHPanel2.setCellHeight(verticalPanel2, "600px");
 		ProjSearchHPanel2.setCellWidth(verticalPanel2, "500px");
 		
-		projDetails = new ProjectDetails(ProjDetailsSql + ProjDetailsSqlWhereClause(5) + " GROUP BY 3", 5);
+		projDetails = new ProjectDetails(ProjDetailsSql + ProjDetailsSqlWhereClause(5) + " GROUP BY 3", /*5*/1);
 		verticalPanel2.add(projDetails);
 	
 		ProjBrowseBtn = new Button("BROWSE DATA");
