@@ -22,6 +22,11 @@ public class ChartDataTable{
 		options.setNegativeColor("red");
 		NumberFormat formatter = NumberFormat.create(options);
 		
+		Options options2 = Options.create();
+		options2.setFractionDigits(0);
+		options2.setNegativeColor("red");
+		NumberFormat formatter2 = NumberFormat.create(options2);
+		
 		for (int i = 0; i < data.length; i++) {
 			if(i==1) datatable.addRows(data.length-1); 
 			for (int j = 0; j < data[i].length; j++) {
@@ -33,11 +38,48 @@ public class ChartDataTable{
 						datatable.addColumn(ColumnType.NUMBER,data[i][j]);
 						formatter.format(datatable, i);						
 					} else datatable.addColumn(ColumnType.STRING,data[i][j]);
-				} else {
+				} else {					
 					// Add record row
 					if (data[i][j]!= null){
-						if (isnumeric) datatable.setValue(i-1, j, Float.parseFloat(data[i][j]));
-						else datatable.setValue(i-1, j, data[i][j]);
+						if (isnumeric) {
+							
+							if (data[0][j].equalsIgnoreCase("lat")||
+								data[0][j].equalsIgnoreCase("long")||
+								data[0][j].equalsIgnoreCase("percent")||
+								data[0][j].equalsIgnoreCase("area")||
+								data[0][j].equalsIgnoreCase("qty_per_year")||
+								data[0][j].equalsIgnoreCase("val_exp")||
+								data[0][j].equalsIgnoreCase("lp")||
+								data[0][j].equalsIgnoreCase("ce")||
+								data[0][j].equalsIgnoreCase("cc")||
+								data[0][j].equalsIgnoreCase("hvth")||
+								data[0][j].equalsIgnoreCase("n")||
+								data[0][j].equalsIgnoreCase("p")||
+								data[0][j].equalsIgnoreCase("k")||
+								data[0][j].equalsIgnoreCase("seeds")||
+								data[0][j].equalsIgnoreCase("yield")||
+								data[0][j].equalsIgnoreCase("fertilizer")||
+								data[0][j].equalsIgnoreCase("pesticides")||
+								data[0][j].equalsIgnoreCase("herbicide")||
+								data[0][j].equalsIgnoreCase("insecticide")||
+								data[0][j].equalsIgnoreCase("fuel and oil")||
+								data[0][j].equalsIgnoreCase("land rent")||
+								data[0][j].equalsIgnoreCase("irrigation")||
+								data[0][j].equalsIgnoreCase("otherinput")||
+								data[0][j].equalsIgnoreCase("hiredlabor")||
+								data[0][j].equalsIgnoreCase("foodcost")||
+								data[0][j].equalsIgnoreCase("valueofproduction")||
+								data[0][j].equalsIgnoreCase("price_kg")
+								){
+								datatable.setValue(i-1, j, Float.parseFloat(data[i][j]));
+								formatter.format(datatable, j);
+							}else if (data[0][j].equalsIgnoreCase("prod")){
+								datatable.setValue(i-1, j, Float.parseFloat(data[i][j]));
+								formatter2.format(datatable, j);
+							}else{
+							datatable.setValue(i-1, j, Float.parseFloat(data[i][j]));
+							}
+						} else datatable.setValue(i-1, j, data[i][j]);
 					}
 				}
 			}
