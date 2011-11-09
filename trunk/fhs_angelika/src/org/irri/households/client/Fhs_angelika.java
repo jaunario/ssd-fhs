@@ -205,7 +205,7 @@ public class Fhs_angelika implements EntryPoint{
 				fhsHome.verticalPanel.add(fhsHome.htmlProjSearch);
 				fhsHome.deckPanel.showWidget(0);
 		    	fhsProjectList.verticalPanel2.clear();
-				int SelectedProjID = 5;
+				int SelectedProjID = /*5*/1;
 				fhsProjectList.selectionModel.setSelected(fhsProjectList.projects.get(0), true);
 				fhsProjectList.projDetails = new ProjectDetails(ProjDetailsSql + ProjDetailsSqlWhereClause(SelectedProjID) + " GROUP BY 3", SelectedProjID);
 				fhsProjectList.projDetails.SetProjBrowseBtn(new ClickHandler() {
@@ -317,7 +317,7 @@ public class Fhs_angelika implements EntryPoint{
 		
 		
 		
-		projDetails = new ProjectDetails(ProjDetailsSql + ProjDetailsSqlWhereClause(65) + " GROUP BY 3", 65);
+		projDetails = new ProjectDetails(ProjDetailsSql + ProjDetailsSqlWhereClause(/*65*/12) + " GROUP BY 3", 12);
 		
 		fhsLandingPage.ProjProfileDeckPanel.add(projDetails);
 		fhsLandingPage.ProjProfileDeckPanel.showWidget(0);
