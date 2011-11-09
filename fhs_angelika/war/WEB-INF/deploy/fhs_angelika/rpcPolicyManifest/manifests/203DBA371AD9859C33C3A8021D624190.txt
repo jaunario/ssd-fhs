@@ -1,2 +1,0 @@
-serviceClass: org.irri.households.client.dbConnect
-path: 8C50A91FD72279234B7C4C3D53AB70ED.gwt.rpc

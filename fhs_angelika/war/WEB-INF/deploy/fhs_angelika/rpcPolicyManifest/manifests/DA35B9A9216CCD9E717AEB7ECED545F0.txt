@@ -1,2 +1,0 @@
-serviceClass: org.irri.households.client.DownloadService
-path: 81B872C1E5A61A41056BCA2B8175D9CC.gwt.rpc
