@@ -250,7 +250,7 @@ public class Loc_Result extends Composite {
 				}else numofnumcols=null;
 				
 				/**/
-				String SelectedCountrySql = "country = '"+SelectedCountry+"'";
+				//String SelectedCountrySql = "country = '"+SelectedCountry+"'";
 				
 				if(selcols!=""){
 					selcols = selcols.substring(0, selcols.length()-1);

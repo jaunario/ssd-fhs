@@ -1,9 +1,9 @@
-<project name="fhs" basedir="." default="default">
+<project name="fhs_angelika" basedir="." default="default">
  
 	<target name="default" depends="buildwar,deploy"></target>
  
 	<target name="buildwar">
-		<war basedir="war" destfile="fhs.war" webxml="war/WEB-INF/web.xml">
+		<war basedir="war" destfile="fhs_angelika.war" webxml="war/WEB-INF/web.xml">
 			<exclude name="WEB-INF/**" />
 			<webinf dir="war/WEB-INF/">
 				<include name="**/*.jar" />
@@ -12,7 +12,7 @@
 	</target>
  
 	<target name="deploy">
-		<copy file="fhs.war" todir="." />
+		<copy file="fhs_angelika.war" todir="." />
 	</target>
  
 </project>
