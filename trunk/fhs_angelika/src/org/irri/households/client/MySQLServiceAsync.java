@@ -8,6 +8,7 @@
  */
 
 package org.irri.households.client;
+
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 
@@ -20,4 +21,6 @@ public interface MySQLServiceAsync {
     public void RunSELECT(String Query, AsyncCallback<String[][]> callback);
     public void SaveCSV(String data, AsyncCallback<String> callback);
     public void downloadCSVFromQuery(String sqlquery, AsyncCallback<String> callback);
+    public void SendMail(String table, String email, String resultURL, AsyncCallback<Void> callback);
+
 }
