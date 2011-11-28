@@ -63,7 +63,12 @@ public class Var_Result extends Composite {
 			@Override
 			public void onChange(ChangeEvent event) {	
 				RootPanel.get("Loading-Message").setVisible(true);
-				
+				/**/
+				CheckboxHPanel.clear();
+				FilterByYear.clear();
+				FilterByCountry.clear();
+				mcpResultPanel.vpTablePage.clear();
+				/**/
 				String SelectedTable = TablesListBox.getValue(TablesListBox.getSelectedIndex());
 				String site2 = "";
 				String select = "";
@@ -84,11 +89,11 @@ public class Var_Result extends Composite {
 					//select = "SELECT * FROM " + SelectedTable + " WHERE SUBSTRING_INDEX("+site2+",'-',2) in (SELECT site_id FROM surveys s) ";
 					select = "SELECT * FROM " + SelectedTable + " WHERE mid("+site2+",1,11) in (SELECT mid(site_id,1,11) FROM surveys s) ";
 					if (SelectedTable.equalsIgnoreCase("surveys")){
-						displayVarTabYr("SELECT surveys.survey_year FROM "+SelectedTable+" WHERE SUBSTRING_INDEX("+site2+", '-', 2) in (SELECT site_id FROM surveys s) GROUP BY survey_year");
-						displayVarTabCntry("SELECT country FROM "+SelectedTable+" WHERE SUBSTRING_INDEX("+site2+", '-', 2) in (SELECT site_id FROM surveys s) GROUP BY country");
+						displayVarTabYr("SELECT surveys.survey_year FROM "+SelectedTable+" WHERE mid("+site2+",1,11) in (SELECT mid(site_id,1,11) FROM surveys s) GROUP BY survey_year");
+						displayVarTabCntry("SELECT country FROM "+SelectedTable+" WHERE mid("+site2+",1,11) in (SELECT mid(site_id,1,11) FROM surveys s) GROUP BY country");
 					}else{
-						displayVarTabYr("SELECT surveys.survey_year FROM "+SelectedTable+" left join surveys on substring("+SelectedTable+"."+site2+",1,11)=substring(surveys.site_id,1,11) WHERE SUBSTRING_INDEX("+site2+", '-', 2) in (SELECT site_id FROM surveys s) GROUP BY survey_year");
-						displayVarTabCntry("SELECT country FROM "+SelectedTable+" left join surveys on substring("+site2+",1,11)=substring(surveys.site_id,1,11) WHERE SUBSTRING_INDEX("+site2+", '-', 2) in (SELECT site_id FROM surveys s) GROUP BY country");
+						displayVarTabYr("SELECT surveys.survey_year FROM "+SelectedTable+" left join surveys on mid("+SelectedTable+"."+site2+",1,11)=mid(surveys.site_id,1,11) WHERE mid("+site2+",1,11) in (SELECT mid(site_id,1,11) FROM surveys s) GROUP BY survey_year");
+						displayVarTabCntry("SELECT country FROM "+SelectedTable+" left join surveys on mid("+site2+",1,11)=mid(surveys.site_id,1,11) WHERE mid("+site2+",1,11) in (SELECT mid(site_id,1,11) FROM surveys s) GROUP BY country");
 					}
 					mcpResultPanel.setQuery(select, SelectedTable);
 					VarResSimplePanel.setWidget(mcpResultPanel);
@@ -120,7 +125,10 @@ public class Var_Result extends Composite {
 			@Override
 			public void onChange(ChangeEvent event) {	
 				RootPanel.get("Loading-Message").setVisible(true);
-				
+				/**/
+				FilterByCountry.clear();
+				mcpResultPanel.vpTablePage.clear();
+				/**/
 				String SelectedTable = TablesListBox.getValue(TablesListBox.getSelectedIndex());
 				String Selected_Year = "";
 				String SelectedYear = "";
@@ -187,7 +195,9 @@ public class Var_Result extends Composite {
 			@Override
 			public void onChange(ChangeEvent event) {
 				RootPanel.get("Loading-Message").setVisible(true);
-				
+				/**/
+				mcpResultPanel.vpTablePage.clear();
+				/**/
 				String SelectedTable = TablesListBox.getValue(TablesListBox.getSelectedIndex());
 				String Selected_Year = "";
 				String SelectedYear = "";
@@ -232,7 +242,7 @@ public class Var_Result extends Composite {
 					if (!varCheckBoxQuery.equals("") && (!SelectedYearSql.equals(""))){
 						select = varCheckBoxQuery.substring(0, varCheckBoxQuery.length()-2)+" WHERE ("+SelectedYearSql.substring(6)+" AND ("+SelectedCountrySql+"))";
 					}else if (varCheckBoxQuery.equals("") && (!SelectedYearSql.equals(""))){
-						select = "SELECT * FROM " + SelectedTable + " WHERE SUBSTRING_INDEX("+site2+",'-',2) in (SELECT site_id FROM surveys s WHERE "+SelectedYearSql.substring(5)+" AND " +SelectedCountrySql+")";
+						select = "SELECT * FROM " + SelectedTable + " WHERE SUBSTRING_INDEX("+site2+",'-',2) in (SELECT site_id FROM surveys s WHERE "+SelectedYearSql.substring(5)+" AND (" +SelectedCountrySql+"))";
 					}else if (!varCheckBoxQuery.equals("") && (SelectedYearSql.equals(""))){
 						select = varCheckBoxQuery.substring(0, varCheckBoxQuery.length()-2)+" WHERE ("+SelectedCountrySql+"))";
 					}else if (varCheckBoxQuery.equals("") && (SelectedYearSql.equals(""))){
@@ -249,7 +259,11 @@ public class Var_Result extends Composite {
 			@Override
 			public void onChange(ChangeEvent event) {	
 				RootPanel.get("Loading-Message").setVisible(true);
-				
+				/**/
+				FilterByYear.clear();
+				FilterByCountry.clear();
+				mcpResultPanel.vpTablePage.clear();
+				/**/
 				String SelectedTable = TablesListBox.getValue(TablesListBox.getSelectedIndex());
 				String selcols = "";
 				String site2 = "";
@@ -460,6 +474,7 @@ public class Var_Result extends Composite {
                 if (FilterByYear.getItemCount()<2){
             		FilterByYear.setEnabled(false);
             	}
+                RootPanel.get("Loading-Message").setVisible(false);
             }
         };
         UtilsRPC.getService("mysqlservice").RunSELECT(sql, FetchDetails);
@@ -481,7 +496,7 @@ public class Var_Result extends Composite {
             	if (FilterByCountry.getItemCount()<2){
             		FilterByCountry.setEnabled(false);
             	}
-            	RootPanel.get("Loading-Message").setVisible(false);
+            	
             }
         };
         UtilsRPC.getService("mysqlservice").RunSELECT(sql, FetchDetails);
