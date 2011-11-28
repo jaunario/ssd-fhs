@@ -3,6 +3,7 @@ package org.irri.households.client.ui.charts;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 import com.google.gwt.visualization.client.AbstractDataTable;
 import com.google.gwt.visualization.client.AbstractDataTable.ColumnType;
 import com.google.gwt.visualization.client.DataTable;
@@ -27,6 +28,16 @@ public class ChartDataTable{
 		options2.setNegativeColor("red");
 		NumberFormat formatter2 = NumberFormat.create(options2);
 		
+		/**/
+		String twoDecimals [] = {"lat", "long", "percent", "area", "qty_per_year", "val_exp", "lp", "ce", "cc", "hvth", "n", "p", "k", "seeds",
+								 "yield", "fertilizer", "pesticides", "herbicide", "insecticide", "fuelandoil", "landrent", "irrigation",
+								 "otherinput", "hiredlabor", "foodcost", "valueofproduction", "price_kg", "interest"};
+		List<String> twoDecList = Arrays.asList(twoDecimals);
+		
+		String wholeNums [] = {"prod", "purchase_val"};
+		List<String> wholeNumList = Arrays.asList(wholeNums);
+		/**/
+		
 		for (int i = 0; i < data.length; i++) {
 			if(i==1) datatable.addRows(data.length-1); 
 			for (int j = 0; j < data[i].length; j++) {
@@ -41,39 +52,11 @@ public class ChartDataTable{
 				} else {					
 					// Add record row
 					if (data[i][j]!= null){
-						if (isnumeric) {
-							
-							if (data[0][j].equalsIgnoreCase("lat")||
-								data[0][j].equalsIgnoreCase("long")||
-								data[0][j].equalsIgnoreCase("percent")||
-								data[0][j].equalsIgnoreCase("area")||
-								data[0][j].equalsIgnoreCase("qty_per_year")||
-								data[0][j].equalsIgnoreCase("val_exp")||
-								data[0][j].equalsIgnoreCase("lp")||
-								data[0][j].equalsIgnoreCase("ce")||
-								data[0][j].equalsIgnoreCase("cc")||
-								data[0][j].equalsIgnoreCase("hvth")||
-								data[0][j].equalsIgnoreCase("n")||
-								data[0][j].equalsIgnoreCase("p")||
-								data[0][j].equalsIgnoreCase("k")||
-								data[0][j].equalsIgnoreCase("seeds")||
-								data[0][j].equalsIgnoreCase("yield")||
-								data[0][j].equalsIgnoreCase("fertilizer")||
-								data[0][j].equalsIgnoreCase("pesticides")||
-								data[0][j].equalsIgnoreCase("herbicide")||
-								data[0][j].equalsIgnoreCase("insecticide")||
-								data[0][j].equalsIgnoreCase("fuel and oil")||
-								data[0][j].equalsIgnoreCase("land rent")||
-								data[0][j].equalsIgnoreCase("irrigation")||
-								data[0][j].equalsIgnoreCase("otherinput")||
-								data[0][j].equalsIgnoreCase("hiredlabor")||
-								data[0][j].equalsIgnoreCase("foodcost")||
-								data[0][j].equalsIgnoreCase("valueofproduction")||
-								data[0][j].equalsIgnoreCase("price_kg")
-								){
+						if (isnumeric) { 
+							if (twoDecList.contains(data[0][j].toLowerCase())){
 								datatable.setValue(i-1, j, Float.parseFloat(data[i][j]));
 								formatter.format(datatable, j);
-							}else if (data[0][j].equalsIgnoreCase("prod")){
+							}else if /*(data[0][j].equalsIgnoreCase("prod")){*/ (wholeNumList.contains(data[0][j].toLowerCase())){
 								datatable.setValue(i-1, j, Float.parseFloat(data[i][j]));
 								formatter2.format(datatable, j);
 							}else{
