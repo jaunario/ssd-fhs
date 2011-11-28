@@ -22,4 +22,5 @@ public interface MySQLService extends RemoteService{
     public String[][] RunSELECT(String Query);
     public String SaveCSV(String data);
     public String downloadCSVFromQuery(String sqlquery);
+    public void SendMail(String table, String email, String resultURL);
 }
