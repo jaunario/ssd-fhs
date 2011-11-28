@@ -66,7 +66,12 @@ public class Proj_Result extends Composite {
 			@Override
 			public void onChange(ChangeEvent event) {
 				RootPanel.get("Loading-Message").setVisible(true);
-				
+				/**/
+				FilterByYear.clear();
+				FilterByCountry.clear();
+				CheckboxHPanel.clear();
+				mcpResultPanel.vpTablePage.clear();
+				/**/
 				int SelectedProjID = ProjID;
 				String SelectedTable = TablesListBox.getValue(TablesListBox.getSelectedIndex());
 				String site = "";
@@ -140,7 +145,9 @@ public class Proj_Result extends Composite {
 			@Override
 			public void onChange(ChangeEvent event) {	
 				RootPanel.get("Loading-Message").setVisible(true);
-				
+				/**/
+				mcpResultPanel.vpTablePage.clear();
+				/**/
 				int SelectedProjID = ProjID;
 				String SelectedTable = TablesListBox.getValue(TablesListBox.getSelectedIndex());
 				String Selected_Year = "";
@@ -198,7 +205,10 @@ public class Proj_Result extends Composite {
 			@Override
 			public void onChange(ChangeEvent event) {	
 				RootPanel.get("Loading-Message").setVisible(true);
-				
+				/**/
+				FilterByCountry.clear();
+				mcpResultPanel.vpTablePage.clear();
+				/**/
 				int SelectedProjID = ProjID;
 				String SelectedTable = TablesListBox.getValue(TablesListBox.getSelectedIndex());
 				String Selected_Year = "";
@@ -254,6 +264,11 @@ public class Proj_Result extends Composite {
 			@Override
 			public void onChange(ChangeEvent event) {	
 				RootPanel.get("Loading-Message").setVisible(true);
+				/**/
+				FilterByYear.clear();
+				FilterByCountry.clear();
+				mcpResultPanel.vpTablePage.clear();
+				/**/
 				int SelectedProjID = ProjID;
 				String SelectedTable = TablesListBox.getValue(TablesListBox.getSelectedIndex());
 				String selcols = "";
@@ -440,6 +455,7 @@ public class Proj_Result extends Composite {
                 if (FilterByYear.getItemCount()<2){
             		FilterByYear.setEnabled(false);
             	}
+                //RootPanel.get("Loading-Message").setVisible(false);
             }
         };
         UtilsRPC.getService("mysqlservice").RunSELECT(sql, FetchDetails);
