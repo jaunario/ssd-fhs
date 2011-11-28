@@ -1,6 +1,8 @@
 package org.irri.households.client.ui.charts;
 
+
 import org.irri.households.client.UtilsRPC;
+import org.irri.households.client.ui.GetEmailAdd;
 import org.irri.households.client.utils.NumberUtils;
 import org.irri.households.client.utils.RPCUtils;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -35,11 +37,12 @@ public class MultiChartPanel extends Composite {
 	int totalrows = 0;
 	int lastrec = 100;
 	String[][] rawdata;
+	String selecttable;
 	AbstractDataTable tabledata;
 	private int page;
 	public int[] numerics;
 	private DeckPanel deckChartPager;
-	private VerticalPanel vpTablePage;
+	public VerticalPanel vpTablePage;
 	private Label lblRowCountDetails;
 	private VerticalPanel verticalPanel;
 	private Button btnFirst;
@@ -50,6 +53,8 @@ public class MultiChartPanel extends Composite {
 	private HorizontalPanel horizontalPanel_2;
 	private Button btnClear;
 	private HorizontalPanel horizontalPanel_3;
+	private GetEmailAdd getEmail;
+	private String emailadd;
 	/**
 	 * @wbp.parser.constructor
 	 */
@@ -75,7 +80,7 @@ public class MultiChartPanel extends Composite {
 			public void execute() {
 				drawTable();
 				if (deckChartPager.getWidgetCount()>1){
-					for (int i = 1; i < deckChartPager.getWidgetCount(); i++) {
+					for (int i = /*1*/0; i < deckChartPager.getWidgetCount(); i++) {
 						WRSChart thischart = (WRSChart) deckChartPager.getWidget(i);
 						thischart.resize(deckChartPager.getOffsetWidth(), deckChartPager.getOffsetHeight());
 					}
@@ -85,13 +90,57 @@ public class MultiChartPanel extends Composite {
 		mntmRedraw.setTitle("Click here refit charts/table into the panel when you resize the browser");
 		mbTableOptions.addItem(mntmRedraw);
 		
-		MenuItem mntmDownload = new MenuItem("Download", false, new Command() {
+		getEmail = new GetEmailAdd();
+		
+		MenuItem mntmDownload = new MenuItem("Download Data", false, new Command() {
+			
 			public void execute() {
-				int tab = deckChartPager.getVisibleWidget();
+				final int tab = deckChartPager.getVisibleWidget();
+				
+				
+				
+				if (totalrows>=2000){
+					getEmail.PopupGetEmail.center();
+					getEmail.SetGetEmailSendBtn(new ClickHandler(){
+						public void onClick(ClickEvent event) {
+							emailadd = getEmail.textBoxEmail.getValue();
+							getEmail.PopupGetEmail.hide();
+							
+							if (getEmail.chkremember.getValue()){
+										getEmail.textBoxEmail.setValue(emailadd);
+							}else {
+								getEmail.textBoxEmail.setValue("");
+							}
+															
+							switch (tab) {
+							case 0:															
+								/**/
+								AsyncCallback<Void> sendmailAsyncCallback = new AsyncCallback<Void>() {
+									@Override
+									public void onSuccess(Void result) {
+										System.out.println("Mail sent!");
+									}
+									
+									@Override
+									public void onFailure(Throwable caught) {
+										System.out.println("Sending failed!");
+									}
+
+									
+								};
+								RPCUtils.getService("mysqlservice").SendMail(selecttable, emailadd, basequery, sendmailAsyncCallback);
+								/**/
+								break;
+							default:
+								break;
+							}
+							
+						}
+					});
+				}else{
 				switch (tab) {
 				case 0:
 					AsyncCallback<String> downloadAsyncCallback = new AsyncCallback<String>() {
-						
 						@Override
 						public void onSuccess(String result) {
 							Frame myframe = new Frame(result);
@@ -113,10 +162,10 @@ public class MultiChartPanel extends Composite {
 
 				default:
 					break;
-				}
+				}}
 			}
 		});
-		mntmDownload.setHTML("Download Data");
+		//mntmDownload.setHTML("Download Data");
 		mbTableOptions.addItem(mntmDownload);
 
 		deckChartPager = new DeckPanel();
@@ -312,6 +361,36 @@ public class MultiChartPanel extends Composite {
 		
 	}
 	
+	/*
+	public int[] getNumericColsofTable(String SelectedTable){
+		int[] numcols = new int[0];
+		if (SelectedTable.equalsIgnoreCase("surveys")){
+			numcols = new int[] {1,2,7,8,9,10};
+		}else if(SelectedTable.equalsIgnoreCase("households")){
+			numcols = new int[] {1,5,7,8};
+		}else if(SelectedTable.equalsIgnoreCase("assets")){
+			numcols = new int[] {1,4,5,6,7};	
+		}else if(SelectedTable.equalsIgnoreCase("land_profile")){
+			numcols = new int[] {1,2,7};
+		}else if(SelectedTable.equalsIgnoreCase("land_use")){
+			numcols = new int[] {2,3,4,10,11,12};
+		}else if(SelectedTable.equalsIgnoreCase("crop_disposal")){
+			numcols = new int[] {3,4,5,6,7,8,9,10,11,12,13,14};
+		}else if(SelectedTable.equalsIgnoreCase("income")){
+			numcols = new int[] {3,4};
+		}else if(SelectedTable.equalsIgnoreCase("consump_expend")){
+			numcols = new int[] {3,5};
+		}else if(SelectedTable.equalsIgnoreCase("credit")){
+			numcols = new int[] {3,4,5};
+		}else if(SelectedTable.equalsIgnoreCase("ot_car_partial")){
+			numcols = new int[] {1,2,3,4,5,6,7,8,9,10,11,12,13};
+		}else if(SelectedTable.equalsIgnoreCase("ot_quantity_of_input")){
+			numcols = new int[] {1,2,3,4,5,6,7,8,9};
+		}
+		return numcols;
+	}
+	aissa*/
+	
 	public void setBaseData(String[][] data, String table){
 		//rawdata = data;
 		//numerics = getNumericColsofTable(table);
@@ -328,9 +407,10 @@ public class MultiChartPanel extends Composite {
 	}
 	
 	public void setQuery(String query, String table){
+		selecttable = table;
 		page=0;
 		basequery = query;
-		numerics = getNumericColsofTable(table);
+		numerics = getNumericColsofTable(selecttable);
 		getFullQueryRecordCount();
 		//numerics = NumberUtils.createIntSeries(2, data[0].length-1, 1);
 		/*switch (key) {
