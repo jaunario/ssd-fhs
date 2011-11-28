@@ -28,7 +28,7 @@ public class ContactDetails extends Composite {
 		PopupContactUs.setWidget(verticalPanelContactUs);
 		verticalPanelContactUs.setHeight("200px");
 		
-		HTML htmlNewHtml = new HTML("For inquiries/feedback, you may send an e-mail to abc123@defgh.com. Please indicate your name and organization.", true);
+		HTML htmlNewHtml = new HTML("For inquiries and/or feedback, you may send an email to \n<a href=\"mailto:elaissalazaro@gmail.com?Subject=FHS%20Database%20Inquiry\">\nirrigis@gmail.com</a>. Please indicate your name and organization.", true);
 		verticalPanelContactUs.add(htmlNewHtml);
 		htmlNewHtml.setSize("300px", "");
 	}
