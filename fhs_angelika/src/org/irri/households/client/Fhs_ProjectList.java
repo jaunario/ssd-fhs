@@ -84,6 +84,7 @@ public class Fhs_ProjectList extends Composite {
 		
 		projDetails = new ProjectDetails(ProjDetailsSql + ProjDetailsSqlWhereClause(5) + " GROUP BY 3", /*5*/1);
 		verticalPanel2.add(projDetails);
+		projDetails.setSize("300px", "700px");
 	
 		ProjBrowseBtn = new Button("BROWSE DATA");
         ProjBrowseBtn.setSize("120px", "25px");
