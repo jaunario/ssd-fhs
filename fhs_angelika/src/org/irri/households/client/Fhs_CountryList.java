@@ -56,7 +56,8 @@ public class Fhs_CountryList extends Composite {
 		ListBoxCountry.addChangeHandler(new ChangeHandler() {
 			@Override
 			public void onChange(ChangeEvent event) {				
-				String SelectedCountry = ListBoxCountry.getValue(ListBoxCountry.getSelectedIndex());
+				//String SelectedCountry = ListBoxCountry.getValue(ListBoxCountry.getSelectedIndex());
+				String SelectedCountry = ListBoxCountry.getItemText(ListBoxCountry.getSelectedIndex());
 				String projdetailssql = "";
 				projdetailssql = ProjDetailsSql + CntryDetailsSqlWhereClause(SelectedCountry);
 				displayCntryDetails(projdetailssql + " GROUP BY 3");
@@ -95,7 +96,9 @@ public class Fhs_CountryList extends Composite {
                             ListBoxCountry.clear();
                             try{
                                 for (int i = 1;i<result.length;i++){
-                                    ListBoxCountry.addItem(result[i][labci]/*,result[i][valci]*/);
+                                	ListBoxCountry.addItem(result[i][/*labci*/1]);
+                                    ListBoxCountry.setItemText(i-1, result[i][/*1*/0]);
+                                    
                                 }
                             }
                             catch(Exception e){
