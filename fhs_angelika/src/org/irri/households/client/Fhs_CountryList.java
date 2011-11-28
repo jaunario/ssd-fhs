@@ -28,7 +28,7 @@ public class Fhs_CountryList extends Composite {
 	private Button LocListBrowseBtn;
 	public VerticalPanel VPCntryDetails;
 	public Label name;
-	private int labci = 0;
+	//private int labci = 0;
 	private ScrollPanel scrollPanel2;
 	private Loc_Result LocResult;
 	public DeckPanel DeckLinkPanel;
