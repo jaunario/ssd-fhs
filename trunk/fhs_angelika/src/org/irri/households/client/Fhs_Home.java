@@ -25,11 +25,10 @@ public class Fhs_Home extends Composite {
 		
 		ScrollPanel scroll = new ScrollPanel();
 		initWidget(scroll);
-		scroll.setSize("100%", "100%");
 		
 		DockLayoutPanel dockLayoutPanel = new DockLayoutPanel(Unit.PX);
 		scroll.add(dockLayoutPanel);
-		dockLayoutPanel.setSize("", "715px");
+		dockLayoutPanel.setSize("1190px", "715px");
 		
 		VerticalPanel verticalPanel_1 = new VerticalPanel();
 		verticalPanel_1.setStyleName("fhs-HomeHPanel2");
@@ -46,9 +45,6 @@ public class Fhs_Home extends Composite {
 		deckPanel = new DeckPanel();
 		deckPanel.setStyleName("fhs-HomeHPanel");
 		dockLayoutPanel.add(deckPanel);
-		deckPanel.setHeight("700px");
+		deckPanel.setSize("805px", "700px");
 	}
-	
-	//-----------------------------------------------------------------------------------
-	//-----------------------------------------------------------------------------------
 }
