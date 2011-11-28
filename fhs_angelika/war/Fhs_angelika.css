@@ -168,6 +168,11 @@ border-style:solid;
 border-width:2px;
 border-color:#028502;
 background-color:#FFFFFF;
+
+moz-border-radius: 20px;
+webkit-border-radius: 20px;
+khtml-border-radius: 20px;
+border-radius: 20px;
 }
 
 .FHS-TablesListBox2 {
@@ -235,4 +240,21 @@ padding-right:10px;
 }
 .fhs-HomeHPanel2 {
 padding-top:10px;
+}
+.gwt-IntroHTML {
+padding-right:10px;
+}
+.gwt-HTMLLink {
+	font-family: Corbel, Verdana, Geneva, sans-serif;
+	font-weight: bold;
+	text-decoration: none;
+	color: #1C97D7;
+}
+.gwt-VPContactUs {
+padding:15px;
+}
+.Loading-Message {
+position:absolute;
+left:10;
+bottom:0;
 }
