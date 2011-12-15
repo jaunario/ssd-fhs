@@ -1,5 +1,6 @@
 package org.irri.households.client.ui;
 
+
 import org.irri.households.client.Utils;
 import org.irri.households.client.UtilsRPC;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -20,6 +21,7 @@ import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
+
 
 public class SiteMap extends Composite {
 	private VerticalPanel LinkPanel;
@@ -133,7 +135,7 @@ public class SiteMap extends Composite {
                 
                 marker = new Marker(LatLng.newInstance(lat, lon));
                 map.addOverlay(marker);
-                RootPanel.get("Loading-Message").setVisible(false);
+                RootPanel.get("Loading-Message").setVisible(false);    
 			}
 		}
 	};
@@ -166,9 +168,9 @@ public class SiteMap extends Composite {
 		map.setSize(w+"px", h+"px");
 		map.checkResizeAndCenter();
 		
-		if (clickable.equals("yes")){
-			UtilsRPC.getService("mysqlservice").RunSELECT(query, siteMapCallback);
-		}else UtilsRPC.getService("mysqlservice").RunSELECT(query, siteMapCallback1);
+		if (clickable.equals("yes")){ //yes means that the markers should me clickable like those in the sitemap of the search by location
+			UtilsRPC.getService("mysqlservice").RunSELECT(query, siteMapCallback); //markers are clickable
+		}else UtilsRPC.getService("mysqlservice").RunSELECT(query, siteMapCallback1); //markers are not clickable
 		
 		initWidget(verticalPanel);
 	}
