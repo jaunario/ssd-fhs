@@ -1,3 +1,6 @@
+/*draws a piechart of top rice varieties using data output of a query run on the database. 
+shown on the landing page*/
+
 package org.irri.households.client.ui;
 
 import org.irri.households.client.UtilsRPC;
