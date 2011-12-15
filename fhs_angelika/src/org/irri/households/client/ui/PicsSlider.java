@@ -1,3 +1,5 @@
+//slide of pictures as seen on the landing page
+
 package org.irri.households.client.ui;
 
 
