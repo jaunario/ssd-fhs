@@ -22,5 +22,7 @@ public interface MySQLServiceAsync {
     public void SaveCSV(String data, AsyncCallback<String> callback);
     public void downloadCSVFromQuery(String sqlquery, AsyncCallback<String> callback);
     public void SendMail(String table, String email, String resultURL, AsyncCallback<Void> callback);
-
+    /*table-table to be downloaded. this willbe included in the subject of the email to the user*/
+    /*email-email address of user entered in popup*/
+    /*resultURL-url of data which is included in the body of the email*/
 }
