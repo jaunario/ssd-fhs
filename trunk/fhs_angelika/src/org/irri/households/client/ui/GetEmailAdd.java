@@ -1,3 +1,4 @@
+//popup panel asking the user to input his/her email address where we will send the data (via link)
 package org.irri.households.client.ui;
 
 import com.google.gwt.event.dom.client.ClickEvent;
