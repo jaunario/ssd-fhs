@@ -1,3 +1,6 @@
+/*popup displaying email address that the user can contact for inquiries. when link of email add is clicked,
+it launches the user's defailt mail client*/ 
+
 package org.irri.households.client.ui;
 
 
@@ -28,7 +31,7 @@ public class ContactDetails extends Composite {
 		PopupContactUs.setWidget(verticalPanelContactUs);
 		verticalPanelContactUs.setHeight("200px");
 		
-		HTML htmlNewHtml = new HTML("For inquiries and/or feedback, you may send an email to \n<a href=\"mailto:elaissalazaro@gmail.com?Subject=FHS%20Database%20Inquiry\">\nirrigis@gmail.com</a>. Please indicate your name and organization.", true);
+		HTML htmlNewHtml = new HTML("For inquiries and/or feedback, you may send an email to \n<a href=\"mailto:ssd.ricestat@gmail.com?Subject=FHS%20Database%20Inquiry\">\nssd.ricestat@gmail.com</a>. Please indicate your name and organization.", true);
 		verticalPanelContactUs.add(htmlNewHtml);
 		htmlNewHtml.setSize("300px", "");
 	}
