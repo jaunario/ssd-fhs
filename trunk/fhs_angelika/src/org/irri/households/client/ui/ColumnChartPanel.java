@@ -1,8 +1,11 @@
+//draws the column chart panel : average income per year in the phil
 package org.irri.households.client.ui;
+
 
 import org.irri.households.client.UtilsRPC;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.visualization.client.AbstractDataTable;
 import com.google.gwt.visualization.client.DataTable;
@@ -15,6 +18,7 @@ import com.google.gwt.visualization.client.visualizations.corechart.Options;
 public class ColumnChartPanel extends Composite {
 	private VerticalPanel VisBox = new VerticalPanel();
 	public String[][] mydata;
+	
 
 	public ColumnChartPanel(String query, String title, int w, int h) {
 		
@@ -30,7 +34,8 @@ public class ColumnChartPanel extends Composite {
                     public void run() {
                     	mydata = out;
                     	ColumnChart column = new ColumnChart(createTable(out), createOptions(ChartTitle,width,height));
-                        VisBox.add(column);
+                        VisBox.add(column);    
+                        RootPanel.get("Loading-Message").setVisible(false);
                     }
                 };
                 VisualizationUtils.loadVisualizationApi(onLoadCallback, ColumnChart.PACKAGE);
@@ -81,6 +86,6 @@ public class ColumnChartPanel extends Composite {
         	}
         }
         return data;
-    } 
-
+    }  
 }
+
