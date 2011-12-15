@@ -1,3 +1,4 @@
+/*draws a scatter plot of average yield which is shown on landing page.*/
 package org.irri.households.client.ui;
 
 import org.irri.households.client.UtilsRPC;
