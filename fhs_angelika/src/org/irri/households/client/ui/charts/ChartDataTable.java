@@ -28,15 +28,15 @@ public class ChartDataTable{
 		options2.setNegativeColor("red");
 		NumberFormat formatter2 = NumberFormat.create(options2);
 		
-		/**/
-		String twoDecimals [] = {"lat", "long", "percent", "area", "qty_per_year", "val_exp", "lp", "ce", "cc", "hvth", "n", "p", "k", "seeds",
-								 "yield", "fertilizer", "pesticides", "herbicide", "insecticide", "fuelandoil", "landrent", "irrigation",
-								 "otherinput", "hiredlabor", "foodcost", "valueofproduction", "price_kg", "interest"};
+		/*list of variables that will be displayed with 2 decimal places in the data table. without this declaration, some variables are displayed with too many decimal places.*/
+		String twoDecimals [] = {"area","cc","ce","fertilizer","foodcost","fuelandoil","herbicide","hiredlabor","hvth","insecticide",
+								 "interest","irrigation","k","landrent","lat","long","lp","n","otherinput","p","percent","pesticides",
+								 "price_kg","qty_per_year","seeds","seedskg","val_exp","valueofproduction","yield"};
 		List<String> twoDecList = Arrays.asList(twoDecimals);
 		
-		String wholeNums [] = {"prod", "purchase_val"};
+		/*list of variables that will be displayed as whole numbers in the data table. without this declaration, some variables are displayed with too many decimal places.*/
+		String wholeNums [] = {"income","prod","purchase_val"};
 		List<String> wholeNumList = Arrays.asList(wholeNums);
-		/**/
 		
 		for (int i = 0; i < data.length; i++) {
 			if(i==1) datatable.addRows(data.length-1); 
