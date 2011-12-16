@@ -1,3 +1,5 @@
+/*This code contains the celllist of the uploaded projects,*/
+
 package org.irri.households.client;
 
 
@@ -82,7 +84,7 @@ public class Fhs_ProjectList extends Composite {
 		ProjSearchHPanel2.setCellHeight(verticalPanel2, "600px");
 		ProjSearchHPanel2.setCellWidth(verticalPanel2, "500px");
 		
-		projDetails = new ProjectDetails(ProjDetailsSql + ProjDetailsSqlWhereClause(5) + " GROUP BY 3", /*5*/1);
+		projDetails = new ProjectDetails(ProjDetailsSql + ProjDetailsSqlWhereClause(1) + " GROUP BY 3", 1); //1 is the project id of the project which is first on the projects celllist
 		verticalPanel2.add(projDetails);
 		projDetails.setSize("300px", "700px");
 	
