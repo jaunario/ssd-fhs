@@ -1,3 +1,5 @@
+/*This code is for the site's landing page. it will contain the featured project, which is the latest uploaded
+project, plus some summary charts/graphs and pics. This page will also be shown when the HOME link from the menu is clicked*/
 package org.irri.households.client;
 
 
@@ -24,6 +26,8 @@ public class Fhs_LandingPage extends Composite {
 	private VerticalPanel verticalPanel_1;
 	private HorizontalPanel horizontalPanel_1;
 	private PieChartPanel pieChartPanel;
+	public ColumnChartPanel columnChartPanel;
+	
 
 	public Fhs_LandingPage() {
 		
@@ -33,7 +37,6 @@ public class Fhs_LandingPage extends Composite {
 		horizontalPanel = new HorizontalPanel();
 		horizontalPanel.setStyleName("fhs-HomeHPanel2");
 		scrollPanel.setWidget(horizontalPanel);
-		//horizontalPanel.setSize("100%", "100%");
 		
 		verticalPanel = new VerticalPanel();
 		verticalPanel.setStyleName("FHS-verticalPanel");
@@ -75,15 +78,7 @@ public class Fhs_LandingPage extends Composite {
 		ScatterPlotPanel scatterPlotPanel = new ScatterPlotPanel("SELECT survey_year, round(avg(if(left(idp_code, 2)='BD',Yield, null)),2) as 'BD',round(avg(if(left(idp_code, 2)='CN',Yield, null)),2) as 'CN',round(avg(if(left(idp_code, 2)='ID',Yield, null)),2) as 'ID',round(avg(if(left(idp_code, 2)='IN',Yield, null)),2) as 'IN',round(avg(if(left(idp_code, 2)='KH',Yield, null)),2) as 'KH',round(avg(if(left(idp_code, 2)='LA',Yield, null)),2) as 'LA',round(avg(if(left(idp_code, 2)='PH',Yield, null)),2) as 'PH',round(avg(if(left(idp_code, 2)='TH',Yield, null)),2) as 'TH',round(avg(if(left(idp_code, 2)='VN',Yield, null)),2) as 'VN' FROM ot_quantity_of_input join surveys on site_id = substring_index(idp_code, '-',2)GROUP BY 1;", "Average Yield", 320, 260);
 		horizontalPanel_2.add(scatterPlotPanel);
 		
-		/*ColumnChartPanel columnChartPanel = new ColumnChartPanel("SELECT mid(hh_code,1,2) as country, " +
-				"AVG(IF(src_income='Non-farm' or src_income='Non-farm activities' or src_income='Non-farm income',income,null)) as 'Non-farm', " +
-				"AVG(IF(src_income='Non-rice',income,null)) as 'Non-rice', " +
-				"AVG(IF(src_income='Off-farm income',income,null)) as 'Off-farm', " +
-				"AVG(IF(spec_src='Rice',income,null)) as 'Rice' " +
-				"FROM income " +
-				"WHERE income>0 " +
-				"GROUP BY 1;", "Average Income Per Country", 320, 260);*/
-		ColumnChartPanel columnChartPanel = new ColumnChartPanel("SELECT mid(hh_code,10,2) as year, " +
+		columnChartPanel = new ColumnChartPanel("SELECT mid(hh_code,10,2) as year, " +
 		"AVG(IF(src_income='Non-farm' or src_income='Non-farm activities' or src_income='Non-farm income',income,null)) as 'Non-farm', " +
 		"AVG(IF(src_income='Non-rice',income,null)) as 'Non-rice', " +
 		"AVG(IF(src_income='Off-farm income',income,null)) as 'Off-farm', " +
@@ -91,6 +86,7 @@ public class Fhs_LandingPage extends Composite {
 		"FROM income " +
 		"WHERE income>0 and mid(hh_code,1,2)='PH' and (mid(hh_code,10,2)='04' or mid(hh_code,10,2)='07' or mid(hh_code,10,2)='08') " +
 		"GROUP BY 1;", "Average Income Per Year in the Philippines", 320, 260);
-		horizontalPanel_2.add(columnChartPanel);		
+		horizontalPanel_2.add(columnChartPanel);			
+		
 	}
 }
