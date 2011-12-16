@@ -1,3 +1,4 @@
+//displays the variables per selected table in a checkbox
 package org.irri.households.client;
 
 import com.google.gwt.event.dom.client.ChangeEvent;
@@ -24,16 +25,16 @@ public class VarCheckbox extends Composite implements HasChangeHandlers{
 		CheckboxScroll.setWidget(CheckboxVPanel);
 	}
 	
-	public void populateCheckbox(String[][] result){
+	/*public void populateCheckbox(String[][] result){ //
 		for (int i = 1; i < result.length; i++) {
         	CheckBox VarCheck = new CheckBox(result[i][0]+" - "+result[i][1]);
         	VarCheck.setName(result[i][0]);
         	VarCheck.setValue(true);
         	CheckboxVPanel.add(VarCheck);
 		}
-	}
+	}*/
 	
-	public void populateCheckboxLoc(String[][] result){
+	public void populateCheckboxLoc(String[][] result){ //variables checkbox for the search by location 
     	for (int i = 1; i < result.length; i++) {
         	String[] vars = result[i][2].split(";");
         	String[] vars2 = result[i][1].split(";");
