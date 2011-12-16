@@ -1,3 +1,4 @@
+
 package org.irri.households.client.ui.charts;
 
 
@@ -96,8 +97,6 @@ public class MultiChartPanel extends Composite {
 			
 			public void execute() {
 				final int tab = deckChartPager.getVisibleWidget();
-				
-				
 				
 				if (totalrows>=2000){
 					getEmail.PopupGetEmail.center();
@@ -210,6 +209,7 @@ public class MultiChartPanel extends Composite {
 		btnFirst = new Button("First");
 		btnFirst.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
+				/**/vpTablePage.clear();/**/
 				page = 0;
 				runQuery(basequery);
 			}
@@ -226,6 +226,7 @@ public class MultiChartPanel extends Composite {
 		btnPrevious = new Button("Previous");
 		btnPrevious.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
+				/**/vpTablePage.clear();/**/
 				page--;
 				runQuery(basequery);
 			}
@@ -235,6 +236,7 @@ public class MultiChartPanel extends Composite {
 		btnNext = new Button("Next");
 		btnNext.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
+				/**/vpTablePage.clear();/**/
 				page++;
 				runQuery(basequery);
 			}
@@ -244,6 +246,7 @@ public class MultiChartPanel extends Composite {
 		btnLast = new Button("Last");
 		btnLast.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
+				/**/vpTablePage.clear();/**/
 				page = totalrows/100;
 				runQuery(basequery);
 			}
@@ -258,6 +261,9 @@ public class MultiChartPanel extends Composite {
 		
 		btnClear = new Button("Clear");
 		horizontalPanel_3.add(btnClear);
+		
+		
+		
 	}
 	
 	public void checkPaginOptions(){
