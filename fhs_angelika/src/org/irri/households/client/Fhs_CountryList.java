@@ -1,3 +1,9 @@
+/*This program contains three windows. From left to right, top to bottom: the first one contains the list of countries, the second contains details for the selected country
+and the third one contains the site map with markers of the locations where studies were conducted. When a country is selected in the first window, the second window displays
+the projects available for that country. When a marker is clicked on the site map in the third window, the second window displays the projects available for the selectd country.
+The first and third windows are independent from each other. On click of the browse button in the second window, the results page will be displayed where the user can explore
+the data by variables and years.*/
+
 package org.irri.households.client;
 
 
@@ -12,7 +18,7 @@ import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
-import com.google.gwt.user.client.ui.RootPanel;
+//import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -30,7 +36,7 @@ public class Fhs_CountryList extends Composite {
 	public Label name;
 	//private int labci = 0;
 	private ScrollPanel scrollPanel2;
-	private Loc_Result LocResult;
+	//private Loc_Result LocResult;
 	public DeckPanel DeckLinkPanel;
 	public HorizontalPanel horizontalPanelSiteMap;
 	private HorizontalPanel horizontalPanel;
@@ -55,7 +61,7 @@ public class Fhs_CountryList extends Composite {
 		ListBoxCountry.setVisibleItemCount(5);
 		ListBoxCountry.addChangeHandler(new ChangeHandler() {
 			@Override
-			public void onChange(ChangeEvent event) {				
+			public void onChange(ChangeEvent event) { //when a country is selected from the list box, this part is responsible for displaying the available projects for the selected country				
 				//String SelectedCountry = ListBoxCountry.getValue(ListBoxCountry.getSelectedIndex());
 				String SelectedCountry = ListBoxCountry.getItemText(ListBoxCountry.getSelectedIndex());
 				String projdetailssql = "";
@@ -85,7 +91,7 @@ public class Fhs_CountryList extends Composite {
 		horizontalPanel.add(horizontalPanelSiteMap);
 		horizontalPanelSiteMap.setStyleName("FHS-TablesListBox");
 		horizontalPanelSiteMap.setSize("869px", "425px");
-		populateListBox("SELECT s.country, LEFT(s.site_id,2) FROM surveys s GROUP BY 1 ASC;");
+		populateListBox("SELECT s.country, LEFT(s.site_id,2) FROM surveys s GROUP BY 1 ASC;"); //lists the countries in the list box (1st window)
 	}
 
 	public void populateListBox(String query){
@@ -95,7 +101,7 @@ public class Fhs_CountryList extends Composite {
 			public void onSuccess(String[][] result) {
                             ListBoxCountry.clear();
                             try{
-                                for (int i = 1;i<result.length;i++){
+                                for (int i = 1;i<result.length;i++){ //by running the query in our database, this lists the countries where studies are conducted
                                 	ListBoxCountry.addItem(result[i][/*labci*/1]);
                                     ListBoxCountry.setItemText(i-1, result[i][/*1*/0]);
                                     
@@ -129,7 +135,7 @@ public class Fhs_CountryList extends Composite {
                 throw new UnsupportedOperationException("Not supported yet.");
             }
 
-            public void onSuccess(String[][] result) {
+            public void onSuccess(String[][] result) { //displays in the 2nd window the project details for the selected country
             	String html = "";
             	for (int i = 1; i < result.length; i++) {
                 	html =  html + "<p><b>Project</b>: "+ result[i][3] + "</p>" +
@@ -151,11 +157,11 @@ public class Fhs_CountryList extends Composite {
 		LocListBrowseBtn.addClickHandler(click);
 	}
 	
-	public void SetDeckLinkPanel(DeckPanel panel){
+	/*public void SetDeckLinkPanel(DeckPanel panel){
 		DeckLinkPanel = panel;
-	}
+	}*/
 	
-	public void displayCountryTables(String sql, final String cntry){
+	/*public void displayCountryTables(String sql, final String cntry){
 		LocResult.TablesListBox.clear();
         final AsyncCallback<String[][]> FetchDetails = new AsyncCallback<String[][]>() {
 
@@ -173,5 +179,5 @@ public class Fhs_CountryList extends Composite {
             }
         };
         UtilsRPC.getService("mysqlservice").RunSELECT(sql, FetchDetails);
-    }
+    }*/
 }
