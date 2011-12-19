@@ -86,7 +86,11 @@ public class Fhs_angelika implements EntryPoint{
 	
 
 	public void onModuleLoad() {
-		RootPanel rootPanel = RootPanel.get("Loading-Message"); //see also loading message indicator part in Fhs_angelika.html
+		
+		RootPanel rootPanel = RootPanel.get("Loading-Message"); /*This is for the "loading..." message that 
+		 * appears at the upper left corner of the window when the site is loading. though this part still
+		 * needs to be improved because sometimes it is not that accurate. The loading message indicator
+		 * part in Fhs_angelika.html is what this part refers to.*/
 		
 		rootLayoutPanel = RootLayoutPanel.get();
 		rootLayoutPanel.setStyleName("FHS-RootHome");
@@ -130,12 +134,14 @@ public class Fhs_angelika implements EntryPoint{
 		vpExNavFHHSDC.add(hpExternalNavigation);
 		hpExternalNavigation.setSpacing(5);
 		
+		//link for the irri website
 		htmlirriHomepage = new HTML("<html>\n<head>\n<style type=\"text/css\">\na:link    {color:#1C97D7;}\na:visited {color:#1C97D7;}\na:hover   {color:#5C5C5C;}\na:active  {color:#1C97D7;}\n</style>\n</head>\n<body>\n\n<a href='http://www.irri.org' target = '_blank'>IRRI Homepage</a>\n\n</body>\n</html>");
 		htmlirriHomepage.setStyleName("gwt-HTMLLink");
 		hpExternalNavigation.add(htmlirriHomepage);
 		hpExternalNavigation.setCellHorizontalAlignment(htmlirriHomepage, HasHorizontalAlignment.ALIGN_CENTER);
 		htmlirriHomepage.setSize("125px", "15px");
 		
+		//link for the wrs site
 		htmlworldRiceStatistics = new HTML("<html>\n<head>\n<style type=\"text/css\">\na:link    {color:#1C97D7;}\na:visited {color:#1C97D7;}\na:hover   {color:#5C5C5C;}\na:active  {color:#1C97D7;}\n</style>\n</head>\n<body>\n\n<a href='http://ricestat.irri.org:8080/wrs_manila' target = '_blank'>WRS Site</a>\n\n</body>\n</html>");
 		htmlworldRiceStatistics.setStyleName("gwt-HTMLLink");
 		hpExternalNavigation.add(htmlworldRiceStatistics);
@@ -203,7 +209,7 @@ public class Fhs_angelika implements EntryPoint{
 		
 		Command projCommand = new Command(){ 
 		    public void execute(){ //executed when Search Data - By Project is clicked. Shows list of projects as well as details on each project
-		    	RootPanel.get("Loading-Message").setVisible(true);
+		    	RootPanel.get("Loading-Message").setVisible(true); //setvisible=true orders the loading meassage to appear
 		    	
 		    	vpAppBanner.setVisible(true);
 		    	
@@ -231,7 +237,7 @@ public class Fhs_angelika implements EntryPoint{
 						fhsSearchBy.deckPanel.add(ProjResult);
 						fhsSearchBy.deckPanel.showWidget(fhsSearchBy.deckPanel.getWidgetCount()-1);
 						deckPanel.showWidget(1);
-						RootPanel.get("Loading-Message").setVisible(false);
+						RootPanel.get("Loading-Message").setVisible(false); //setvisible=false orders the loading message to hide
 					}
 				});
 				fhsProjectList.verticalPanel2.add(fhsProjectList.projDetails);
