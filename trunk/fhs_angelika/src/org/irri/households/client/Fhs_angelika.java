@@ -86,7 +86,7 @@ public class Fhs_angelika implements EntryPoint{
 	
 
 	public void onModuleLoad() {
-		RootPanel rootPanel = RootPanel.get("Loading-Message");
+		RootPanel rootPanel = RootPanel.get("Loading-Message"); //see also loading message indicator part in Fhs_angelika.html
 		
 		rootLayoutPanel = RootLayoutPanel.get();
 		rootLayoutPanel.setStyleName("FHS-RootHome");
