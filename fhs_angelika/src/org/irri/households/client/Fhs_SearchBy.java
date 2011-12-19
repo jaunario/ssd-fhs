@@ -1,4 +1,5 @@
-/*This is for the page that will contain the search by proj, country, table views in a deck panel. Initially contains the how to for search by proj*/
+/*This is for the page that will contain the search by proj, country, table views in a deck panel.
+ * Initially contains the how to for search by proj*/
 
 package org.irri.households.client;
 
