@@ -18,7 +18,6 @@ import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
-//import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -34,9 +33,7 @@ public class Fhs_CountryList extends Composite {
 	private Button LocListBrowseBtn;
 	public VerticalPanel VPCntryDetails;
 	public Label name;
-	//private int labci = 0;
 	private ScrollPanel scrollPanel2;
-	//private Loc_Result LocResult;
 	public DeckPanel DeckLinkPanel;
 	public HorizontalPanel horizontalPanelSiteMap;
 	private HorizontalPanel horizontalPanel;
@@ -62,7 +59,6 @@ public class Fhs_CountryList extends Composite {
 		ListBoxCountry.addChangeHandler(new ChangeHandler() {
 			@Override
 			public void onChange(ChangeEvent event) { //when a country is selected from the list box, this part is responsible for displaying the available projects for the selected country				
-				//String SelectedCountry = ListBoxCountry.getValue(ListBoxCountry.getSelectedIndex());
 				String SelectedCountry = ListBoxCountry.getItemText(ListBoxCountry.getSelectedIndex());
 				String projdetailssql = "";
 				projdetailssql = ProjDetailsSql + CntryDetailsSqlWhereClause(SelectedCountry);
@@ -102,8 +98,8 @@ public class Fhs_CountryList extends Composite {
                             ListBoxCountry.clear();
                             try{
                                 for (int i = 1;i<result.length;i++){ //by running the query in our database, this lists the countries where studies are conducted
-                                	ListBoxCountry.addItem(result[i][/*labci*/1]);
-                                    ListBoxCountry.setItemText(i-1, result[i][/*1*/0]);
+                                	ListBoxCountry.addItem(result[i][1]);
+                                    ListBoxCountry.setItemText(i-1, result[i][0]);
                                     
                                 }
                             }
@@ -156,28 +152,4 @@ public class Fhs_CountryList extends Composite {
 	public void SetLocListBrowseBtn(ClickHandler click){
 		LocListBrowseBtn.addClickHandler(click);
 	}
-	
-	/*public void SetDeckLinkPanel(DeckPanel panel){
-		DeckLinkPanel = panel;
-	}*/
-	
-	/*public void displayCountryTables(String sql, final String cntry){
-		LocResult.TablesListBox.clear();
-        final AsyncCallback<String[][]> FetchDetails = new AsyncCallback<String[][]>() {
-
-            public void onFailure(Throwable caught) {
-                throw new UnsupportedOperationException("Not supported yet.");
-            }
-
-            public void onSuccess(String[][] result) {
-            	LocResult.TablesListBox.setTitle("Country Selected: "+cntry);
-                for (int i = 1; i < result.length; i++) {
-                	LocResult.TablesListBox.addItem(result[i][0], result[i][3]);
-				}
-                DeckLinkPanel.showWidget(DeckLinkPanel.getWidgetCount()-1);
-                RootPanel.get("Loading-Message").setVisible(false);
-            }
-        };
-        UtilsRPC.getService("mysqlservice").RunSELECT(sql, FetchDetails);
-    }*/
 }
