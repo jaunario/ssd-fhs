@@ -104,7 +104,7 @@ public class Fhs_ProjectList extends Composite {
 		public int compareTo(ProjectInfo arg0) {
 			return 0;
 		}
-		
+		//The key provider that provides the unique id a project
 		public static final ProvidesKey<ProjectInfo> KEY_PROVIDER = new ProvidesKey<ProjectInfo>() {
 			public Object getKey(ProjectInfo item) {
 				return item == null ? null : item.getId();
@@ -128,17 +128,17 @@ public class Fhs_ProjectList extends Composite {
 		}
 	}
 	
-	static class ProjectCell extends AbstractCell<ProjectInfo>{ //style of celllist
+	static class ProjectCell extends AbstractCell<ProjectInfo>{ 
 		@Override
 		public void render(com.google.gwt.cell.client.Cell.Context context, ProjectInfo value, SafeHtmlBuilder sb) {
 			sb.appendHtmlConstant("<html><head>");
-			sb.appendHtmlConstant("<style type='text/css'>");
+			sb.appendHtmlConstant("<style type='text/css'>"); //style of celllist (see also CellList.css below for the style of thte selected cell)
 			sb.appendHtmlConstant("table.proj {table-layout:fixed}");
 			sb.appendHtmlConstant("</style>");
 			sb.appendHtmlConstant("</head>");
 			sb.appendHtmlConstant("<body>");
 			sb.appendHtmlConstant("<table class=proj; width='100%' border=0 cellpadding=5 cellspacing=0>");
-			if (context.getIndex()%2==0){ //alternating colors for each cell in celllist
+			if (context.getIndex()%2==0){ //alternating gray colors for each cell in celllist
 				sb.appendHtmlConstant("<td width=550 style='background-color:#F0F0F0; font-size:12px; font-color:#000000'>");  
 			}else{
 				sb.appendHtmlConstant("<td width=550 style='background-color:#FFFFFF; font-size:12px; font-color:#000000'>");
@@ -160,16 +160,16 @@ public class Fhs_ProjectList extends Composite {
 	CellList<ProjectInfo> cellList = new CellList<ProjectInfo>(projectCell, GWT.<MyCellListResources> create(MyCellListResources.class), ProjectInfo.KEY_PROVIDER);
 	
 	final AsyncCallback<String[][]> PopulateCellList = new AsyncCallback<String[][]>() {
-        public void onSuccess(String[][] result) {
+        public void onSuccess(String[][] result) { //populates the celllist with the list of projects found in the database
             try{
             	projects = new ArrayList<ProjectInfo>();
                 for (int i = 1;i<result.length;i++){
-                	projects.add(new ProjectInfo(Integer.parseInt(result[i][0]),result[i][1]));                	
+                	projects.add(new ProjectInfo(Integer.parseInt(result[i][0]),result[i][1]));                 	
                 }
                 cellList.setRowCount(result.length,true);
                 cellList.setRowData(projects);
                 
-                selectionModel.setSelected(projects.get(0), true);
+                selectionModel.setSelected(projects.get(0), true); //enables the celllist to handle selection of a project/cell
             }
             catch(Exception e){
                 System.err.println(e);
