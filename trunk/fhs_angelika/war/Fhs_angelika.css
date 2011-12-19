@@ -1,38 +1,9 @@
 /** Add css rules here for your application. */
 
-
-/** Example rules used by the template application (remove for your app) */
 .gwt-Label-fullname {
 	font-family: Times New Roman;
 	font-size: 18px;
 	color: #555;
-}
-
-.sendButton {
-  display: block;
-  font-size: 16pt;
-}
-
-/** Most GWT widgets already have a style name defined */
-.gwt-DialogBox {
-  width: 400px;
-}
-
-.dialogVPanel {
-  margin: 5px;
-}
-
-.serverResponseLabelError {
-  color: red;
-}
-
-/** Set ids using widget.getElement().setId("idOfElement") */
-#closeButton {
-  margin: 15px 6px 6px;
-}
-wrapper-dia {
-	padding: 0px;
-	margin: 0px;
 }
 
 .FHS-MarkerInfoScrollMargin {
@@ -41,49 +12,6 @@ margin-left:10px;
 
 .FHS-VarScrollMargin {
 margin-left:5px;
-}
-
-.FHS-LblIrri{
-padding-top:30px;
-font-size: 55px;
-font-family: Times New Roman;
-font-weight: bold;
-color: #028502;
-}
-
-.FHS-LblInternationalRiceResearchInstitute{
-font-family: Times New Roman;
-font-size: 18px;
-color: #555;
-}
-
-.FHS-FHSDCCSS{
-font-size: 18px;
-font-weight: bold;
-font-family: Verdana, Arial, Calibri ;
-padding-bottom:25px
-}
-
-.FHS-PshBtnAboutUs{
-font-size: 13px;
-font-family: 'Lekton', sans-serif;
-text-align: center;
-cursor:pointer;
-cursor:hand;
-}
-
-.FHS-HorizontalPanel{
-border-top:2px solid #028502;
-}
-
-.FHS-ScrollPanelCellList{
-border-style:solid;
-border-width:2px;
-border-color:#028502;
-}
-
-.FHS-SimplePanelSearch{
-padding-top:25px;
 }
 
 .FHS-TablesListBox {
@@ -106,10 +34,6 @@ color:#808080;
 margin-left:10px;
 }
 
-.FHS-ScrollPanel2{
-padding-bottom:5px;
-}
-
 .FHS-ButtonBrowseData{
 color:#FFFFFF;
 background-color:#028502;
@@ -121,65 +45,15 @@ cursor:pointer;
 cursor:hand;
 }
 
-.FHS-SimplePanelProjList {
-border-style:solid;
-border-width:2px;
-border-color:#028502;
-margin:auto;
-}
-
-.fhs-DeckPanelContactUs {
-padding-top:50px;
-}
-
-.FHS-AboutUsPshBtn {
-text-decoration:underline;
-font-size:10px;
-cursor:pointer;
-}
-
-.FHS-AboutUsPopup {
-border-style:solid;
-border-width:2px;
-border-color:#028502;
-background-color:#FFFFFF;
-}
-
-.FHS-HTMLButton {
-font-size:10px;
-}
-
-.FHS-AboutUsGlass {
-background-color:#EEEEEE;
-opacity:0.7;
-}
-
-.FHS-HighlightText {
-font-size:13px;
-cursor:pointer;
-cursor:hand;
-font-family: 'Lekton', sans-serif;
-text-align:center;
-text-shadow: 0 0 0.2em #8F7, 0 0 0.2em #8F7;
-}
-
 .FHS-DecoratorPanelContactUs {
 border-style:solid;
 border-width:2px;
 border-color:#028502;
 background-color:#FFFFFF;
-
 moz-border-radius: 20px;
 webkit-border-radius: 20px;
 khtml-border-radius: 20px;
 border-radius: 20px;
-}
-
-.FHS-TablesListBox2 {
-border-style:solid;
-border-width:2px;
-border-color:#028502;
-padding-bottom:5px;
 }
 
 .FHS-HorizontalPanelSiteMap{
@@ -187,74 +61,74 @@ padding-left:2px;
 padding-right:2px;
 padding-bottom:2px;
 }
-.FHS-Help {
-padding-left:10px;
-padding-right:10px;
-}
+
 .banner {
 	border-bottom-width: 1px;
 	border-bottom-style: solid;
 	border-bottom-color: #aaa;
 }
+
 .gwt-Label-logo {
 	font-size: 55px;
 	font-family: Times New Roman;
 	font-weight: bold;
 	color: #028502;
 }
+
 .gwt-Label-title {
 	font-size: 24px;
 	font-weight: bold;
 	font-family: Arial;
 }
+
 .gwt-Label-version {
 	font-family: Courier;
 	font-size: 12px;
 	color: #777;
 }
+
 .FHS-verticalPanel {
 background-color:#F5F5F5;
 border:solid 1px #888888;
 padding-left:10px;
 padding-right:10px;
 }
+
 .FHS-RootHome {
 margin-top:15px;
 margin-left:45px;
 margin-right:45px;
 }
+
 .FHS-HomeAbout {
 padding-left:25px;
 }
+
 .fhs-HomeHPanel {
 padding-top:9px;
 margin-left:10px;
 }
-.FHS-ProjSearchHPanel {
-margin:auto;
-}
-.FHS-GrayBorder {
-border:solid 1px #888888;
-padding-left:10px;
-padding-right:10px;
-}
+
 .fhs-HomeHPanel2 {
 padding-top:10px;
 }
+
 .gwt-IntroHTML {
 padding-right:10px;
 }
+
 .gwt-HTMLLink {
 	font-family: Corbel, Verdana, Geneva, sans-serif;
 	font-weight: bold;
 	text-decoration: none;
 	color: #1C97D7;
 }
+
 .gwt-VPContactUs {
 padding:15px;
 }
-.Loading-Message {
-position:absolute;
-left:10;
-bottom:0;
+
+.FHS-AboutUsGlass {
+background-color:#EEEEEE;
+opacity:0.7;
 }
