@@ -38,7 +38,7 @@ public class Loc_Result extends Composite {
 	private String SelectedTable;
 	
 	String varCheckBoxQuery;
-	int[] numofnumcols;
+	int[] numofnumcols; //number or numeric columns/variables selected
 	
 		public Loc_Result(final String CntryID) {
 		varCheckbox = new VarCheckbox();
@@ -79,7 +79,7 @@ public class Loc_Result extends Composite {
 				
 				if(TablesListBox.getSelectedIndex()>=0){ //executed whenever the user selects a table. populates the available variables and years as well as the data
 					projvarssql = ProjVarsSql2 + ProjVarsSqlWhereClause4(SelectedCountry, SelectedTable);
-					displayCountryVars(projvarssql + " GROUP BY r.report_id");
+					displayCountryVars(projvarssql + " GROUP BY r.report_id"); //calls method for dispaying the variables in checkbox format
 					if (SelectedTable.equalsIgnoreCase("ot_car_partial")||SelectedTable.equalsIgnoreCase("ot_quantity_of_input")){
 	                    site = "LEFT(idp_code,11)";
 	                    site2 = "idp_code";
@@ -92,7 +92,7 @@ public class Loc_Result extends Composite {
 	                }
 					select = "SELECT * FROM " + SelectedTable + " WHERE " + site + " in (SELECT site_id FROM surveys s"+ CountryWhereClause(SelectedCountry) + ") ";
 					if (SelectedTable.equalsIgnoreCase("surveys")){
-						displayLocTabYr("SELECT DISTINCT s.survey_year FROM surveys s WHERE country='"+SelectedCountry+"'");
+						displayLocTabYr("SELECT DISTINCT s.survey_year FROM surveys s WHERE country='"+SelectedCountry+"'"); //calls method for displaying years of selected table
 					}else{
 						displayLocTabYr("SELECT DISTINCT s.survey_year FROM "+SelectedTable+" JOIN surveys s ON LEFT("+site2+",11)=LEFT(s.site_id,11) WHERE country='"+SelectedCountry+"'");
 					}
@@ -133,8 +133,8 @@ public class Loc_Result extends Composite {
 	                }else {
 	                    site = "LEFT(site_id,11)";
 	                }
-					for (int i = 0; i < FilterByYear.getItemCount(); i++) {
-						if(FilterByYear.isItemSelected(i)){
+					for (int i = 0; i < FilterByYear.getItemCount(); i++) { //loops through the years list box to check which years are selected
+						if(FilterByYear.isItemSelected(i)){ // Those selected will be used in the query for getting the data from the database
 							SelectedYear = FilterByYear.getValue(i);
 							SelectedYear_Sql = "survey_year="+SelectedYear;
 							SelectedYearSql = SelectedYearSql + SelectedYear_Sql + " or ";	
@@ -142,12 +142,11 @@ public class Loc_Result extends Composite {
 					}
 					SelectedYearSql = " AND ("+SelectedYearSql.substring(0,SelectedYearSql.length()-4)+")) ";
 					
-					if (!varCheckBoxQuery.equals("")){
-						String select1 = varCheckBoxQuery.substring(0,varCheckBoxQuery.length()-2);
+					if (!varCheckBoxQuery.equals("")){ //checks if variables checkbox have checks or not. if there are checks, the query will just get all variables
+						String select1 = varCheckBoxQuery.substring(0,varCheckBoxQuery.length()-2); 
 						select = select1+SelectedYearSql; 
 					}else select = "SELECT * FROM " + SelectedTable + " WHERE " + site + " in (SELECT LEFT(site_id,11) FROM surveys s  where country='"+SelectedCountry+"'"+SelectedYearSql;
-					
-					
+						
 					mcpResultPanel.setQueryVarCheckBox(select, SelectedTable, numofnumcols);
 					LocResSimplePanel.setWidget(mcpResultPanel);
 					RootPanel.get("Loading-Message").setVisible(false);
@@ -159,10 +158,10 @@ public class Loc_Result extends Composite {
 			@Override
 			public void onChange(ChangeEvent event) { //executed whenever a variable is checked or unchecked in the checkbox. this refreshes the list of years and the data	
 				RootPanel.get("Loading-Message").setVisible(true);
-				/**/
+
 				FilterByYear.clear();
 				mcpResultPanel.vpTablePage.clear();
-				/**/
+
 				String SelectedCountry = CntryID;				
 				String SelectedTable = TablesListBox.getValue(TablesListBox.getSelectedIndex());
 				String selcols = "";
