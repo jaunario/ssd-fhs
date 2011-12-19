@@ -128,7 +128,7 @@ public class Fhs_ProjectList extends Composite {
 		}
 	}
 	
-	static class ProjectCell extends AbstractCell<ProjectInfo>{
+	static class ProjectCell extends AbstractCell<ProjectInfo>{ //style of celllist
 		@Override
 		public void render(com.google.gwt.cell.client.Cell.Context context, ProjectInfo value, SafeHtmlBuilder sb) {
 			sb.appendHtmlConstant("<html><head>");
@@ -138,7 +138,7 @@ public class Fhs_ProjectList extends Composite {
 			sb.appendHtmlConstant("</head>");
 			sb.appendHtmlConstant("<body>");
 			sb.appendHtmlConstant("<table class=proj; width='100%' border=0 cellpadding=5 cellspacing=0>");
-			if (/*value.getId()*/context.getIndex()%2==0){
+			if (context.getIndex()%2==0){ //alternating colors for each cell in celllist
 				sb.appendHtmlConstant("<td width=550 style='background-color:#F0F0F0; font-size:12px; font-color:#000000'>");  
 			}else{
 				sb.appendHtmlConstant("<td width=550 style='background-color:#FFFFFF; font-size:12px; font-color:#000000'>");
@@ -152,7 +152,7 @@ public class Fhs_ProjectList extends Composite {
 	ProjectCell projectCell = new ProjectCell();
 	
 	interface MyCellListResources extends CellList.Resources { 
-	    @Source({"CellList.css"}) 
+	    @Source({"CellList.css"}) //css for the selected project cell 
 	    @Override 
 	    public Style cellListStyle(); 
 	} 
@@ -162,7 +162,7 @@ public class Fhs_ProjectList extends Composite {
 	final AsyncCallback<String[][]> PopulateCellList = new AsyncCallback<String[][]>() {
         public void onSuccess(String[][] result) {
             try{
-            	/*List<ProjectInfo>*/ projects = new ArrayList<ProjectInfo>();
+            	projects = new ArrayList<ProjectInfo>();
                 for (int i = 1;i<result.length;i++){
                 	projects.add(new ProjectInfo(Integer.parseInt(result[i][0]),result[i][1]));                	
                 }
