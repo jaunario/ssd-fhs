@@ -67,12 +67,12 @@ public class Proj_Result extends Composite {
 			@Override
 			public void onChange(ChangeEvent event) { //executes whenever a table is selected
 				RootPanel.get("Loading-Message").setVisible(true);
-				/**/
+
 				FilterByYear.clear();
 				FilterByCountry.clear();
 				CheckboxHPanel.clear();
 				mcpResultPanel.vpTablePage.clear();
-				/**/
+
 				int SelectedProjID = ProjID;
 				String SelectedTable = TablesListBox.getValue(TablesListBox.getSelectedIndex());
 				String site = "";
@@ -100,8 +100,6 @@ public class Proj_Result extends Composite {
 						displayProjTabYr("SELECT DISTINCT survey_year FROM surveys s WHERE project_id="+SelectedProjID+" ORDER BY survey_year");
 						displayProjTabCntry("SELECT DISTINCT country FROM surveys s WHERE project_id="+SelectedProjID+" ORDER BY country");
 					}else{
-						//displayProjTabYr("SELECT surveys.survey_year FROM "+SelectedTable+" left join surveys on substring("+SelectedTable+"."+site2+",1,11)=substring(surveys.site_id,1,11) WHERE SUBSTRING_INDEX("+site2+", '-', 2) in (SELECT site_id FROM surveys s WHERE s.project_id="+SelectedProjID+") GROUP BY survey_year");
-						//displayProjTabCntry("SELECT country FROM "+SelectedTable+" left join surveys on substring("+site2+",1,11)=substring(surveys.site_id,1,11) WHERE SUBSTRING_INDEX("+site2+", '-', 2) in (SELECT site_id FROM surveys s WHERE s.project_id="+SelectedProjID+") GROUP BY country");
 						displayProjTabYr("SELECT DISTINCT surveys.survey_year FROM "+SelectedTable+" JOIN surveys ON LEFT("+site2+",11)=LEFT(surveys.site_id,11) WHERE surveys.project_id="+SelectedProjID+" ORDER BY surveys.survey_year");
 						displayProjTabCntry("SELECT DISTINCT surveys.country FROM "+SelectedTable+" JOIN surveys ON LEFT("+site2+",11)=LEFT(surveys.site_id,11) WHERE surveys.project_id="+SelectedProjID+" ORDER BY surveys.country");
 					}
@@ -209,10 +207,10 @@ public class Proj_Result extends Composite {
 			@Override
 			public void onChange(ChangeEvent event) {	
 				RootPanel.get("Loading-Message").setVisible(true);
-				/**/
+
 				FilterByCountry.clear();
 				mcpResultPanel.vpTablePage.clear();
-				/**/
+
 				int SelectedProjID = ProjID;
 				String SelectedTable = TablesListBox.getValue(TablesListBox.getSelectedIndex());
 				String Selected_Year = "";
@@ -268,11 +266,11 @@ public class Proj_Result extends Composite {
 			@Override
 			public void onChange(ChangeEvent event) {	
 				RootPanel.get("Loading-Message").setVisible(true);
-				/**/
+
 				FilterByYear.clear();
 				FilterByCountry.clear();
 				mcpResultPanel.vpTablePage.clear();
-				/**/
+
 				int SelectedProjID = ProjID;
 				String SelectedTable = TablesListBox.getValue(TablesListBox.getSelectedIndex());
 				String selcols = "";
@@ -294,7 +292,7 @@ public class Proj_Result extends Composite {
 						if (colname.equalsIgnoreCase("project")){
 							colname = "project_id";
 						}
-						/**/
+
 						if(SelectedTable.equalsIgnoreCase("surveys")){
 							if(colname.equalsIgnoreCase("project_id")||colname.equalsIgnoreCase("survey_year")||colname.equalsIgnoreCase("samplesize")||colname.equalsIgnoreCase("lat")||colname.equalsIgnoreCase("long")||colname.equalsIgnoreCase("uncertainty")){
 								num = num+1;
@@ -433,7 +431,7 @@ public class Proj_Result extends Composite {
                 throw new UnsupportedOperationException("Not supported yet.");
             }
 
-            public void onSuccess(String[][] result) {
+            public void onSuccess(String[][] result) { //displays variables in a checkbox list
             	varCheckbox.populateCheckboxLoc(result);
                 CheckboxHPanel.add(varCheckbox);
             }
@@ -449,14 +447,14 @@ public class Proj_Result extends Composite {
                 throw new UnsupportedOperationException("Not supported yet.");
             }
 
-            public void onSuccess(String[][] result) {
-                for (int i = 1; i < result.length; i++) {
+            public void onSuccess(String[][] result) { 
+                for (int i = 1; i < result.length; i++) { //displays available years in list box
                 	int col = result[0].length;
                 	String surveyyr = result[i][col-1];
                 	FilterByYear.addItem(surveyyr);
                 	FilterByYear.setEnabled(true);
 				}
-                if (FilterByYear.getItemCount()<2){
+                if (FilterByYear.getItemCount()<2){ //if years list box contains only one year, that year will be set as unclickable
             		FilterByYear.setEnabled(false);
             	}
                 RootPanel.get("Loading-Message").setVisible(false);
@@ -471,13 +469,13 @@ public class Proj_Result extends Composite {
             public void onFailure(Throwable caught) {
                 throw new UnsupportedOperationException("Not supported yet.");
             }
-            public void onSuccess(String[][] result) {
+            public void onSuccess(String[][] result) { //displays available countries in a listbox 
                 for (int i = 1; i < result.length; i++) {
                 	int col = result[0].length;
                 	FilterByCountry.addItem(result[i][col-1]);
                 	FilterByCountry.setEnabled(true);
 				}
-                if (FilterByCountry.getItemCount()<2){
+                if (FilterByCountry.getItemCount()<2){ //if countries listbox contains only one country, that country will be set as not clickable
             		FilterByCountry.setEnabled(false);
             	}
             }
