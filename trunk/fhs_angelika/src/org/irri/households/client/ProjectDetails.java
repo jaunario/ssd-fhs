@@ -1,3 +1,6 @@
+/* Displays the details of the selected project. Details include the project title, location map, primary
+ * researchers, purpose of the study, study years, number of households */
+
 package org.irri.households.client;
 
 
@@ -36,8 +39,7 @@ public class ProjectDetails extends Composite {
                 throw new UnsupportedOperationException("Not supported yet.");
             }
 
-            public void onSuccess(String[][] result) {
-            
+            public void onSuccess(String[][] result) { 
             	String html = "";
                 for (int i = 1; i < result.length; i++) {
                 	html =  "<p><b>Project</b>: "+ result[i][3] + "</p>";
