@@ -90,7 +90,7 @@ public class Loc_Result extends Composite {
 	                    site = "LEFT(site_id,11)";
 	                    site2 = "site_id";
 	                }
-					select = "SELECT * FROM " + SelectedTable + " WHERE " + site + " in (SELECT site_id FROM surveys s"+ CountryWhereClause(SelectedCountry) + ") ";
+					select = "SELECT * FROM " + SelectedTable + " WHERE " + site + " in (SELECT LEFT(site_id,11) FROM surveys s"+ CountryWhereClause(SelectedCountry) + ") ";
 					if (SelectedTable.equalsIgnoreCase("surveys")){
 						displayLocTabYr("SELECT DISTINCT s.survey_year FROM surveys s WHERE country='"+SelectedCountry+"'"); //calls method for displaying years of selected table
 					}else{
