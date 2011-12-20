@@ -276,7 +276,7 @@ public class Var_Result extends Composite {
                 }else {
                     site2 = "site_id";
                 }
-				for (int i = /*1*/0; i < varCheckbox.getItemCount(); i++) { //takes note if the selected variable/column is numeric or not. this is needed in the multichartpanel.java's getNumericColsofTable method
+				for (int i = 0; i < varCheckbox.getItemCount(); i++) { //takes note if the selected variable/column is numeric or not. this is needed in the multichartpanel.java's getNumericColsofTable method
 					if(varCheckbox.getItem(i).getValue()){
 						String colname = varCheckbox.getItem(i).getName();
 						if (colname.equalsIgnoreCase("project")){
@@ -413,7 +413,7 @@ public class Var_Result extends Composite {
 			public void onSuccess(String[][] result) {
                             TablesListBox.clear();
                             try{
-                                for (int i = 1;i<result.length;i++){
+                                for (int i = 1;i<result.length;i++){ //displays tables in a list box
                                     TablesListBox.addItem(result[i][1],result[i][2]);
                                 }
                             }
@@ -438,7 +438,7 @@ public class Var_Result extends Composite {
                 throw new UnsupportedOperationException("Not supported yet.");
             }
 
-            public void onSuccess(String[][] result) {
+            public void onSuccess(String[][] result) { //displays a checkbox list of variables of selected table 
                 varCheckbox.populateCheckboxLoc(result);
                 CheckboxHPanel.add(varCheckbox);
             }
@@ -454,12 +454,12 @@ public class Var_Result extends Composite {
                 throw new UnsupportedOperationException("Not supported yet.");
             }
 
-            public void onSuccess(String[][] result) {
+            public void onSuccess(String[][] result) { //displays available years in a listbox
                 for (int i = 1; i < result.length; i++) {
                 	int col = result[0].length;
                 	String surveyyr = result[i][col-1];
                 	int surveyyrlength = surveyyr.length();
-                	if (surveyyrlength==2){
+                	if (surveyyrlength==2){ //converts 2-digit year to 4-digits
                 		if (surveyyr.substring(0,1).equals("0")){
                 			surveyyr = "20"+surveyyr;
                 		}else{
@@ -478,20 +478,20 @@ public class Var_Result extends Composite {
         UtilsRPC.getService("mysqlservice").RunSELECT(sql, FetchDetails);
     }
 	
-	public void displayVarTabCntry(String sql){
+	public void displayVarTabCntry(String sql){ 
 		FilterByCountry.clear();
         final AsyncCallback<String[][]> FetchDetails = new AsyncCallback<String[][]>() {
             public void onFailure(Throwable caught) {
                 throw new UnsupportedOperationException("Not supported yet.");
             }
-            public void onSuccess(String[][] result) {
+            public void onSuccess(String[][] result) { //displays available countries in a listbox
                 for (int i = 1; i < result.length; i++) {
                 	int col = result[0].length;
                 	String surveyyr = result[i][col-1];
                 	FilterByCountry.addItem(surveyyr);
                 	FilterByCountry.setEnabled(true);
 				}
-            	if (FilterByCountry.getItemCount()<2){
+            	if (FilterByCountry.getItemCount()<2){ //if country listbox contains only one country, that country will be set as nonclickable
             		FilterByCountry.setEnabled(false);
             	}
             	RootPanel.get("Loading-Message").setVisible(false);
