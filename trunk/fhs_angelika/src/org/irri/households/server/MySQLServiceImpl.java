@@ -13,10 +13,21 @@ import org.irri.households.client.MySQLService;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import java.sql.*;
 import java.io.*;
+import java.util.Properties;
 import java.util.Random;
 import java.util.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.NoSuchProviderException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+
+
 
 /**
  *
@@ -24,7 +35,6 @@ import java.text.SimpleDateFormat;
  */
 public class MySQLServiceImpl extends RemoteServiceServlet implements
     MySQLService {
-
     /**
 	 * 
 	 */
@@ -58,7 +68,7 @@ public class MySQLServiceImpl extends RemoteServiceServlet implements
             
             result.beforeFirst();
             int i=1;
-
+            // Loop through dataset put in string matrix. out is Used for displaying data to table. sent through asyncallback
             while (!result.isLast()){
                 result.next();
                 for (int j=0;j<cols;j++){                    
@@ -101,6 +111,7 @@ public class MySQLServiceImpl extends RemoteServiceServlet implements
        return url;
     }
     
+    
     private String createFilename(){
         Date today = new Date();
         DateFormat simpleDate = new SimpleDateFormat("yyyy-MM-dd");
@@ -123,15 +134,14 @@ public class MySQLServiceImpl extends RemoteServiceServlet implements
     }
     
     public String downloadCSVFromQuery(String sqlquery){
-    	String url = "";
+    	String urladd = "";
     	String csvdata = "";
     	String[] type;
     	try {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
             Connection connection = DriverManager.getConnection(
-            		"jdbc:mysql://172.29.31.182/fhh_survey", "jaunario", "Ragnarok09");
             		//"jdbc:mysql://127.0.0.1/fhh_survey", "ssd.webview", "Vi3wOn1y"); // for amazon and dev           		
-        			//"jdbc:mysql://172.29.31.182/fhh_survey", "ssd.webview", "Vi3wOn1y"); // for geo
+        			"jdbc:mysql://172.29.31.182/fhh_survey", "ssd.webview", "Vi3wOn1y"); // for geo
             Statement select = connection.createStatement();
 
             ResultSet result = select.executeQuery(sqlquery);
@@ -169,8 +179,106 @@ public class MySQLServiceImpl extends RemoteServiceServlet implements
             System.out.println("Error: " + e);
             return null;
         }                
-    	url = SaveCSV(csvdata);
-    	return url;
+    	urladd = SaveCSV(csvdata);
+    	
+    	return urladd;
     }
+
+    /*method for sending an email to the user who entered his/her email address at the popup message.
+    *the email's body will contain the link of the data. Sending of mail is only applicable whe the user
+    *is downloading data with >=2000 rows.*/ 
+	public void SendMail(String table, String email, String query){
+		String SMTP_HOST_NAME = "smtp.gmail.com";
+		int SMTP_HOST_PORT = 465;
+		String SMTP_AUTH_USER = "ssd.ricestat@gmail.com"; //email address that will be used as the sender of the mail
+		/**/
+		File file = new File("email.txt"); //file containing ssd.ricestat password
+		int ch;
+		StringBuffer strContent = new StringBuffer("");
+		FileInputStream fin = null;
+		 try
+		    {
+		      fin = new FileInputStream(file);
+		      while( (ch = fin.read()) != -1)
+		        strContent.append((char)ch);
+		      fin.close();
+		    }
+		    catch(FileNotFoundException e)
+		    {
+		      System.out.println("File " + file.getAbsolutePath() +
+		                             " could not be found on filesystem");
+		    }
+		    catch(IOException ioe)
+		    {
+		      System.out.println("Exception while reading the file" + ioe);
+		    }
+		/**/
+		String SMTP_AUTH_PWD  = strContent.toString(); //ssd.ricestat@gmail.com password converted from stringbuffer to string
+		String messagebody = downloadCSVFromQuery(query); //link/url of the data
+		String emailadd = email;
+
+        // Get system properties 
+		Properties properties = new Properties();
+
+        // Setup mail server 
+       //properties.setProperty("mail.smtp.host", host); 
+		properties.put("mail.transport.protocol", "smtps");
+        properties.put("mail.smtps.host", SMTP_HOST_NAME);
+        properties.put("mail.smtps.auth", "true");
+        // props.put("mail.smtps.quitwait", "false");
+
+        // Get the default Session object. 
+        Session mailSession = Session.getDefaultInstance(properties);
+        mailSession.setDebug(true);
         
+        Transport transport = null;
+		try {
+			transport = mailSession.getTransport();
+		} catch (NoSuchProviderException e) {
+			e.printStackTrace();
+		}
+
+        // Create a default MimeMessage object. 
+        MimeMessage message = new MimeMessage(mailSession);
+        try { //this will be the subject of the mail to be sent to user. table is the name of the table that the user downloaded
+			message.setSubject("Farm Household Survey Data-"+table+" table"); 
+		} catch (MessagingException e) {
+			e.printStackTrace();
+		}
+        try {
+			message.setContent(messagebody, "text/plain");
+		} catch (MessagingException e) {
+			e.printStackTrace();
+		}
+
+        try {
+			message.addRecipient(Message.RecipientType.TO,
+			     new InternetAddress(emailadd));
+		} catch (AddressException e) {
+			e.printStackTrace();
+		} catch (MessagingException e) {
+			e.printStackTrace();
+		}
+
+        try {
+			transport.connect
+			  (SMTP_HOST_NAME, SMTP_HOST_PORT, SMTP_AUTH_USER, SMTP_AUTH_PWD);
+		} catch (MessagingException e) {
+			e.printStackTrace();
+		}
+
+        try {
+			transport.sendMessage(message,
+			    message.getRecipients(Message.RecipientType.TO));
+		} catch (MessagingException e) {
+			e.printStackTrace();
+		}
+        try {
+			transport.close();
+		} catch (MessagingException e) {
+			e.printStackTrace();
+		}
+	}
 }
+
+
