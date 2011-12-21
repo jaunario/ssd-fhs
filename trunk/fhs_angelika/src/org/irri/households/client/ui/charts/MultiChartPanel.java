@@ -119,13 +119,10 @@ public class MultiChartPanel extends Composite {
 									public void onSuccess(Void result) {
 										System.out.println("Mail sent!");
 									}
-									
 									@Override
 									public void onFailure(Throwable caught) {
 										System.out.println("Sending failed!");
 									}
-
-									
 								};
 								RPCUtils.getService("mysqlservice").SendMail(selecttable, emailadd, basequery, sendmailAsyncCallback);
 								/**/
@@ -209,7 +206,7 @@ public class MultiChartPanel extends Composite {
 		btnFirst = new Button("First");
 		btnFirst.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				/**/vpTablePage.clear();/**/
+				vpTablePage.clear();
 				page = 0;
 				runQuery(basequery);
 			}
@@ -226,7 +223,7 @@ public class MultiChartPanel extends Composite {
 		btnPrevious = new Button("Previous");
 		btnPrevious.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				/**/vpTablePage.clear();/**/
+				vpTablePage.clear();
 				page--;
 				runQuery(basequery);
 			}
@@ -236,7 +233,7 @@ public class MultiChartPanel extends Composite {
 		btnNext = new Button("Next");
 		btnNext.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				/**/vpTablePage.clear();/**/
+				vpTablePage.clear();
 				page++;
 				runQuery(basequery);
 			}
@@ -246,8 +243,8 @@ public class MultiChartPanel extends Composite {
 		btnLast = new Button("Last");
 		btnLast.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				/**/vpTablePage.clear();/**/
-				page = totalrows/100;
+				vpTablePage.clear();
+				page = totalrows/100; //shows data in table 100 at a time
 				runQuery(basequery);
 			}
 		});
@@ -261,9 +258,6 @@ public class MultiChartPanel extends Composite {
 		
 		btnClear = new Button("Clear");
 		horizontalPanel_3.add(btnClear);
-		
-		
-		
 	}
 	
 	public void checkPaginOptions(){
@@ -364,38 +358,10 @@ public class MultiChartPanel extends Composite {
 			numcols[8]= 9;
 		}
 		return numcols;
-		
 	}
 	
-	/*
-	public int[] getNumericColsofTable(String SelectedTable){
-		int[] numcols = new int[0];
-		if (SelectedTable.equalsIgnoreCase("surveys")){
-			numcols = new int[] {1,2,7,8,9,10};
-		}else if(SelectedTable.equalsIgnoreCase("households")){
-			numcols = new int[] {1,5,7,8};
-		}else if(SelectedTable.equalsIgnoreCase("assets")){
-			numcols = new int[] {1,4,5,6,7};	
-		}else if(SelectedTable.equalsIgnoreCase("land_profile")){
-			numcols = new int[] {1,2,7};
-		}else if(SelectedTable.equalsIgnoreCase("land_use")){
-			numcols = new int[] {2,3,4,10,11,12};
-		}else if(SelectedTable.equalsIgnoreCase("crop_disposal")){
-			numcols = new int[] {3,4,5,6,7,8,9,10,11,12,13,14};
-		}else if(SelectedTable.equalsIgnoreCase("income")){
-			numcols = new int[] {3,4};
-		}else if(SelectedTable.equalsIgnoreCase("consump_expend")){
-			numcols = new int[] {3,5};
-		}else if(SelectedTable.equalsIgnoreCase("credit")){
-			numcols = new int[] {3,4,5};
-		}else if(SelectedTable.equalsIgnoreCase("ot_car_partial")){
-			numcols = new int[] {1,2,3,4,5,6,7,8,9,10,11,12,13};
-		}else if(SelectedTable.equalsIgnoreCase("ot_quantity_of_input")){
-			numcols = new int[] {1,2,3,4,5,6,7,8,9};
-		}
-		return numcols;
-	}
-	aissa*/
+	
+	
 	
 	public void setBaseData(String[][] data, String table){
 		//rawdata = data;
