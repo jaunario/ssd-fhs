@@ -64,8 +64,7 @@ public class Loc_Result extends Composite {
 			@Override
 			public void onChange(ChangeEvent event) { //executed every time a table is chosen. this part populates the variables and years available for the table as well as the data that meets the chosen filters for the variables and years 			
 				RootPanel.get("Loading-Message").setVisible(true);
-
-				/*LocResSimplePanel.clear();*/
+				
 				CheckboxHPanel.clear();
 				FilterByYear.clear();
 				mcpResultPanel.vpTablePage.clear();
