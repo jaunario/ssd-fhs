@@ -47,17 +47,17 @@ public class Fhs_LandingPage extends Composite {
 		ProjProfileDeckPanel = new DeckPanel();
 		ProjProfileDeckPanel.setStyleName("FHS-verticalPanel_1");
 		verticalPanel.add(ProjProfileDeckPanel);
-		ProjProfileDeckPanel.setSize("500px", "730px");
+		ProjProfileDeckPanel.setSize("500px", "660px");
 		
 		verticalPanel_1 = new VerticalPanel();
 		verticalPanel_1.setStyleName("FHS-HomeAbout");
 		horizontalPanel.add(verticalPanel_1);
-		verticalPanel_1.setHeight("700px");
+		verticalPanel_1.setHeight("550px");
 		
-		htmlfarmHouseholdSurvey = new HTML("<h1>Farm Household Survey Database</h1>\n\n<p align=\"justify\">The farm household survey database is a collection of farm level data sets on rice productivity, fertilizer and pesticide use, labor inputs, prices, income, demographics, farm characteristics, and other related data on rice production in farmer’s fields. It is a rich collection of actual farm and household level data collected through personal farmer interviews, farm record keeping, and periodic monitoring of farm activities from various sites in different rice growing countries of Asia. The data collection was done by the SSD staff in collaboration with NARES partners in various parts of Asia. These data sets are part of the output of the various research projects undertaken by SSD staff and hence made available to interested users.</p>", true);
+		htmlfarmHouseholdSurvey = new HTML("<h1>Farm Household Survey Database</h1>\r\n<p align=\"justify\">The farm household survey database is a collection of farm level data sets on rice productivity, fertilizer and pesticide use, labor inputs, prices, income, demographics, farm characteristics, and other related data on rice production in farmer's fields. It is a rich collection of actual farm and household level data collected through personal farmer interviews, farm record keeping, and periodic monitoring of farm activities from various sites in different rice growing countries of Asia. The data collection was done by the Social Sciences Division (SSD) staff in collaboration with NARES partners in various parts of Asia. These data sets are part of the output of the various research projects undertaken by SSD staff and hence made available to interested users.</p>", true);
 		htmlfarmHouseholdSurvey.setStyleName("gwt-IntroHTML");
 		verticalPanel_1.add(htmlfarmHouseholdSurvey);
-		htmlfarmHouseholdSurvey.setSize("615px", "197px");
+		htmlfarmHouseholdSurvey.setSize("615px", "150px");
 		
 		horizontalPanel_1 = new HorizontalPanel();
 		horizontalPanel_1.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
