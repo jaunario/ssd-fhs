@@ -8,15 +8,16 @@
   <!-- the theme of your GWT application by uncommenting          -->
   <!-- any one of the following lines.                            -->
 <!--   <inherits name='com.google.gwt.user.theme.standard.Standard'/> -->
-  <inherits name='com.google.gwt.user.theme.chrome.Chrome'/>
+  <inherits name='com.google.gwt.user.theme.clean.Clean'/>
+<!--   <inherits name='com.google.gwt.user.theme.chrome.Chrome'/> -->
   <!-- <inherits name='com.google.gwt.user.theme.dark.Dark'/>     -->
 
   <!-- Other module inherits                                      -->
   <inherits name='com.google.gwt.visualization.Visualization'/>
   <inherits name='com.google.gwt.maps.GoogleMaps'/>
   
-  <script src="http://maps.google.com/maps?gwt=1&amp;file=api&amp;v=2&amp;key=ABQIAAAABLaGPWk5Cr2sgi3khjZC0RREepRgqBuGVXYgQoCR8QYhstVHFhRaVapXEWRcy5bJHIDLcSNsihzYRQ" />	
-<!--   <script src="http://maps.google.com/maps?gwt=1&amp;file=api&amp;v=2&amp;key=ABQIAAAAOWyzFFDSYpLTgMITLA8CVhTo8ULpY3JUFkz0sBkz8nmMIQg7HhS44dU_pshpfuQpdK55LhW-zUNutw" /> -->
+<!--   <script src="http://maps.google.com/maps?gwt=1&amp;file=api&amp;v=2&amp;key=ABQIAAAABLaGPWk5Cr2sgi3khjZC0RREepRgqBuGVXYgQoCR8QYhstVHFhRaVapXEWRcy5bJHIDLcSNsihzYRQ" />	 -->
+  <script src="http://maps.google.com/maps?gwt=1&amp;file=api&amp;v=2&amp;key=ABQIAAAAOWyzFFDSYpLTgMITLA8CVhTo8ULpY3JUFkz0sBkz8nmMIQg7HhS44dU_pshpfuQpdK55LhW-zUNutw" />
   <!-- Specify the app entry point class.                         -->
   <entry-point class='org.irri.households.client.Fhs_angelika'/>
 

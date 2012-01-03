@@ -8,7 +8,6 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.DeckPanel;
-import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.RootLayoutPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -82,12 +81,13 @@ public class Fhs_angelika implements EntryPoint{
 	private VerticalPanel vpAppBanner;
 	private VerticalPanel vpExNavFHHSDC;
 	private VerticalPanel vpIRRIBanner;
-	private HTML htmlNewHtml;
+	private Label label_2;
+	private Label label_4;
 	
 
 	public void onModuleLoad() {
 		
-		RootPanel rootPanel = RootPanel.get("Loading-Message"); /*This is for the "loading..." message that 
+		/*RootPanel rootPanel = RootPanel.get("Loading-Message"); /*This is for the "loading..." message that 
 		 * appears at the upper left corner of the window when the site is loading. though this part still
 		 * needs to be improved because sometimes it is not that accurate. The loading message indicator
 		 * part in Fhs_angelika.html is what this part refers to.*/
@@ -111,12 +111,14 @@ public class Fhs_angelika implements EntryPoint{
 		horizontalPanelLinksContainer.add(vpIRRIBanner);
 		vpIRRIBanner.setSize("100%", "100%");
 		
-		Image irrilogo = new Image("/images/irrilogo.jpg");
-		irrilogo.setSize("333px", "77px");
-		vpIRRIBanner.add(irrilogo);
+		label_2 = new Label("IRRI");
+		label_2.setStyleName("gwt-Label-logo");
+		vpIRRIBanner.add(label_2);
+		label_2.setSize("100%", "54px");
 		
-		htmlNewHtml = new HTML("New HTML", true);
-		vpIRRIBanner.add(htmlNewHtml);
+		label_4 = new Label("International Rice Research Institute");
+		label_4.setStyleName("gwt-Label-fullname");
+		vpIRRIBanner.add(label_4);
 		
 		label = new Label("IRRI");
 		label.setStyleName("gwt-Label-logo");
@@ -132,21 +134,23 @@ public class Fhs_angelika implements EntryPoint{
 		
 		hpExternalNavigation = new HorizontalPanel();
 		vpExNavFHHSDC.add(hpExternalNavigation);
+		vpExNavFHHSDC.setCellHorizontalAlignment(hpExternalNavigation, HasHorizontalAlignment.ALIGN_RIGHT);
 		hpExternalNavigation.setSpacing(5);
 		
 		//link for the irri website
-		htmlirriHomepage = new HTML("<html>\n<head>\n<style type=\"text/css\">\na:link    {color:#1C97D7;}\na:visited {color:#1C97D7;}\na:hover   {color:#5C5C5C;}\na:active  {color:#1C97D7;}\n</style>\n</head>\n<body>\n\n<a href='http://www.irri.org' target = '_blank'>IRRI Homepage</a>\n\n</body>\n</html>");
+		htmlirriHomepage = new HTML("<a href='http://www.irri.org' target = '_blank'>IRRI Home</a>");
 		htmlirriHomepage.setStyleName("gwt-HTMLLink");
 		hpExternalNavigation.add(htmlirriHomepage);
 		hpExternalNavigation.setCellHorizontalAlignment(htmlirriHomepage, HasHorizontalAlignment.ALIGN_CENTER);
 		htmlirriHomepage.setSize("125px", "15px");
 		
 		//link for the wrs site
-		htmlworldRiceStatistics = new HTML("<html>\n<head>\n<style type=\"text/css\">\na:link    {color:#1C97D7;}\na:visited {color:#1C97D7;}\na:hover   {color:#5C5C5C;}\na:active  {color:#1C97D7;}\n</style>\n</head>\n<body>\n\n<a href='http://ricestat.irri.org:8080/wrs_manila' target = '_blank'>WRS Site</a>\n\n</body>\n</html>");
-		htmlworldRiceStatistics.setStyleName("gwt-HTMLLink");
+		htmlworldRiceStatistics = new HTML("<a href=\"http://ricestat.irri.org:8080/wrs_manila\">World Rice Statistics</a>");
+		htmlworldRiceStatistics.setStyleName("gwt-HTML-Link");
 		hpExternalNavigation.add(htmlworldRiceStatistics);
+		hpExternalNavigation.setCellVerticalAlignment(htmlworldRiceStatistics, HasVerticalAlignment.ALIGN_MIDDLE);
 		hpExternalNavigation.setCellHorizontalAlignment(htmlworldRiceStatistics, HasHorizontalAlignment.ALIGN_CENTER);
-		htmlworldRiceStatistics.setSize("150px", "15px");
+		htmlworldRiceStatistics.setSize("125px", "15px");
 		
 		vpAppBanner = new VerticalPanel();
 		vpExNavFHHSDC.add(vpAppBanner);
@@ -156,7 +160,7 @@ public class Fhs_angelika implements EntryPoint{
 		hpAppBanner = new HorizontalPanel();
 		vpAppBanner.add(hpAppBanner);
 		
-		lblFarmHouseholdSurvey = new Label("Farm Household Survey Data Center");
+		lblFarmHouseholdSurvey = new Label("Farm Household Survey");
 		lblFarmHouseholdSurvey.setStyleName("gwt-Label-title");
 		lblFarmHouseholdSurvey.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
 		hpAppBanner.add(lblFarmHouseholdSurvey);
@@ -169,10 +173,19 @@ public class Fhs_angelika implements EntryPoint{
 		menuBar = new MenuBar(false);
 		menuBar.setAutoOpen(true);
 		menuBar.setAnimationEnabled(true);
-		dockLayoutPanel.addNorth(menuBar, 25.0);
+		dockLayoutPanel.addNorth(menuBar, 35.0);
 		MenuBar menuBar_1 = new MenuBar(true);
 		
 		mntmNewMenu = new MenuItem("New menu", false, menuBar_1);
+		
+		HorizontalPanel horizontalPanel = new HorizontalPanel();
+		dockLayoutPanel.addSouth(horizontalPanel, 25.0);
+		horizontalPanel.setSize("100%", "100%");
+		
+		Label label_5 = new Label("Ready.");
+		label_5.setStyleName("status");
+		horizontalPanel.add(label_5);
+		label_5.setSize("50%", "14px");
 		
 		deckPanel = new DeckPanel();
 		dockLayoutPanel.add(deckPanel);
