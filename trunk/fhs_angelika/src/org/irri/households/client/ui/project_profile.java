@@ -1,6 +1,7 @@
 package org.irri.households.client.ui;
 
-import org.irri.households.client.ui.charts.Fhs_surveysite;
+//TODO Check with the copy in IRRI if this class exists
+//import org.irri.households.client.ui.charts.Fhs_surveysite;
 
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DockPanel;
@@ -24,8 +25,8 @@ public class project_profile extends Composite {
 		dpProfileWrapper.setCellHeight(flowPanel, "100%");
 		dpProfileWrapper.setCellWidth(flowPanel, "100%");
 		
-		Fhs_surveysite ProjSites = new Fhs_surveysite();
-		flowPanel.add(ProjSites);
+		//Fhs_surveysite ProjSites = new Fhs_surveysite();
+		//flowPanel.add(ProjSites);
 		
 		Label lblTest = new Label("TEst");
 		flowPanel.add(lblTest);
