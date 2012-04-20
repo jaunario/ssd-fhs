@@ -23,6 +23,7 @@ import com.google.gwt.user.client.ui.MenuBar;
 import com.google.gwt.user.client.ui.MenuItem;
 import com.google.gwt.user.client.Command;
 import com.google.gwt.view.client.SelectionChangeEvent;
+import com.google.gwt.user.client.ui.InlineHTML;
 
 
 public class Fhs_angelika implements EntryPoint{
@@ -65,8 +66,8 @@ public class Fhs_angelika implements EntryPoint{
 	private HorizontalPanel hpAppBanner;
 	private HorizontalPanel hpExternalNavigation;
 	private Label label;
-	private HTML htmlirriHomepage;
-	private HTML htmlworldRiceStatistics;
+	private InlineHTML htmlirriHomepage;
+	private InlineHTML htmlworldRiceStatistics;
 	private Label label_1;
 	private Label label_3;
 	private Label lblFarmHouseholdSurvey;
@@ -138,14 +139,14 @@ public class Fhs_angelika implements EntryPoint{
 		hpExternalNavigation.setSpacing(5);
 		
 		//link for the irri website
-		htmlirriHomepage = new HTML("<a href='http://www.irri.org' target = '_blank'>IRRI Home</a>");
-		htmlirriHomepage.setStyleName("gwt-HTMLLink");
+		htmlirriHomepage = new InlineHTML("<a href='http://www.irri.org' target = '_blank'>IRRI Home</a>");
+		htmlirriHomepage.setStyleName("gwt-HTML-Link");
 		hpExternalNavigation.add(htmlirriHomepage);
 		hpExternalNavigation.setCellHorizontalAlignment(htmlirriHomepage, HasHorizontalAlignment.ALIGN_CENTER);
 		htmlirriHomepage.setSize("125px", "15px");
 		
 		//link for the wrs site
-		htmlworldRiceStatistics = new HTML("<a href=\"http://ricestat.irri.org:8080/wrs_manila\">World Rice Statistics</a>");
+		htmlworldRiceStatistics = new InlineHTML("<a href=\"http://ricestat.irri.org:8080/wrs\">World Rice Statistics</a>");
 		htmlworldRiceStatistics.setStyleName("gwt-HTML-Link");
 		hpExternalNavigation.add(htmlworldRiceStatistics);
 		hpExternalNavigation.setCellVerticalAlignment(htmlworldRiceStatistics, HasVerticalAlignment.ALIGN_MIDDLE);

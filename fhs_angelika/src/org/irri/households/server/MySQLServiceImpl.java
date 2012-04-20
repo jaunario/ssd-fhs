@@ -92,6 +92,7 @@ public class MySQLServiceImpl extends RemoteServiceServlet implements
         String filename = createFilename();
         //String htdocs = System.getenv("HTDOCS") + "/csvs";
         String htdocs = "/data/gisadmin/html/csvs";
+        //String htdocs = "/www/csvs/";
         //String hostname = System.getenv("DOMAIN");
         String hostname = "ricestat.irri.org";
         String url = "http://"+ hostname +"/csvs/"+filename;
