@@ -33,12 +33,8 @@ public class Fhs_SearchBy extends Composite {
 		scroll.add(dockLayoutPanel);
 		dockLayoutPanel.setSize("1190px", "715px");
 		
-		VerticalPanel verticalPanel_1 = new VerticalPanel();
-		verticalPanel_1.setStyleName("fhs-HomeHPanel2");
-		dockLayoutPanel.addWest(verticalPanel_1, 299.0);
-		
 		verticalPanel = new VerticalPanel();
-		verticalPanel_1.add(verticalPanel);
+		dockLayoutPanel.addWest(verticalPanel, 250.0);
 		verticalPanel.setHeight("701px");
 		verticalPanel.setStyleName("FHS-verticalPanel");
 		

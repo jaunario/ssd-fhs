@@ -3,15 +3,15 @@ package org.irri.households.client.ui.charts;
 
 
 import org.irri.households.client.UtilsRPC;
-import org.irri.households.client.ui.GetEmailAdd;
+//import org.irri.households.client.ui.GetEmailAdd;
 import org.irri.households.client.utils.NumberUtils;
-import org.irri.households.client.utils.RPCUtils;
+//import org.irri.households.client.utils.RPCUtils;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DockPanel;
-import com.google.gwt.user.client.ui.Frame;
-import com.google.gwt.user.client.ui.HTML;
-import com.google.gwt.user.client.ui.PopupPanel;
+//import com.google.gwt.user.client.ui.Frame;
+//import com.google.gwt.user.client.ui.HTML;
+//import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.MenuBar;
@@ -54,8 +54,8 @@ public class MultiChartPanel extends Composite {
 	private HorizontalPanel horizontalPanel_2;
 	private Button btnClear;
 	private HorizontalPanel horizontalPanel_3;
-	private GetEmailAdd getEmail;
-	private String emailadd;
+//	private GetEmailAdd getEmail;
+//	private String emailadd;
 	/**
 	 * @wbp.parser.constructor
 	 */
@@ -71,6 +71,7 @@ public class MultiChartPanel extends Composite {
 	private void initPanels(){
 		DockPanel ChartsWrapper = new DockPanel();
 		initWidget(ChartsWrapper);
+		ChartsWrapper.setSize("501px", "385px");
 		
 		MenuBar mbTableOptions = new MenuBar(false);
 		ChartsWrapper.add(mbTableOptions, DockPanel.NORTH);
@@ -91,12 +92,12 @@ public class MultiChartPanel extends Composite {
 		mntmRedraw.setTitle("Click here refit charts/table into the panel when you resize the browser");
 		mbTableOptions.addItem(mntmRedraw);
 		
-		getEmail = new GetEmailAdd();
+//		getEmail = new GetEmailAdd();
 		
 		MenuItem mntmDownload = new MenuItem("Download Data", false, new Command() {
 			
 			public void execute() {
-				final int tab = deckChartPager.getVisibleWidget();
+/*				final int tab = deckChartPager.getVisibleWidget();
 				
 				if (totalrows>=2000){
 					getEmail.PopupGetEmail.center();
@@ -113,7 +114,7 @@ public class MultiChartPanel extends Composite {
 															
 							switch (tab) {
 							case 0:															
-								/**/
+								
 								AsyncCallback<Void> sendmailAsyncCallback = new AsyncCallback<Void>() {
 									@Override
 									public void onSuccess(Void result) {
@@ -125,7 +126,7 @@ public class MultiChartPanel extends Composite {
 									}
 								};
 								RPCUtils.getService("mysqlservice").SendMail(selecttable, emailadd, basequery, sendmailAsyncCallback);
-								/**/
+								
 								break;
 							default:
 								break;
@@ -158,7 +159,7 @@ public class MultiChartPanel extends Composite {
 
 				default:
 					break;
-				}}
+				}}*/
 			}
 		});
 		//mntmDownload.setHTML("Download Data");

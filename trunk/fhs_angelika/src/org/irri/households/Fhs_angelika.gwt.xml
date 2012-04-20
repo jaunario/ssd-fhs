@@ -16,8 +16,8 @@
   <inherits name='com.google.gwt.visualization.Visualization'/>
   <inherits name='com.google.gwt.maps.GoogleMaps'/>
   
-<!--   <script src="http://maps.google.com/maps?gwt=1&amp;file=api&amp;v=2&amp;key=ABQIAAAABLaGPWk5Cr2sgi3khjZC0RREepRgqBuGVXYgQoCR8QYhstVHFhRaVapXEWRcy5bJHIDLcSNsihzYRQ" />	 -->
-  <script src="http://maps.google.com/maps?gwt=1&amp;file=api&amp;v=2&amp;key=ABQIAAAAOWyzFFDSYpLTgMITLA8CVhTo8ULpY3JUFkz0sBkz8nmMIQg7HhS44dU_pshpfuQpdK55LhW-zUNutw" />
+<!-- GEO  <script src="http://maps.google.com/maps?gwt=1&amp;file=api&amp;v=2&amp;key=ABQIAAAABLaGPWk5Cr2sgi3khjZC0RR-pGMKcAAlxT0tmuHxgso-h640TxQl2mKelLZFInoFVZwNULczCk8vYg" />	 -->
+  <script src="http://maps.google.com/maps?gwt=1&amp;file=api&amp;v=2&amp;key=ABQIAAAAM-P8pXdhYlh1duUSnQ3LOBTo8ULpY3JUFkz0sBkz8nmMIQg7HhQR-FcSzdMpV35gMtuxs2E3QtQ3-w" />
   <!-- Specify the app entry point class.                         -->
   <entry-point class='org.irri.households.client.Fhs_angelika'/>
 
